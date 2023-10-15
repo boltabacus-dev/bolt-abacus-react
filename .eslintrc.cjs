@@ -44,6 +44,7 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
+    'react/no-array-index-key': 'off',
   },
   settings: {
     'import/resolver': {

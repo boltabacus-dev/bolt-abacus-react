@@ -1,6 +1,7 @@
-import { APP_NAME, APP_URL } from '@constants/app';
 import { FC } from 'react';
 import { Helmet } from 'react-helmet-async';
+
+import { APP_NAME, APP_URL } from '@constants/app';
 
 export interface SeoComponentProps {
   title: string;
