@@ -1,21 +1,32 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Vite + React + TS</title>
-	</head>
-	<body>
-		<div id="root"></div>
-		<script type="module" src="/src/main.tsx"></script>
-		<script>
-			// AWS Amplify needs this to work. See https://github.com/aws/aws-sdk-js/issues/3673
-			const isBrowser = () => typeof window !== 'undefined';
-			const isGlobal = () => typeof global !== 'undefined';
-			if (!isGlobal() && isBrowser()) {
-				var global = window;
-			}
-		</script>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="ico" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BoltAbacus</title>
+    <meta
+      data-rh="true"
+      name="description"
+      content="The perfect app to learn and master abacus!"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // AWS Amplify needs this to work. See https://github.com/aws/aws-sdk-js/issues/3673
+      const isBrowser = () => typeof window !== 'undefined';
+      const isGlobal = () => typeof global !== 'undefined';
+      if (!isGlobal() && isBrowser()) {
+        var global = window;
+      }
+    </script>
+  </body>
 </html>

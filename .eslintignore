@@ -1,0 +1,10 @@
+/build/**
+/test/**
+/coverage/**
+/docs/*
+/node_modules/**
+
+*.cjs
+*.config.js
+*.config.ts
+*.html
