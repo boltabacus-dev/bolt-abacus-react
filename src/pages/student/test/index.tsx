@@ -15,9 +15,6 @@ const StudentTestPage: FC<StudentTestPageProps> = () => {
         levelId: {params.levelId}
         <br />
         classId: {params.classId}
-        <br />
-        topicId: {params.topicId}
-        <br />
       </div>
     </>
   );

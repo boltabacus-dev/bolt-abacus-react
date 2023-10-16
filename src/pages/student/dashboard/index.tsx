@@ -10,7 +10,7 @@ import WelcomeSection from '@components/sections/student/dashboard/WelcomeSectio
 
 import { dashboardRequest } from '@services/student';
 import { useAuthStore } from '@store/authStore';
-import { ERRORS } from '@constants/app';
+import { ERRORS, MESSAGES } from '@constants/app';
 import { LOGIN_PAGE, STUDENT_DASHBOARD } from '@constants/routes';
 import { DashboardResponse } from '@interfaces/apis/student';
 
@@ -23,7 +23,9 @@ const StudentDashboardPage: FC<StudentDashboardPageProps> = () => {
   const [loading, setLoading] = useState(true);
   const [apiError, setApiError] = useState<string | null>(null);
   const [fallBackLink, setFallBackLink] = useState<string>(STUDENT_DASHBOARD);
-  const [fallBackAction, setFallBackAction] = useState<string>('Try Again');
+  const [fallBackAction, setFallBackAction] = useState<string>(
+    MESSAGES.TRY_AGAIN
+  );
 
   const [currentLevel, setCurrentLevel] = useState<number>();
   const [currentClass, setCurrentClass] = useState<number>();
@@ -31,7 +33,7 @@ const StudentDashboardPage: FC<StudentDashboardPageProps> = () => {
 
   useEffect(() => {
     const getDashboardData = async () => {
-      if (isAuthenticated)
+      if (isAuthenticated) {
         try {
           const res = await dashboardRequest(authToken!);
           if (res.status === 200) {
@@ -45,9 +47,9 @@ const StudentDashboardPage: FC<StudentDashboardPageProps> = () => {
           if (isAxiosError(error)) {
             const status = error.response?.status;
             if (status === 401) {
-              setFallBackLink(LOGIN_PAGE);
-              setFallBackAction('Go to Login');
               setApiError(error.response?.data?.message);
+              setFallBackLink(LOGIN_PAGE);
+              setFallBackAction(MESSAGES.GO_LOGIN);
             } else {
               setApiError(ERRORS.SERVER_ERROR);
             }
@@ -57,6 +59,12 @@ const StudentDashboardPage: FC<StudentDashboardPageProps> = () => {
         } finally {
           setLoading(false);
         }
+      } else {
+        setLoading(false);
+        setApiError(ERRORS.AUTHENTICATION_ERROR);
+        setFallBackLink(LOGIN_PAGE);
+        setFallBackAction(MESSAGES.GO_LOGIN);
+      }
     };
     getDashboardData();
   }, [authToken, isAuthenticated]);

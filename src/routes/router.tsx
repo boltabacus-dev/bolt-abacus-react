@@ -68,7 +68,7 @@ export const router = createBrowserRouter([
             element: <StudentQuizPage />,
           },
           {
-            path: 'test/:levelId/:classId/:topicId',
+            path: 'test/:levelId/:classId',
             element: <StudentTestPage />,
           },
           {

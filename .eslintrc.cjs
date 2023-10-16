@@ -45,6 +45,7 @@ module.exports = {
       },
     ],
     'react/no-array-index-key': 'off',
+    'no-nested-ternary': 'off',
   },
   settings: {
     'import/resolver': {
