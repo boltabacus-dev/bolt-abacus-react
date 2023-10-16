@@ -96,7 +96,11 @@ const NavBar: FC<NavBarProps> = () => {
                     Log out
                   </NavBarLink>
                   <NavBarLink type="mobile" href={PROFILE_PAGE}>
-                    <ProfileIcon text="UA" />
+                    <ProfileIcon
+                      text={
+                        user.name.first.charAt(0) + user.name.last.charAt(0)
+                      }
+                    />
                   </NavBarLink>
                 </>
               ) : (

@@ -11,7 +11,7 @@ import FormInput from '@components/atoms/FormInput';
 
 import { loginSchema } from '@validations/auth';
 import { loginRequest } from '@services/auth';
-import { LoginResponse } from '@interfaces/auth';
+import { LoginResponse } from '@interfaces/apis/auth';
 import { useAuthStore } from '@store/authStore';
 import { ERRORS } from '@constants/app';
 

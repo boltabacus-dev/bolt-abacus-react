@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-
 import { AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
+
 import BrandLogo from '@components/atoms/BrandLogo';
 
 export interface FooterProps {}

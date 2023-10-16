@@ -27,7 +27,7 @@ const StudentLayout: FC<StudentLayoutProps> = ({ withNavBar, withFooter }) => {
       )}
       <div className="flex flex-col min-h-screen">
         {withNavBar && <StudentNavBar />}
-        <div className="flex-1">
+        <div className="flex-1 flex flex-col justify-center">
           <Outlet />
         </div>
         {withFooter && <StudentFooter />}
