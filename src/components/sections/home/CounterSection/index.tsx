@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import CounterCard from '@components/atoms/CounterCard';
 
 export interface CounterSectionProps {}

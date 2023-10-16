@@ -1,6 +1,5 @@
 /* eslint-disable consistent-return */
 import { FC, useState, useEffect, useRef } from 'react';
-
 import { animate, motion } from 'framer-motion';
 
 import styles from './index.module.css';

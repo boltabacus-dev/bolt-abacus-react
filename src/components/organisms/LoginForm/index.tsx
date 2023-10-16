@@ -9,10 +9,10 @@ import ErrorMessage from '@components/atoms/ErrorMessage';
 import FormButton from '@components/atoms/FormButton';
 import FormInput from '@components/atoms/FormInput';
 
-import { loginSchema } from '@validations/auth';
 import { loginRequest } from '@services/auth';
-import { LoginResponse } from '@interfaces/apis/auth';
 import { useAuthStore } from '@store/authStore';
+import { LoginResponse } from '@interfaces/apis/auth';
+import { loginSchema } from '@validations/auth';
 import { ERRORS } from '@constants/app';
 
 interface LoginFormProps {}

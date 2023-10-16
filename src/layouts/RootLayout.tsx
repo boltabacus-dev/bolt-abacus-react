@@ -1,7 +1,8 @@
-import Footer from '@components/molecules/Footer';
-import NavBar from '@components/molecules/NavBar';
 import { FC } from 'react';
 import { Outlet } from 'react-router-dom';
+
+import Footer from '@components/molecules/Footer';
+import NavBar from '@components/molecules/NavBar';
 
 export interface RootLayoutProps {
   withNavBar: boolean;

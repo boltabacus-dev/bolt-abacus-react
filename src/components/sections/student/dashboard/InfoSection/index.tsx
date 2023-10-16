@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import Button from '@components/atoms/Button';
 import ProgressBar from '@components/atoms/ProgressBar';
+
 import { STUDENT_LEVEL, STUDENT_PRACTICE } from '@constants/routes';
 
 export interface InfoSectionProps {

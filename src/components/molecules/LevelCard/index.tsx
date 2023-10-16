@@ -8,6 +8,7 @@ import LockIcon from '@components/atoms/LockIcon';
 import ProgressBar from '@components/atoms/ProgressBar';
 
 import { STUDENT_LEVEL } from '@constants/routes';
+
 import styles from './index.module.css';
 
 export interface LevelCardProps {

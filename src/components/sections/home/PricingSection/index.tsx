@@ -1,5 +1,7 @@
 import { FC } from 'react';
+
 import PricingCard from '@components/molecules/PricingCard';
+
 import { pricingPlans } from '@constants/pricingSectionDetails';
 
 export interface PricingSectionProps {}

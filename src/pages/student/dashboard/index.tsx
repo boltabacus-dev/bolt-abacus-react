@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { isAxiosError } from 'axios';
 
+import SeoComponent from '@components/atoms/SeoComponent';
 import ErrorBox from '@components/organisms/ErrorBox';
 import LoadingBox from '@components/organisms/LoadingBox';
 import InfoSection from '@components/sections/student/dashboard/InfoSection';
@@ -63,17 +64,24 @@ const StudentDashboardPage: FC<StudentDashboardPageProps> = () => {
   return (
     <div>
       {loading ? (
-        <LoadingBox />
+        <>
+          <SeoComponent title="Loading" />
+          <LoadingBox />
+        </>
       ) : (
         <div>
           {apiError ? (
-            <ErrorBox
-              errorMessage={apiError}
-              link={fallBackLink}
-              buttonText={fallBackAction}
-            />
+            <>
+              <SeoComponent title="Error" />
+              <ErrorBox
+                errorMessage={apiError}
+                link={fallBackLink}
+                buttonText={fallBackAction}
+              />
+            </>
           ) : (
             <>
+              <SeoComponent title="Dashboard" />
               <WelcomeSection classLink={classLink!} />
               <InfoSection
                 currentLevel={currentLevel!}

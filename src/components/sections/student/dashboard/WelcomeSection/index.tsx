@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import Button from '@components/atoms/Button';
+
 import { useAuthStore } from '@store/authStore';
 
 export interface WelcomeSectionProps {

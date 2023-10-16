@@ -6,6 +6,7 @@ import {
 } from 'react-icons/md';
 
 import InfoCard from '@components/molecules/InfoCard';
+
 import {
   aboutUsDescription,
   learnWithFunDescription,

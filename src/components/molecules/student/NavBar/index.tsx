@@ -4,6 +4,7 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 import BrandLogo from '@components/atoms/BrandLogo';
 import NavBarLink from '@components/atoms/NavBarLink';
 import ProfileIcon from '@components/atoms/ProfileIcon';
+
 import { useAuthStore } from '@store/authStore';
 import { HOME_PAGE, PROFILE_PAGE } from '@constants/routes';
 

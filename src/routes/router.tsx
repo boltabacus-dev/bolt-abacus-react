@@ -1,11 +1,13 @@
-import HomePage from '@pages/home';
 import { createBrowserRouter } from 'react-router-dom';
-import Custom404Page from '@pages/not-found';
-import LoginPage from '@pages/login';
+
+import DefaultLayout from '@layouts/DefaultLayout';
 import RootLayout from '@layouts/RootLayout';
 import StudentLayout from '@layouts/StudentLayout';
+
+import HomePage from '@pages/home';
+import Custom404Page from '@pages/not-found';
+import LoginPage from '@pages/login';
 import StudentDashboardPage from '@pages/student/dashboard';
-import DefaultLayout from '@layouts/DefaultLayout';
 import StudentLevelPage from '@pages/student/level';
 import StudentQuizPage from '@pages/student/quiz';
 import StudentTestPage from '@pages/student/test';
