@@ -1,16 +1,23 @@
 import { FC } from 'react';
+import { Navigate } from 'react-router-dom';
 
 import SeoComponent from '@components/atoms/SeoComponent';
 import HeroImage from '@components/molecules/HeroImage';
 import LoginForm from '@components/organisms/LoginForm';
+
+import { useAuthStore } from '@store/authStore';
+import { STUDENT_DASHBOARD } from '@constants/routes';
 
 import styles from './index.module.css';
 
 export interface LoginPageProps {}
 
 const LoginPage: FC<LoginPageProps> = () => {
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
   return (
     <>
+      {isAuthenticated && <Navigate to={STUDENT_DASHBOARD} />}
       <SeoComponent title="Login" href="login" />
       <div
         className={`${styles.formSection} flex items-center justify-center px-2 desktop:pt-3`}

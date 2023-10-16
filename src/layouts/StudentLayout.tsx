@@ -5,6 +5,7 @@ import StudentFooter from '@components/molecules/student/Footer';
 import StudentNavBar from '@components/molecules/student/NavBar';
 
 import { useAuthStore } from '@store/authStore';
+import { LOGIN_PAGE } from '@constants/routes';
 
 export interface StudentLayoutProps {
   withNavBar: boolean;
@@ -21,7 +22,7 @@ const StudentLayout: FC<StudentLayoutProps> = ({ withNavBar, withFooter }) => {
       {(!authToken || !user || (user && user.role !== 'student')) && (
         <>
           {logout()}
-          <Navigate to="/login" />
+          <Navigate to={LOGIN_PAGE} />
         </>
       )}
       <div className="flex flex-col min-h-screen">

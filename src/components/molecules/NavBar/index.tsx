@@ -1,24 +1,31 @@
 import { FC, useState } from 'react';
-
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
+
 import BrandLogo from '@components/atoms/BrandLogo';
 import Button from '@components/atoms/Button';
 import NavBarLink from '@components/atoms/NavBarLink';
+import ProfileIcon from '@components/atoms/ProfileIcon';
+
+import { useAuthStore } from '@store/authStore';
+import {
+  ABOUT_SECTION,
+  HOME_PAGE,
+  LOGIN_PAGE,
+  PROFILE_PAGE,
+  SERVICES_SECTION,
+} from '@constants/routes';
 
 export interface NavBarProps {}
 
 const NavBar: FC<NavBarProps> = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
+
   const handleMenuClick = () => {
     setMenuOpen(!menuOpen);
   };
-
-  // const logOutUser = async () => {
-  //   await logout();
-  //   deleteCookie('token');
-  //   deleteCookie('user');
-  // };
 
   return (
     <nav className="w-full h-24 max-h-24">
@@ -26,23 +33,30 @@ const NavBar: FC<NavBarProps> = () => {
         <BrandLogo />
         <div>
           <ul className="items-center hidden tablet:flex desktop:flex">
-            <NavBarLink type="desktop" href="/#about">
+            <NavBarLink type="desktop" href={ABOUT_SECTION}>
               About
             </NavBarLink>
-            <NavBarLink type="desktop" href="/#pricing">
+            <NavBarLink type="desktop" href={SERVICES_SECTION}>
               Services
             </NavBarLink>
-            <NavBarLink type="desktop" href="/login">
-              <div className="w-[120px] desktop:w-[187px]">
-                <Button type="active" text="Sign In" />
-              </div>
-            </NavBarLink>
-            {/* <NavBarLink type="desktop" href="/login" onclick={logOutUser}>
-              Log out
-            </NavBarLink>
-            <NavBarLink type="desktop" href="/profile">
-              <ProfileIcon text="UA" />
-            </NavBarLink> */}
+            {user ? (
+              <>
+                <NavBarLink type="desktop" href={LOGIN_PAGE} onclick={logout}>
+                  Log out
+                </NavBarLink>
+                <NavBarLink type="desktop" href={PROFILE_PAGE}>
+                  <ProfileIcon
+                    text={user.name.first.charAt(0) + user.name.last.charAt(0)}
+                  />
+                </NavBarLink>
+              </>
+            ) : (
+              <NavBarLink type="desktop" href={LOGIN_PAGE}>
+                <div className="w-[120px] desktop:w-[187px]">
+                  <Button type="active" text="Sign In" />
+                </div>
+              </NavBarLink>
+            )}
           </ul>
         </div>
         <button
@@ -69,20 +83,33 @@ const NavBar: FC<NavBarProps> = () => {
           </div>
           <div className="flex-col">
             <ul>
-              <NavBarLink type="mobile" href="/" onclick={handleMenuClick}>
+              <NavBarLink
+                type="mobile"
+                href={HOME_PAGE}
+                onclick={handleMenuClick}
+              >
                 Home
               </NavBarLink>
-              <NavBarLink type="mobile" href="/login" onclick={handleMenuClick}>
-                <div className="w-[120px] desktop:w-[187px]">
-                  <Button type="active" text="Sign In" />
-                </div>
-              </NavBarLink>
-              {/* <NavBarLink type="mobile" href="/login" onclick={logOutUser}>
-                Log out
-              </NavBarLink>
-              <NavBarLink type="mobile" href="/profile">
-                <ProfileIcon text="UA" />
-              </NavBarLink> */}
+              {user ? (
+                <>
+                  <NavBarLink type="mobile" href={LOGIN_PAGE} onclick={logout}>
+                    Log out
+                  </NavBarLink>
+                  <NavBarLink type="mobile" href={PROFILE_PAGE}>
+                    <ProfileIcon text="UA" />
+                  </NavBarLink>
+                </>
+              ) : (
+                <NavBarLink
+                  type="mobile"
+                  href={LOGIN_PAGE}
+                  onclick={handleMenuClick}
+                >
+                  <div className="w-[120px] desktop:w-[187px]">
+                    <Button type="active" text="Sign In" />
+                  </div>
+                </NavBarLink>
+              )}
             </ul>
           </div>
         </div>
