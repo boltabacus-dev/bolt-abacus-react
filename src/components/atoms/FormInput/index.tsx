@@ -7,10 +7,11 @@ export interface FormInputProps {
   name: string;
   placeholder: string;
   label: string;
+  hasError?: boolean;
   disabled?: boolean;
 }
 
-const FormInput: FC<FormInputProps> = ({ name, label, ...props }) => {
+const FormInput: FC<FormInputProps> = ({ name, label, hasError, ...props }) => {
   const {
     register,
     formState: { errors },
@@ -29,7 +30,7 @@ const FormInput: FC<FormInputProps> = ({ name, label, ...props }) => {
       <input
         className={`min-w-full px-3 py-2 my-3 tablet:text-xl desktop:text-lg tablet:px-4 desktop:px-4 tablet:py-3 desktop:py-3 desktop:my-1 text-lg focus:outline-none placeholder:text-grey border-2 border-solid rounded-lg text-white bg-black
         ${
-          error
+          error || hasError
             ? 'border-red/50 focus:border-red'
             : 'border-gold/50 focus:border-gold'
         }`}

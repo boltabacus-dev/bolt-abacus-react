@@ -25,13 +25,14 @@
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
       "@constants/*": ["./src/constants/*"],
-      "@helpers/*": ["./src/helpers"],
+      "@helpers/*": ["./src/helpers/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@pages/*": ["./src/pages/*"],
       "@services/*": ["./src/services/*"],
+      "@store/*": ["./src/store/*"],
       "@routes/*": ["./src/routes/*"],
-      "@types/*": ["./src/types/*"],
+      "@interfaces/*": ["./src/interfaces/*"],
       "@validations/*": ["./src/validations/*"]
     }
   },

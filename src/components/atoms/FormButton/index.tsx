@@ -10,7 +10,7 @@ const FormButton: FC<FormButtonProps> = ({ text, isLoading }) => {
   return (
     <div className="max-w-md pt-3 desktop:pt-2 w-52 tablet:w-96 desktop:w-80">
       <button
-        type="button"
+        type="submit"
         className={`min-w-full px-3 py-3 my-4 font-semibold text-center text-black rounded-lg bg-gold disabled:bg-gold/30
 				${
           !isLoading && 'duration-150 ease-in-out hover:shadow-golden'
