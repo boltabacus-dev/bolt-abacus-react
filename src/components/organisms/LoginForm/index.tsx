@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 import { FC, useState } from 'react';
-import axios from '@helpers/axios';
+
 import { isAxiosError } from 'axios';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -9,14 +8,24 @@ import { useNavigate } from 'react-router-dom';
 import ErrorMessage from '@components/atoms/ErrorMessage';
 import FormButton from '@components/atoms/FormButton';
 import FormInput from '@components/atoms/FormInput';
+
 import { loginSchema } from '@validations/auth';
+import { loginRequest } from '@services/auth';
+import { LoginResponse } from '@interfaces/auth';
+import { useAuthStore } from '@store/authStore';
+import { ERRORS } from '@constants/app';
 
 interface LoginFormProps {}
 
 const LoginForm: FC<LoginFormProps> = () => {
   const navigate = useNavigate();
+
+  const setAuthToken = useAuthStore((state) => state.setAuthToken);
+  const setUser = useAuthStore((state) => state.setUser);
+
   const [isInvalidCred, setIsInvalidCred] = useState(false);
   const [formError, setFormError] = useState('');
+
   const formMethods = useForm({
     resolver: zodResolver(loginSchema),
   });
@@ -24,25 +33,23 @@ const LoginForm: FC<LoginFormProps> = () => {
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      const res = await axios.post('/login/', {
-        email: data?.email,
-        password: data?.password,
-      });
+      const res = await loginRequest(data?.email, data?.password);
       if (res.status === 200) {
         setFormError('');
         setIsInvalidCred(false);
-        const loginData = res.data;
-        const userData = {
+
+        const loginResponse: LoginResponse = res.data;
+
+        setAuthToken(loginResponse.token);
+        setUser({
           name: {
-            first: loginData?.firstName,
-            last: loginData?.lastName,
+            first: loginResponse.firstName,
+            last: loginResponse.lastName,
           },
-          role: loginData?.role,
-        };
+          role: loginResponse.role,
+        });
 
-        console.log(userData);
-
-        navigate(`/${userData.role}/dashboard`);
+        navigate(`/${loginResponse.role}/dashboard`);
       }
     } catch (error) {
       if (isAxiosError(error)) {
@@ -52,11 +59,11 @@ const LoginForm: FC<LoginFormProps> = () => {
           setFormError(error.response?.data?.message);
         } else {
           setIsInvalidCred(false);
-          setFormError('Something went wrong. Please try again.');
+          setFormError(ERRORS.SERVER_ERROR);
         }
       } else {
         setIsInvalidCred(false);
-        setFormError('Something went wrong. Please try again.');
+        setFormError(ERRORS.SERVER_ERROR);
       }
     }
   };
