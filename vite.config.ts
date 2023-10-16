@@ -32,6 +32,7 @@ export default ({ mode }) => {
         '@services': path.resolve(__dirname, './src/services'),
         '@routes': path.resolve(__dirname, './src/routes'),
         '@types': path.resolve(__dirname, './src/types'),
+        '@validations': path.resolve(__dirname, './src/validations'),
       },
     },
     plugins: [react(), svgr()],
