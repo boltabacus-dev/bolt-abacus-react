@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
       // Route: 'boltabacus.com/student' -> No Navbar & Footer
       {
         path: 'student',
-        element: <StudentLayout withNavBar={false} withFooter={false} />,
+        element: <StudentLayout withNavBar withFooter={false} />,
         children: [
           {
             path: 'quiz/:levelId/:classId/:topicId/:quizType',

@@ -12,6 +12,7 @@ const config: Config = {
       gold: '#FACB25',
       lightGold: '#FFE589',
       black: '#17150F',
+      darkBlack: '#100F05',
       coal: '#2E2E2E',
       darkGrey: '#353535',
       grey: '#717171',
@@ -30,6 +31,7 @@ const config: Config = {
       purpled: '0px 0px 4px 5px rgba(230, 120, 239, 0.40)',
       blued: '0px 0px 4px 5px rgba(43, 101, 237, 0.40)',
       boxGold: '0px 0px 100px 14px rgba(186, 186, 186, 0.15)',
+      boxWhite: '0px 0px 4px 2px rgba(74, 74, 74, 0.15)',
     },
     fontSize: {
       xs: ['12px', { lineHeight: '20px', letterSpacing: '-0.03em' }],

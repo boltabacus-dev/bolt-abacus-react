@@ -138,11 +138,13 @@ const ClassAccordion: FC<ClassAccordionProps> = ({
             <hr className="border border-darkGrey" />
             <div className="flex flex-col gap-4 pt-4 pb-0 tablet:p-4 tablet:flex-row">
               <div className="flex flex-col flex-1 gap-4">
-                <ClassAccordionRow
-                  classwork="grey"
-                  homework="grey"
-                  text="Summary"
-                />
+                <div className="hidden tablet:block">
+                  <ClassAccordionRow
+                    classwork="grey"
+                    homework="grey"
+                    text="Summary"
+                  />
+                </div>
                 {createAccordionRows(levelId, classSchema, progress!)}
               </div>
               <div className="mt-4 tablet:mt-0">

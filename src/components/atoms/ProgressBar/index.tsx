@@ -3,7 +3,7 @@ import { MdLock } from 'react-icons/md';
 
 export interface ProgressBarProps {
   percentage: number;
-  type: 'blue' | 'green' | 'purple' | 'locked';
+  type: 'blue' | 'green' | 'purple' | 'yellow' | 'locked';
   isBgBlack?: boolean;
 }
 
@@ -29,6 +29,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ percentage, type, isBgBlack }) => {
         ${type === 'green' && 'bg-lightGreen'}
         ${type === 'blue' && 'bg-lightBlue'}
         ${type === 'purple' && 'bg-purple'}
+        ${type === 'yellow' && 'bg-gold'}
         ${type === 'locked' && 'bg-darkGrey'}
         `}
         style={{ width: `${makeSafePercentage(percentage)}%` }}
