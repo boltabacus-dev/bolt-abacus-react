@@ -25,7 +25,7 @@ const ProgressBar: FC<ProgressBarProps> = ({ percentage, type, isBgBlack }) => {
       } rounded-full`}
     >
       <div
-        className={`h-3 rounded-full 
+        className={`h-3 rounded-full ease-in-out transition-all duration-500 
         ${type === 'green' && 'bg-lightGreen'}
         ${type === 'blue' && 'bg-lightBlue'}
         ${type === 'purple' && 'bg-purple'}

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 
+// Dashboard Page API Response
 export const DashboardResponseSchema = z.object({
   levelId: z.number().gt(0).lt(11),
   latestClass: z.number(),
@@ -7,6 +8,7 @@ export const DashboardResponseSchema = z.object({
 });
 export type DashboardResponse = z.infer<typeof DashboardResponseSchema>;
 
+// Level Page API Response
 const SingleClassSchema = z.object({
   classId: z.number(),
   topicIds: z.array(z.number()),
@@ -27,3 +29,27 @@ export const LevelResponseSchema = z.object({
   progress: z.array(ProgressSchema),
 });
 export type LevelResponse = z.infer<typeof LevelResponseSchema>;
+
+// Quiz Page API Response
+
+const QuizQuestionSchema = z.object({
+  questionId: z.number(),
+  question: z.object({
+    operator: z.string(),
+    numbers: z.array(z.number()),
+  }),
+});
+export type QuizQuestion = z.infer<typeof QuizQuestionSchema>;
+
+export const QuizResponseSchema = z.object({
+  questions: z.array(QuizQuestionSchema),
+  time: z.number(),
+  // quizId: z.number(),
+});
+export type QuizResponse = z.infer<typeof QuizResponseSchema>;
+
+export const QuizAnswerSchema = z.object({
+  questionId: z.number(),
+  answer: z.number().nullable(),
+});
+export type QuizAnswer = z.infer<typeof QuizAnswerSchema>;

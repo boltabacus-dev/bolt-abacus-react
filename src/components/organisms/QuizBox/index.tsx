@@ -1,21 +1,49 @@
-import { FC } from 'react';
+import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react';
+import { PiDivide } from 'react-icons/pi';
+import { RxCross1, RxPlus } from 'react-icons/rx';
 
-export interface QuizBoxProps {}
+import { QuizQuestion } from '@interfaces/apis/student';
 
-const QuizBox: FC<QuizBoxProps> = () => {
+export interface QuizBoxProps {
+  quizQuestion: QuizQuestion;
+  answer: string;
+  setAnswer: Dispatch<SetStateAction<string>>;
+  setDisabled: Dispatch<SetStateAction<boolean>>;
+}
+
+const QuizBox: FC<QuizBoxProps> = ({
+  quizQuestion,
+  answer,
+  setAnswer,
+  setDisabled,
+}) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const result = event.target.value.replace(/[^0-9-]/gi, '');
+    setAnswer(result);
+
+    const num = parseInt(result, 10);
+    if (Number.isNaN(num)) setDisabled(true);
+    else setDisabled(false);
+  };
+
   return (
     <div className="w-full min-h-[300px] flex justify-center items-center p-2 py-6 bg-darkBlack shadow-boxWhite rounded-2xl">
       <div className="flex items-center w-full text-lg font-bold justify-evenly tablet:text-xl">
         <div className="flex flex-col">
           <div className="flex items-center gap-4 tablet:gap-10">
-            <span>+</span>
+            <span>
+              {quizQuestion.question.operator === '*' ? (
+                <RxCross1 />
+              ) : quizQuestion.question.operator === '+' ? (
+                <RxPlus />
+              ) : (
+                <PiDivide />
+              )}
+            </span>
             <div className="flex flex-col items-end gap-1 tracking-widest">
-              <span>2</span>
-              <span>1245</span>
-              <span>12345</span>
-              <span>345</span>
-              <span>12345</span>
-              <span>1235</span>
+              {quizQuestion.question.numbers.map((number) => {
+                return <span key={number}>{number}</span>;
+              })}
             </div>
           </div>
         </div>
@@ -23,7 +51,9 @@ const QuizBox: FC<QuizBoxProps> = () => {
         <div className="">
           <input
             className="w-28 px-4 py-3 bg-darkBlack outline-none border text-center border-[#A0A0A0] rounded-lg tablet:w-36"
-            type="number"
+            type="text"
+            value={answer}
+            onChange={(e) => handleChange(e)}
           />
         </div>
       </div>

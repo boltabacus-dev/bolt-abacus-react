@@ -7,9 +7,16 @@ import { GoDotFill } from 'react-icons/go';
 export interface QuizHeaderProps {
   quizType: 'homework' | 'classwork' | 'test';
   quizProgress: number;
+  minutes: number;
+  seconds: number;
 }
 
-const QuizHeader: FC<QuizHeaderProps> = ({ quizType, quizProgress }) => {
+const QuizHeader: FC<QuizHeaderProps> = ({
+  quizType,
+  quizProgress,
+  minutes,
+  seconds,
+}) => {
   return (
     <div className="w-full px-1 py-4">
       <div className="flex flex-col gap-2 tablet:flex-row tablet:">
@@ -31,7 +38,9 @@ const QuizHeader: FC<QuizHeaderProps> = ({ quizType, quizProgress }) => {
           <ProgressBar percentage={quizProgress} type="yellow" isBgBlack />
           <p className="flex items-center gap-1">
             <IoMdAlarm className="text-xl text-gold" />
-            <span className="text-md">12:63</span>
+            <span className="text-md">
+              {minutes}:{seconds}
+            </span>
           </p>
         </div>
       </div>

@@ -5,6 +5,7 @@ export const ERRORS = {
   SERVER_ERROR: 'Something went wrong. Please try again.',
   AUTHENTICATION_ERROR: 'Please Login to view this page.',
   INVALID_LEVEL: 'Invalid Level. Class does not exists.',
+  INVALID_QUIZ: 'Invalid Quiz. Quiz does not exists',
 };
 export const MESSAGES = {
   TRY_AGAIN: 'Please Try Again',

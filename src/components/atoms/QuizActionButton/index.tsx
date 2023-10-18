@@ -4,12 +4,14 @@ export interface QuizActionButtonProps {
   type: 'skip' | 'next' | 'submit';
   text: string;
   disabled?: boolean;
+  onClick?: () => void;
 }
 
 const QuizActionButton: FC<QuizActionButtonProps> = ({
   type,
   text,
   disabled = false,
+  onClick,
 }) => {
   return (
     <button
@@ -21,6 +23,7 @@ const QuizActionButton: FC<QuizActionButtonProps> = ({
 		${type === 'submit' ? 'text-white bg-gold/20 border border-gold/60' : ''}
 		`}
       disabled={disabled}
+      onClick={onClick}
     >
       {text}
     </button>

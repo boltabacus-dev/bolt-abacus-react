@@ -24,8 +24,12 @@ import { createClassAccordions } from '@helpers/level';
 
 export interface StudentLevelPageProps {}
 
+type Params = {
+  levelId: string;
+};
+
 const StudentLevelPage: FC<StudentLevelPageProps> = () => {
-  const params = useParams();
+  const params = useParams<Params>();
 
   const authToken = useAuthStore((state) => state.authToken);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);

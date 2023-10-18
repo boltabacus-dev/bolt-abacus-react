@@ -1,28 +1,153 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
+import { isAxiosError } from 'axios';
 import { useParams } from 'react-router-dom';
 
-import QuizActionButton from '@components/atoms/QuizActionButton';
-import QuizHeader from '@components/molecules/QuizHeader';
-import QuizBox from '@components/organisms/QuizBox';
+import SeoComponent from '@components/atoms/SeoComponent';
+import ErrorBox from '@components/organisms/ErrorBox';
+import LoadingBox from '@components/organisms/LoadingBox';
+import QuizSection from '@components/sections/student/quiz/QuizSection';
+
+import { useAuthStore } from '@store/authStore';
+import { quizRequest } from '@services/student';
+import { areValidQuizParams } from '@helpers/paramsValidator';
+import {
+  QuizAnswer,
+  QuizQuestion,
+  QuizResponse,
+} from '@interfaces/apis/student';
+import { LOGIN_PAGE, STUDENT_DASHBOARD } from '@constants/routes';
+import { ERRORS, MESSAGES } from '@constants/app';
+import { getInitialQuizAnswers } from '@helpers/quiz';
 
 export interface StudentQuizPageProps {}
 
-const StudentQuizPage: FC<StudentQuizPageProps> = () => {
-  const params = useParams();
+type Params = {
+  levelId: string;
+  classId: string;
+  topicId: string;
+  quizType: string;
+};
 
-  // eslint-disable-next-line no-console
-  console.log(params);
+const StudentQuizPage: FC<StudentQuizPageProps> = () => {
+  const params = useParams<Params>();
+
+  const authToken = useAuthStore((state) => state.authToken);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+
+  const [loading, setLoading] = useState(true);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [fallBackLink, setFallBackLink] = useState<string>(STUDENT_DASHBOARD);
+  const [fallBackAction, setFallBackAction] = useState<string>(
+    MESSAGES.GO_DASHBOARD
+  );
+
+  const [quizQuestions, setQuizQuestions] = useState<Array<QuizQuestion>>([]);
+  const [quizAnswers, setQuizAnswers] = useState<Array<QuizAnswer>>([]);
+  const [expiryTimestamp, setExpiryTimestamp] = useState<Date>(new Date());
+
+  const setTimer = (minutes: number) => {
+    const timestamp = new Date();
+    timestamp.setSeconds(timestamp.getSeconds() + minutes);
+    setExpiryTimestamp(timestamp);
+  };
+
+  useEffect(() => {
+    const getLevelData = async () => {
+      if (isAuthenticated) {
+        if (
+          !areValidQuizParams(
+            params.levelId!,
+            params.classId!,
+            params.topicId!,
+            params.quizType!
+          )
+        ) {
+          setApiError(ERRORS.INVALID_QUIZ);
+          setFallBackLink(STUDENT_DASHBOARD);
+          setFallBackAction(MESSAGES.GO_DASHBOARD);
+          setLoading(false);
+        } else {
+          try {
+            const levelId = parseInt(params.levelId!, 10);
+            const classId = parseInt(params.classId!, 10);
+            const topicId = parseInt(params.topicId!, 10);
+            const quizType =
+              params.quizType === 'classwork' ? 'Classwork' : 'HomeWork';
+
+            const res = await quizRequest(
+              levelId,
+              classId,
+              topicId,
+              quizType,
+              authToken!
+            );
+
+            if (res.status === 200) {
+              setApiError(null);
+              const quizResponse: QuizResponse = res.data;
+              setQuizQuestions(quizResponse.questions);
+              setQuizAnswers(getInitialQuizAnswers(quizResponse.questions));
+              // TODO: change timer value
+              setTimer(10);
+            }
+          } catch (error) {
+            if (isAxiosError(error)) {
+              const status = error.response?.status;
+              if (status === 403) {
+                setApiError(error.response?.data?.error);
+                setFallBackLink(STUDENT_DASHBOARD);
+                setFallBackAction(MESSAGES.GO_DASHBOARD);
+              } else {
+                setApiError(ERRORS.SERVER_ERROR);
+              }
+            } else {
+              setApiError(ERRORS.SERVER_ERROR);
+            }
+          } finally {
+            setLoading(false);
+          }
+        }
+      } else {
+        setLoading(false);
+        setApiError(ERRORS.AUTHENTICATION_ERROR);
+        setFallBackLink(LOGIN_PAGE);
+        setFallBackAction(MESSAGES.GO_LOGIN);
+      }
+    };
+    getLevelData();
+  }, [authToken, isAuthenticated, params]);
 
   return (
-    <div className="min-h-[600px] flex flex-col gap-10 p-6 tablet:p-10 tablet:gap-16 desktop:px-64 desktop:py-6 desktop:gap-10">
-      <QuizHeader quizType="classwork" quizProgress={30} />
-      <div className="tablet:px-4">
-        <QuizBox />
-      </div>
-      <div className="flex items-center justify-center gap-4 pt-4 tablet:gap-12">
-        <QuizActionButton type="skip" text="SKIP" />
-        <QuizActionButton type="next" text="NEXT" disabled />
-      </div>
+    <div>
+      {loading ? (
+        <>
+          <SeoComponent title="Loading" />
+          <LoadingBox />
+        </>
+      ) : (
+        <div>
+          {apiError ? (
+            <>
+              <SeoComponent title="Invalid Level" />
+              <ErrorBox
+                errorMessage={apiError}
+                link={fallBackLink}
+                buttonText={fallBackAction}
+              />
+            </>
+          ) : (
+            <>
+              <SeoComponent title="Quiz" />
+              <QuizSection
+                quizQuestions={quizQuestions!}
+                quizAnswers={quizAnswers}
+                setQuizAnswers={setQuizAnswers}
+                expiryTimestamp={expiryTimestamp!}
+              />
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

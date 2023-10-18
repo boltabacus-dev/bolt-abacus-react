@@ -6,3 +6,32 @@ export const isValidLevelId = (levelId: string) => {
   }
   return true;
 };
+
+export const isValidId = (id: string) => {
+  const number = parseInt(id, 10);
+
+  if (Number.isNaN(number) || number > 10 || number <= 0) {
+    return false;
+  }
+  return true;
+};
+
+export const isValidQuizType = (type: string) => {
+  return type === 'classwork' || type === 'homework';
+};
+
+export const areValidQuizParams = (
+  levelId: string,
+  classId: string,
+  topicId: string,
+  quizType: string
+) => {
+  if (
+    !isValidLevelId(levelId) ||
+    !isValidId(classId) ||
+    !isValidId(topicId) ||
+    !isValidQuizType(quizType)
+  )
+    return false;
+  return true;
+};
