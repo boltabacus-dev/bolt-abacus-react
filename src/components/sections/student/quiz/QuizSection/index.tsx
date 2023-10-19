@@ -36,6 +36,7 @@ const QuizSection: FC<QuizSectionProps> = ({
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [result, setResult] = useState<Array<QuestionResult>>();
+  const [quizVerdict, setQuizVerdict] = useState<boolean>();
 
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isNextDisabled, setIsNextDisabled] = useState<boolean>(true);
@@ -70,6 +71,7 @@ const QuizSection: FC<QuizSectionProps> = ({
         const resultResponse: QuizResult = res.data;
         console.log(resultResponse);
         setResult(resultResponse.results);
+        setQuizVerdict(resultResponse.pass);
       }
     } catch (error) {
       console.log(error);
@@ -124,7 +126,7 @@ const QuizSection: FC<QuizSectionProps> = ({
                   buttonText={MESSAGES.TRY_AGAIN}
                 />
               ) : (
-                <ResultSection result={result!} />
+                <ResultSection result={result!} verdict={quizVerdict!} />
               )}
             </div>
           )}

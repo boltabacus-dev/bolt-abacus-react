@@ -16,11 +16,14 @@ const QuizResultTable: FC<QuizResultTableProps> = ({ result }) => {
         <div className="text-center p-2 tablet:p-6">Question</div>
         <div className="text-center p-2 tablet:p-6">Your Answer</div>
       </div>
-      {result.map((question) => {
+      {result.map((question, index) => {
+        const isLast = result.length === index + 1;
         return (
           <div
             key={question.question}
-            className="grid grid-cols-3 gap-2 text-xs border-b border-[#636363] tablet:text-md"
+            className={`grid grid-cols-3 gap-2 text-xs border-b border-[#636363] ${
+              isLast && 'mb-4'
+            } tablet:text-md`}
           >
             <div className="flex justify-center items-center p-3 tablet:p-4 desktop:p-3">
               {question.verdict ? (

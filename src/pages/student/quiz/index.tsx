@@ -41,7 +41,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
 
   const setTimer = (minutes: number) => {
     const timestamp = new Date();
-    timestamp.setSeconds(timestamp.getSeconds() + minutes);
+    timestamp.setSeconds(timestamp.getSeconds() + minutes * 60);
     setExpiryTimestamp(timestamp);
   };
 
@@ -81,8 +81,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
               const quizResponse: QuizResponse = res.data;
               setQuizQuestions(quizResponse.questions);
               setQuizAnswers(getInitialQuizAnswers(quizResponse.questions));
-              // TODO: change timer value
-              setTimer(10);
+              setTimer(quizResponse.time);
             }
           } catch (error) {
             if (isAxiosError(error)) {

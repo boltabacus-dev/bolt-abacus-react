@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { AiOutlineInfoCircle } from 'react-icons/ai';
 import { IoMdAlarm } from 'react-icons/io';
 import { GoDotFill } from 'react-icons/go';
+import { getZeroPaddedNumber } from '@helpers/timer';
 
 export interface QuizHeaderProps {
   quizType: 'homework' | 'classwork' | 'test';
@@ -39,7 +40,7 @@ const QuizHeader: FC<QuizHeaderProps> = ({
           <p className="flex items-center gap-1">
             <IoMdAlarm className="text-xl text-gold" />
             <span className="text-md">
-              {minutes}:{seconds}
+              {getZeroPaddedNumber(minutes)}:{getZeroPaddedNumber(seconds)}
             </span>
           </p>
         </div>

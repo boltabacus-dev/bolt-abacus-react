@@ -11,4 +11,6 @@ export const MESSAGES = {
   TRY_AGAIN: 'Please Try Again',
   GO_DASHBOARD: 'Go to Dashboard',
   GO_LOGIN: 'Go to Login Page',
+  QUIZ_PASS: 'You passed. We are proud of you!',
+  QUIZ_FAIL: 'You failed. You can always try again!',
 };
