@@ -15,21 +15,15 @@ import {
   QuizQuestion,
   QuizResponse,
 } from '@interfaces/apis/student';
+import { QuizPageParams } from '@interfaces/RouteParams';
 import { LOGIN_PAGE, STUDENT_DASHBOARD } from '@constants/routes';
 import { ERRORS, MESSAGES } from '@constants/app';
 import { getInitialQuizAnswers } from '@helpers/quiz';
 
 export interface StudentQuizPageProps {}
 
-type Params = {
-  levelId: string;
-  classId: string;
-  topicId: string;
-  quizType: string;
-};
-
 const StudentQuizPage: FC<StudentQuizPageProps> = () => {
-  const params = useParams<Params>();
+  const params = useParams<QuizPageParams>();
 
   const authToken = useAuthStore((state) => state.authToken);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);

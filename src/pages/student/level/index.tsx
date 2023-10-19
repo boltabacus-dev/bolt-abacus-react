@@ -20,16 +20,13 @@ import {
   ClassProgress,
   LevelResponse,
 } from '@interfaces/apis/student';
+import { LevelPageParams } from '@interfaces/RouteParams';
 import { createClassAccordions } from '@helpers/level';
 
 export interface StudentLevelPageProps {}
 
-type Params = {
-  levelId: string;
-};
-
 const StudentLevelPage: FC<StudentLevelPageProps> = () => {
-  const params = useParams<Params>();
+  const params = useParams<LevelPageParams>();
 
   const authToken = useAuthStore((state) => state.authToken);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);

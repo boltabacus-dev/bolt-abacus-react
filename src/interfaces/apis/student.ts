@@ -53,3 +53,17 @@ export const QuizAnswerSchema = z.object({
   answer: z.number().nullable(),
 });
 export type QuizAnswer = z.infer<typeof QuizAnswerSchema>;
+
+const QuestionResultSchema = z.object({
+  question: z.string(),
+  verdict: z.boolean(),
+  answer: z.number().nullable(),
+});
+export type QuestionResult = z.infer<typeof QuestionResultSchema>;
+
+export const QuizResultSchema = z.object({
+  results: z.array(QuestionResultSchema),
+  pass: z.boolean(),
+  // time: z.number()
+});
+export type QuizResult = z.infer<typeof QuizResultSchema>;
