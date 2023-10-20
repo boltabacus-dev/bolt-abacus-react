@@ -13,6 +13,7 @@ import {
   LOGIN_PAGE,
   PROFILE_PAGE,
   SERVICES_SECTION,
+  STUDENT_DASHBOARD,
 } from '@constants/routes';
 
 export interface NavBarProps {}
@@ -41,6 +42,9 @@ const NavBar: FC<NavBarProps> = () => {
             </NavBarLink>
             {user ? (
               <>
+                <NavBarLink type="desktop" href={STUDENT_DASHBOARD}>
+                  Dashboard
+                </NavBarLink>
                 <NavBarLink type="desktop" href={LOGIN_PAGE} onclick={logout}>
                   Log out
                 </NavBarLink>
@@ -92,6 +96,9 @@ const NavBar: FC<NavBarProps> = () => {
               </NavBarLink>
               {user ? (
                 <>
+                  <NavBarLink type="mobile" href={STUDENT_DASHBOARD}>
+                    Dashboard
+                  </NavBarLink>
                   <NavBarLink type="mobile" href={LOGIN_PAGE} onclick={logout}>
                     Log out
                   </NavBarLink>

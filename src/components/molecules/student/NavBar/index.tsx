@@ -6,7 +6,12 @@ import NavBarLink from '@components/atoms/NavBarLink';
 import ProfileIcon from '@components/atoms/ProfileIcon';
 
 import { useAuthStore } from '@store/authStore';
-import { HOME_PAGE, PROFILE_PAGE } from '@constants/routes';
+import {
+  HOME_PAGE,
+  LOGIN_PAGE,
+  PROFILE_PAGE,
+  STUDENT_DASHBOARD,
+} from '@constants/routes';
 
 export interface StudentNavBarProps {}
 
@@ -14,6 +19,7 @@ const StudentNavBar: FC<StudentNavBarProps> = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const user = useAuthStore((state) => state.user);
+  const logout = useAuthStore((state) => state.logout);
 
   const handleMenuClick = () => {
     setMenuOpen(!menuOpen);
@@ -26,11 +32,19 @@ const StudentNavBar: FC<StudentNavBarProps> = () => {
         <div>
           <ul className="items-center hidden tablet:flex desktop:flex">
             {user && (
-              <NavBarLink type="desktop" href={PROFILE_PAGE}>
-                <ProfileIcon
-                  text={user.name.first.charAt(0) + user.name.last.charAt(0)}
-                />
-              </NavBarLink>
+              <>
+                <NavBarLink type="desktop" href={STUDENT_DASHBOARD}>
+                  Dashboard
+                </NavBarLink>
+                <NavBarLink type="desktop" href={LOGIN_PAGE} onclick={logout}>
+                  Log out
+                </NavBarLink>
+                <NavBarLink type="desktop" href={PROFILE_PAGE}>
+                  <ProfileIcon
+                    text={user.name.first.charAt(0) + user.name.last.charAt(0)}
+                  />
+                </NavBarLink>
+              </>
             )}
           </ul>
         </div>
@@ -66,11 +80,22 @@ const StudentNavBar: FC<StudentNavBarProps> = () => {
                 Home
               </NavBarLink>
               {user && (
-                <NavBarLink type="mobile" href={PROFILE_PAGE}>
-                  <ProfileIcon
-                    text={user.name.first.charAt(0) + user.name.last.charAt(0)}
-                  />
-                </NavBarLink>
+                <>
+                  <NavBarLink type="mobile" href={STUDENT_DASHBOARD}>
+                    Dashboard
+                  </NavBarLink>
+                  <NavBarLink type="mobile" href={LOGIN_PAGE} onclick={logout}>
+                    Log out
+                  </NavBarLink>
+
+                  <NavBarLink type="mobile" href={PROFILE_PAGE}>
+                    <ProfileIcon
+                      text={
+                        user.name.first.charAt(0) + user.name.last.charAt(0)
+                      }
+                    />
+                  </NavBarLink>
+                </>
               )}
             </ul>
           </div>
