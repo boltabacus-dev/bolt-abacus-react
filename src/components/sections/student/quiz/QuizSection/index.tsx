@@ -23,6 +23,7 @@ export interface QuizSectionProps {
   quizQuestions: Array<QuizQuestion>;
   quizAnswers: Array<QuizAnswer>;
   setQuizAnswers: Dispatch<SetStateAction<Array<QuizAnswer>>>;
+  totalSeconds: number;
   expiryTimestamp: Date;
 }
 
@@ -30,6 +31,7 @@ const QuizSection: FC<QuizSectionProps> = ({
   quizQuestions,
   quizAnswers,
   setQuizAnswers,
+  totalSeconds,
   expiryTimestamp,
 }) => {
   const authToken = useAuthStore((state) => state.authToken);
@@ -60,13 +62,14 @@ const QuizSection: FC<QuizSectionProps> = ({
     return answers;
   };
 
-  const submitQuiz = async () => {
+  const submitQuiz = async (remainingSeconds: number) => {
     const answers = getUpdatedAnswers(currentAnswer);
     setQuizCompleted(true);
     setLoading(true);
+    const timeTaken = totalSeconds - remainingSeconds;
     try {
       console.log('submitting answers:', answers);
-      const res = await quizSubmitRequest(4, 10, answers, authToken!);
+      const res = await quizSubmitRequest(4, timeTaken, answers, authToken!);
 
       if (res.status === 200) {
         setApiError(null);
@@ -83,9 +86,22 @@ const QuizSection: FC<QuizSectionProps> = ({
     }
   };
 
+  const {
+    start,
+    pause,
+    totalSeconds: remainingSeconds,
+    seconds,
+    minutes,
+  } = useTimer({
+    autoStart: false,
+    expiryTimestamp,
+    onExpire: () => submitQuiz(0),
+  });
+
   const moveQuestion = () => {
     if (currentIndex + 1 === quizQuestions.length) {
-      submitQuiz();
+      pause();
+      submitQuiz(remainingSeconds);
     } else {
       setCurrentIndex((currentIndex + 1) % quizQuestions.length);
       setCurrentAnswer('');
@@ -106,12 +122,6 @@ const QuizSection: FC<QuizSectionProps> = ({
     setQuizAnswers(answers);
     moveQuestion();
   };
-
-  const { start, seconds, minutes } = useTimer({
-    autoStart: false,
-    expiryTimestamp,
-    onExpire: () => submitQuiz(),
-  });
 
   useEffect(() => {
     if (quizStarted) {
@@ -134,7 +144,7 @@ const QuizSection: FC<QuizSectionProps> = ({
                   {apiError ? (
                     <ErrorSection
                       errorMessage={apiError}
-                      onClick={submitQuiz}
+                      onClick={() => submitQuiz(remainingSeconds)}
                       buttonText={MESSAGES.TRY_AGAIN}
                     />
                   ) : (

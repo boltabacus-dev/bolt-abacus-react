@@ -19,6 +19,7 @@ import { QuizPageParams } from '@interfaces/RouteParams';
 import { LOGIN_PAGE, STUDENT_DASHBOARD } from '@constants/routes';
 import { ERRORS, MESSAGES } from '@constants/app';
 import { getInitialQuizAnswers } from '@helpers/quiz';
+import { minutesToSeconds } from '@helpers/timer';
 
 export interface StudentQuizPageProps {}
 
@@ -37,11 +38,13 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
 
   const [quizQuestions, setQuizQuestions] = useState<Array<QuizQuestion>>([]);
   const [quizAnswers, setQuizAnswers] = useState<Array<QuizAnswer>>([]);
+  const [timeInSeconds, setTimeInSeconds] = useState<number>();
   const [expiryTimestamp, setExpiryTimestamp] = useState<Date>(new Date());
 
   const setTimer = (minutes: number) => {
     const timestamp = new Date();
     timestamp.setSeconds(timestamp.getSeconds() + minutes * 60);
+    setTimeInSeconds(minutesToSeconds(minutes));
     setExpiryTimestamp(timestamp);
   };
 
@@ -81,6 +84,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
               const quizResponse: QuizResponse = res.data;
               setQuizQuestions(quizResponse.questions);
               setQuizAnswers(getInitialQuizAnswers(quizResponse.questions));
+
               setTimer(quizResponse.time);
             }
           } catch (error) {
@@ -135,6 +139,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
                 quizQuestions={quizQuestions!}
                 quizAnswers={quizAnswers}
                 setQuizAnswers={setQuizAnswers}
+                totalSeconds={timeInSeconds!}
                 expiryTimestamp={expiryTimestamp!}
               />
             </>

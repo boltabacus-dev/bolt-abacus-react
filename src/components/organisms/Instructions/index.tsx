@@ -22,7 +22,7 @@ const Instructions: FC<InstructionsProps> = ({ startQuiz }) => {
         </div>
         <div
           role="button"
-          className="p-1"
+          className="p-1 flex justify-center"
           onClick={startQuizHandler}
           onKeyPress={startQuizHandler}
           tabIndex={0}
