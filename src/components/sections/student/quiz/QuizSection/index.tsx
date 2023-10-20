@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import QuizActionButton from '@components/atoms/QuizActionButton';
 import QuizHeader from '@components/molecules/QuizHeader';
+import Instructions from '@components/organisms/Instructions';
 import LoadingSection from '@components/organisms/LoadingBox';
 import QuizBox from '@components/organisms/QuizBox';
 import ErrorSection from '@components/sections/student/quiz/ErrorSection';
@@ -15,7 +16,7 @@ import {
 } from '@interfaces/apis/student';
 import { quizSubmitRequest } from '@services/student';
 import { useAuthStore } from '@store/authStore';
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { useTimer } from 'react-timer-hook';
 
 export interface QuizSectionProps {
@@ -38,6 +39,7 @@ const QuizSection: FC<QuizSectionProps> = ({
   const [result, setResult] = useState<Array<QuestionResult>>();
   const [quizVerdict, setQuizVerdict] = useState<boolean>();
 
+  const [quizStarted, setQuizStarted] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isNextDisabled, setIsNextDisabled] = useState<boolean>(true);
   const [currentAnswer, setCurrentAnswer] = useState<string>('');
@@ -105,71 +107,84 @@ const QuizSection: FC<QuizSectionProps> = ({
     moveQuestion();
   };
 
-  const { seconds, minutes } = useTimer({
-    autoStart: true,
+  const { start, seconds, minutes } = useTimer({
+    autoStart: false,
     expiryTimestamp,
     onExpire: () => submitQuiz(),
   });
 
+  useEffect(() => {
+    if (quizStarted) {
+      start();
+    }
+  }, [quizStarted]);
+
   return (
     <div className="flex flex-col gap-10 p-6 tablet:p-10 tablet:gap-16 desktop:px-64 desktop:py-6 desktop:gap-8">
-      {quizCompleted ? (
+      {!quizStarted ? (
+        <Instructions startQuiz={setQuizStarted} />
+      ) : (
         <div>
-          {loading ? (
-            <LoadingSection loadingText="Submitting Quiz. Please wait" />
-          ) : (
+          {quizCompleted ? (
             <div>
-              {apiError ? (
-                <ErrorSection
-                  errorMessage={apiError}
-                  onClick={submitQuiz}
-                  buttonText={MESSAGES.TRY_AGAIN}
-                />
+              {loading ? (
+                <LoadingSection loadingText="Submitting Quiz. Please wait" />
               ) : (
-                <ResultSection result={result!} verdict={quizVerdict!} />
+                <div>
+                  {apiError ? (
+                    <ErrorSection
+                      errorMessage={apiError}
+                      onClick={submitQuiz}
+                      buttonText={MESSAGES.TRY_AGAIN}
+                    />
+                  ) : (
+                    <ResultSection result={result!} verdict={quizVerdict!} />
+                  )}
+                </div>
               )}
             </div>
+          ) : (
+            <>
+              {/* {start()} */}
+              <QuizHeader
+                quizType="classwork"
+                quizProgress={((currentIndex + 1) / quizQuestions.length) * 100}
+                minutes={minutes}
+                seconds={seconds}
+              />
+              <div className="tablet:px-4">
+                <QuizBox
+                  quizQuestion={quizQuestions[currentIndex]}
+                  answer={currentAnswer}
+                  setAnswer={setCurrentAnswer}
+                  setDisabled={setIsNextDisabled}
+                />
+              </div>
+              <div className="flex items-center justify-center gap-4 pt-4 tablet:gap-12">
+                <QuizActionButton
+                  type="skip"
+                  text="Skip"
+                  onClick={skipQuestion}
+                  disabled={currentIndex + 1 === quizQuestions.length}
+                />
+                {currentIndex + 1 === quizQuestions.length ? (
+                  <QuizActionButton
+                    type="submit"
+                    text="Submit"
+                    onClick={answerQuestion}
+                  />
+                ) : (
+                  <QuizActionButton
+                    type="next"
+                    text="Next"
+                    disabled={isNextDisabled}
+                    onClick={answerQuestion}
+                  />
+                )}
+              </div>
+            </>
           )}
         </div>
-      ) : (
-        <>
-          <QuizHeader
-            quizType="classwork"
-            quizProgress={((currentIndex + 1) / quizQuestions.length) * 100}
-            minutes={minutes}
-            seconds={seconds}
-          />
-          <div className="tablet:px-4">
-            <QuizBox
-              quizQuestion={quizQuestions[currentIndex]}
-              answer={currentAnswer}
-              setAnswer={setCurrentAnswer}
-              setDisabled={setIsNextDisabled}
-            />
-          </div>
-          <div className="flex items-center justify-center gap-4 pt-4 tablet:gap-12">
-            <QuizActionButton
-              type="skip"
-              text="Skip"
-              onClick={skipQuestion}
-              disabled={currentIndex + 1 === quizQuestions.length}
-            />
-            {currentIndex + 1 === quizQuestions.length ? (
-              <QuizActionButton
-                type="submit"
-                text="Submit"
-                onClick={answerQuestion}
-              />
-            ) : (
-              <QuizActionButton
-                type="next"
-                text="Next"
-                disabled={isNextDisabled}
-                onClick={answerQuestion}
-              />
-            )}
-          </div>
-        </>
       )}
     </div>
   );
