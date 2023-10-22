@@ -20,6 +20,7 @@ import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { useTimer } from 'react-timer-hook';
 
 export interface QuizSectionProps {
+  quizId: number;
   quizQuestions: Array<QuizQuestion>;
   quizAnswers: Array<QuizAnswer>;
   setQuizAnswers: Dispatch<SetStateAction<Array<QuizAnswer>>>;
@@ -28,6 +29,7 @@ export interface QuizSectionProps {
 }
 
 const QuizSection: FC<QuizSectionProps> = ({
+  quizId,
   quizQuestions,
   quizAnswers,
   setQuizAnswers,
@@ -69,7 +71,12 @@ const QuizSection: FC<QuizSectionProps> = ({
     const timeTaken = totalSeconds - remainingSeconds;
     try {
       console.log('submitting answers:', answers);
-      const res = await quizSubmitRequest(4, timeTaken, answers, authToken!);
+      const res = await quizSubmitRequest(
+        quizId,
+        timeTaken,
+        answers,
+        authToken!
+      );
 
       if (res.status === 200) {
         setApiError(null);

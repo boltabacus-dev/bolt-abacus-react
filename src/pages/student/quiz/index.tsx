@@ -37,6 +37,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
   );
 
   const [quizQuestions, setQuizQuestions] = useState<Array<QuizQuestion>>([]);
+  const [quizId, setQuizId] = useState<number>();
   const [quizAnswers, setQuizAnswers] = useState<Array<QuizAnswer>>([]);
   const [timeInSeconds, setTimeInSeconds] = useState<number>();
   const [expiryTimestamp, setExpiryTimestamp] = useState<Date>(new Date());
@@ -84,6 +85,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
               const quizResponse: QuizResponse = res.data;
               setQuizQuestions(quizResponse.questions);
               setQuizAnswers(getInitialQuizAnswers(quizResponse.questions));
+              setQuizId(quizResponse.quizId);
 
               setTimer(quizResponse.time);
             }
@@ -136,6 +138,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
             <>
               <SeoComponent title="Quiz" />
               <QuizSection
+                quizId={quizId!}
                 quizQuestions={quizQuestions!}
                 quizAnswers={quizAnswers}
                 setQuizAnswers={setQuizAnswers}

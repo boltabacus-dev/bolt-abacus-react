@@ -44,7 +44,7 @@ export type QuizQuestion = z.infer<typeof QuizQuestionSchema>;
 export const QuizResponseSchema = z.object({
   questions: z.array(QuizQuestionSchema),
   time: z.number(),
-  // quizId: z.number(),
+  quizId: z.number(),
 });
 export type QuizResponse = z.infer<typeof QuizResponseSchema>;
 
