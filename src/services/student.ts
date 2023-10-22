@@ -5,6 +5,7 @@ import {
   STUDENT_LEVEL_ENDPOINT,
   STUDENT_QUIZ_ENDPOINT,
   STUDENT_QUIZ_SUBMIT_ENDPOINT,
+  STUDENT_REPORT_ENDPOINT,
 } from '@constants/routes';
 import { QuizAnswer } from '@interfaces/apis/student';
 
@@ -59,6 +60,23 @@ export const quizSubmitRequest = async (
       answers,
       time,
       quizId,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const reportRequest = async (
+  levelId: number,
+  classId: number,
+  token: string
+) => {
+  return axios.post(
+    STUDENT_REPORT_ENDPOINT,
+    {
+      levelId,
+      classId,
     },
     {
       headers: { 'AUTH-TOKEN': token },

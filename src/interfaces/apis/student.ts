@@ -67,3 +67,23 @@ export const QuizResultSchema = z.object({
   // time: z.number()
 });
 export type QuizResult = z.infer<typeof QuizResultSchema>;
+
+// Report Page API Response
+
+export const QuizReportSchema = z.object({
+  topicId: z.number(),
+  Classwork: z.number(),
+  Homework: z.number(),
+});
+export type QuizReport = z.infer<typeof QuizReportSchema>;
+
+export const TestReportSchema = z.object({
+  Test: z.number(),
+});
+export type TestReport = z.infer<typeof TestReportSchema>;
+
+export const ClassReportSchema = z.object({
+  quiz: z.array(QuizReportSchema),
+  test: TestReportSchema,
+});
+export type ClassReport = z.infer<typeof ClassReportSchema>;

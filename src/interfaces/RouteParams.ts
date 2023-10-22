@@ -8,3 +8,8 @@ export type QuizPageParams = {
 export type LevelPageParams = {
   levelId: string;
 };
+
+export type ReportPageParams = {
+  levelId: string;
+  classId: string;
+};

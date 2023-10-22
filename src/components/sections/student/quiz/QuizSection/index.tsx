@@ -155,7 +155,6 @@ const QuizSection: FC<QuizSectionProps> = ({
             </div>
           ) : (
             <>
-              {/* {start()} */}
               <QuizHeader
                 quizType="classwork"
                 quizProgress={((currentIndex + 1) / quizQuestions.length) * 100}

@@ -19,3 +19,4 @@ export const STUDENT_DASHBOARD_ENDPOINT = '/levels/';
 export const STUDENT_LEVEL_ENDPOINT = '/classes/';
 export const STUDENT_QUIZ_ENDPOINT = '/quiz/';
 export const STUDENT_QUIZ_SUBMIT_ENDPOINT = '/quizCorrection/';
+export const STUDENT_REPORT_ENDPOINT = '/report/';

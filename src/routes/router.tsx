@@ -11,6 +11,7 @@ import StudentDashboardPage from '@pages/student/dashboard';
 import StudentLevelPage from '@pages/student/level';
 import StudentQuizPage from '@pages/student/quiz';
 import StudentTestPage from '@pages/student/test';
+import StudentReportPage from '@pages/student/report';
 
 export const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ export const router = createBrowserRouter([
           {
             path: 'level/:levelId',
             element: <StudentLevelPage />,
+          },
+          {
+            path: 'report/:levelId/:classId',
+            element: <StudentReportPage />,
           },
         ],
       },

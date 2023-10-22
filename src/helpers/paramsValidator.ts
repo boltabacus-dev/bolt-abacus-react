@@ -10,7 +10,7 @@ export const isValidLevelId = (levelId: string) => {
 export const isValidId = (id: string) => {
   const number = parseInt(id, 10);
 
-  if (Number.isNaN(number) || number > 10 || number <= 0) {
+  if (Number.isNaN(number) || number <= 0) {
     return false;
   }
   return true;
@@ -33,5 +33,10 @@ export const areValidQuizParams = (
     !isValidQuizType(quizType)
   )
     return false;
+  return true;
+};
+
+export const areValidReportsParams = (levelId: string, classId: string) => {
+  if (!isValidLevelId(levelId) || !isValidId(classId)) return false;
   return true;
 };
