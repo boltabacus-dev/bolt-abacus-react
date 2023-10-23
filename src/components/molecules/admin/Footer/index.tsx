@@ -4,11 +4,11 @@ import { AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
 
 import BrandLogo from '@components/atoms/BrandLogo';
 
-import { HOME_PAGE } from '@constants/routes';
+import { ADMIN_DASHBOARD } from '@constants/routes';
 
-export interface FooterProps {}
+export interface AdminFooterProps {}
 
-const Footer: FC<FooterProps> = () => {
+const AdminFooter: FC<AdminFooterProps> = () => {
   return (
     <footer
       id="footer"
@@ -16,7 +16,7 @@ const Footer: FC<FooterProps> = () => {
     >
       <div className="flex flex-col tablet:flex-row">
         <div className="py-2 tablet:flex-1">
-          <BrandLogo link={HOME_PAGE} />
+          <BrandLogo link={ADMIN_DASHBOARD} />
         </div>
         <div className="flex gap-12 mt-5 tablet:flex-1 desktop:flex-1">
           <div className="flex flex-col flex-1 gap-3 desktop:flex-row desktop:gap-12 desktop:justify-end">
@@ -57,4 +57,4 @@ const Footer: FC<FooterProps> = () => {
   );
 };
 
-export default Footer;
+export default AdminFooter;

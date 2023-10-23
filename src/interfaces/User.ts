@@ -3,5 +3,5 @@ export interface User {
     first: string;
     last: string;
   };
-  role: 'student' | 'teacher';
+  role: 'student' | 'teacher' | 'admin';
 }

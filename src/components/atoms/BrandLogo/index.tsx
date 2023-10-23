@@ -1,11 +1,13 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-export interface BrandLogoProps {}
+export interface BrandLogoProps {
+  link: string;
+}
 
-const BrandLogo: FC<BrandLogoProps> = () => {
+const BrandLogo: FC<BrandLogoProps> = ({ link }) => {
   return (
-    <Link to="/">
+    <Link to={link}>
       <img
         src="/logo.png"
         alt="BoltAbacus logo"

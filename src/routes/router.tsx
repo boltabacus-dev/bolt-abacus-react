@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import DefaultLayout from '@layouts/DefaultLayout';
 import RootLayout from '@layouts/RootLayout';
 import StudentLayout from '@layouts/StudentLayout';
+import AdminLayout from '@layouts/AdminLayout';
 
 import HomePage from '@pages/home';
 import Custom404Page from '@pages/not-found';
@@ -12,6 +13,10 @@ import StudentLevelPage from '@pages/student/level';
 import StudentQuizPage from '@pages/student/quiz';
 import StudentTestPage from '@pages/student/test';
 import StudentReportPage from '@pages/student/report';
+import AdminDashboardPage from '@pages/admin/dashboard';
+import AdminEditQuestionPage from '@pages/admin/edit-question';
+import AdminAddTeacherPage from '@pages/admin/add-teacher';
+import AdminAddStudentPage from '@pages/admin/add-student';
 
 export const router = createBrowserRouter([
   {
@@ -81,6 +86,42 @@ export const router = createBrowserRouter([
             element: (
               <Custom404Page
                 link="/student/dashboard"
+                buttonText="Go to Dashboard"
+              />
+            ),
+          },
+        ],
+      },
+      // Route: 'boltabacus.com/admin'
+      {
+        path: 'admin',
+        element: <AdminLayout />,
+        children: [
+          {
+            path: '',
+            element: <AdminDashboardPage />,
+          },
+          {
+            path: 'dashboard',
+            element: <AdminDashboardPage />,
+          },
+          {
+            path: 'add/student',
+            element: <AdminAddStudentPage />,
+          },
+          {
+            path: 'add/teacher',
+            element: <AdminAddTeacherPage />,
+          },
+          {
+            path: 'edit/question/:questionId',
+            element: <AdminEditQuestionPage />,
+          },
+          {
+            path: '*',
+            element: (
+              <Custom404Page
+                link="/admin/dashboard"
                 buttonText="Go to Dashboard"
               />
             ),

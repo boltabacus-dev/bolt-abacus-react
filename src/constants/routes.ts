@@ -13,6 +13,9 @@ export const STUDENT_DASHBOARD = `${STUDENT_ROUTE}/dashboard`;
 export const STUDENT_LEVEL = `${STUDENT_ROUTE}/level`;
 export const STUDENT_PRACTICE = `${STUDENT_ROUTE}/practice`;
 
+export const ADMIN_ROUTE = '/admin';
+export const ADMIN_DASHBOARD = `${ADMIN_ROUTE}/dashboard`;
+
 // Backend Endpoints
 export const LOGIN_ENDPOINT = '/login/';
 export const STUDENT_DASHBOARD_ENDPOINT = '/levels/';

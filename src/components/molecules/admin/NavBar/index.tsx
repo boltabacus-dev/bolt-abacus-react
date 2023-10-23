@@ -3,19 +3,13 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
 import BrandLogo from '@components/atoms/BrandLogo';
 import NavBarLink from '@components/atoms/NavBarLink';
-import ProfileIcon from '@components/atoms/ProfileIcon';
 
 import { useAuthStore } from '@store/authStore';
-import {
-  HOME_PAGE,
-  LOGIN_PAGE,
-  PROFILE_PAGE,
-  STUDENT_DASHBOARD,
-} from '@constants/routes';
+import { ADMIN_DASHBOARD, HOME_PAGE, LOGIN_PAGE } from '@constants/routes';
 
-export interface StudentNavBarProps {}
+export interface AdminNavBarProps {}
 
-const StudentNavBar: FC<StudentNavBarProps> = () => {
+const AdminNavBar: FC<AdminNavBarProps> = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const user = useAuthStore((state) => state.user);
@@ -28,21 +22,16 @@ const StudentNavBar: FC<StudentNavBarProps> = () => {
   return (
     <nav className="w-full h-24 max-h-24">
       <div className="flex items-center justify-between w-full h-full px-4 tablet:px-10 desktop:px-20">
-        <BrandLogo link={STUDENT_DASHBOARD} />
+        <BrandLogo link={ADMIN_DASHBOARD} />
         <div>
           <ul className="items-center hidden tablet:flex desktop:flex">
             {user && (
               <>
-                <NavBarLink type="desktop" href={STUDENT_DASHBOARD}>
+                <NavBarLink type="desktop" href={ADMIN_DASHBOARD}>
                   Dashboard
                 </NavBarLink>
                 <NavBarLink type="desktop" href={LOGIN_PAGE} onclick={logout}>
                   Log out
-                </NavBarLink>
-                <NavBarLink type="desktop" href={PROFILE_PAGE}>
-                  <ProfileIcon
-                    text={user.name.first.charAt(0) + user.name.last.charAt(0)}
-                  />
                 </NavBarLink>
               </>
             )}
@@ -81,19 +70,11 @@ const StudentNavBar: FC<StudentNavBarProps> = () => {
               </NavBarLink>
               {user && (
                 <>
-                  <NavBarLink type="mobile" href={STUDENT_DASHBOARD}>
+                  <NavBarLink type="mobile" href={ADMIN_DASHBOARD}>
                     Dashboard
                   </NavBarLink>
                   <NavBarLink type="mobile" href={LOGIN_PAGE} onclick={logout}>
                     Log out
-                  </NavBarLink>
-
-                  <NavBarLink type="mobile" href={PROFILE_PAGE}>
-                    <ProfileIcon
-                      text={
-                        user.name.first.charAt(0) + user.name.last.charAt(0)
-                      }
-                    />
                   </NavBarLink>
                 </>
               )}
@@ -105,4 +86,4 @@ const StudentNavBar: FC<StudentNavBarProps> = () => {
   );
 };
 
-export default StudentNavBar;
+export default AdminNavBar;
