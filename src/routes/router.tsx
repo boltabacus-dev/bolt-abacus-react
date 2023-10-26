@@ -17,6 +17,7 @@ import AdminDashboardPage from '@pages/admin/dashboard';
 import AdminEditQuestionPage from '@pages/admin/edit-question';
 import AdminAddTeacherPage from '@pages/admin/add-teacher';
 import AdminAddStudentPage from '@pages/admin/add-student';
+import AdminAddBatchPage from '@pages/admin/add-batch';
 
 export const router = createBrowserRouter([
   {
@@ -112,6 +113,10 @@ export const router = createBrowserRouter([
           {
             path: 'add/teacher',
             element: <AdminAddTeacherPage />,
+          },
+          {
+            path: 'add/batch',
+            element: <AdminAddBatchPage />,
           },
           {
             path: 'edit/question/:questionId',

@@ -5,7 +5,7 @@ import ErrorMessage from '@components/atoms/ErrorMessage';
 
 export interface LabelValuePair {
   label: string;
-  value: number;
+  value: number | string;
 }
 
 export interface FormSelectProps {
@@ -20,6 +20,7 @@ const FormSelect: FC<FormSelectProps> = ({
   name,
   label,
   options,
+  placeholder,
   ...props
 }) => {
   const {
@@ -38,7 +39,12 @@ const FormSelect: FC<FormSelectProps> = ({
         {label}
       </label>
       <select
-        className="max-w-md gap-2 px-3 py-2 my-3 text-lg text-white bg-black border-2 border-solid rounded-lg tablet:text-xl desktop:text-lg tablet:px-4 desktop:px-4 tablet:py-3 desktop:py-3 desktop:my-1 focus:outline-none placeholder:text-grey border-gold/50 focus:border-gold"
+        className={`max-w-md gap-2 px-3 py-2 my-3 text-lg text-white bg-black border-2 border-solid rounded-lg tablet:text-xl desktop:text-lg tablet:px-4 desktop:px-4 tablet:py-3 desktop:py-3 desktop:my-1 focus:outline-none placeholder:text-grey
+        ${
+          error
+            ? 'border-red/50 focus:border-red'
+            : 'border-gold/50 focus:border-gold'
+        }`}
         {...register(name)}
         {...props}
         id={label}
@@ -47,7 +53,7 @@ const FormSelect: FC<FormSelectProps> = ({
           className="max-w-md text-lg tablet:text-xl desktop:text-lg"
           value="-1"
         >
-          Select Batch
+          {placeholder}
         </option>
         {options.map((option) => (
           <option

@@ -32,3 +32,28 @@ export const addStudentFormSchema = z.object({
 });
 
 export type TAddStudentFormSchema = z.infer<typeof addStudentFormSchema>;
+
+/*
+ * Add Batch Form Input Schema
+ */
+export const addBatchFormSchema = z.object({
+  batchName: z.string().min(1, 'Batch Name is required').trim(),
+  teacher: z.coerce.number().min(1, 'Invalid teacher'),
+  day: z.enum(
+    [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ],
+    {
+      errorMap: () => ({ message: 'Invalid Day' }),
+    }
+  ),
+  time: z.string().trim().min(1, 'Invalid Time'),
+});
+
+export type TAddBatchFormSchema = z.infer<typeof addBatchFormSchema>;

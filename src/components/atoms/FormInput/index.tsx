@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import ErrorMessage from '@components/atoms/ErrorMessage';
 
 export interface FormInputProps {
-  type: 'text' | 'email' | 'password' | 'number';
+  type: 'text' | 'email' | 'password' | 'number' | 'time';
   name: string;
   placeholder: string;
   label: string;

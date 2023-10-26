@@ -29,6 +29,8 @@ export const STUDENT_QUIZ_SUBMIT_ENDPOINT = '/quizCorrection/';
 export const STUDENT_REPORT_ENDPOINT = '/report/';
 
 export const GET_ALL_BATCHES_ENDPOINT = '/getAllBatches/';
+export const GET_ALL_TEACHERS_ENDPOINT = '/getTeachers/';
 
 export const ADD_STUDENT_ENDPOINT = '/addStudent/';
 export const ADD_TEACHER_ENDPOINT = '/addTeacher/';
+export const ADD_BATCH_ENDPOINT = '/addBatch/';

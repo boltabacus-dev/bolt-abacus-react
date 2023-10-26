@@ -11,49 +11,46 @@ import ErrorMessage from '@components/atoms/ErrorMessage';
 import SuccessMessage from '@components/atoms/SuccessMessage';
 import FormSelect, { LabelValuePair } from '@components/atoms/FormSelect';
 
-import { addStudentFormSchema } from '@validations/admin';
-import { addStudentRequest } from '@services/student';
+import { addBatchRequest } from '@services/batch';
 import { useAuthStore } from '@store/authStore';
+import { getDayOptions } from '@helpers/batch';
 
-import { Batch } from '@interfaces/apis/batch';
+import { addBatchFormSchema } from '@validations/admin';
+import { Teacher } from '@interfaces/apis/teacher';
 import { ERRORS, MESSAGES } from '@constants/app';
 
-export interface AddStudentSectionProps {
-  batches: Array<Batch>;
+export interface AddBatchSectionProps {
+  teachers: Array<Teacher>;
 }
 
-const AddStudentSection: FC<AddStudentSectionProps> = ({ batches }) => {
+const AddBatchSection: FC<AddBatchSectionProps> = ({ teachers }) => {
   const authToken = useAuthStore((state) => state.authToken);
 
   const [formError, setFormError] = useState('');
   const [formSuccess, setFormSuccess] = useState('');
 
   const formMethods = useForm({
-    resolver: zodResolver(addStudentFormSchema),
+    resolver: zodResolver(addBatchFormSchema),
   });
   const isLoading = formMethods.formState.isSubmitting;
 
   const onSubmit = async (data: FieldValues) => {
     console.log(data);
     try {
-      const res = await addStudentRequest(
-        data?.firstName,
-        data?.lastName,
-        data?.phone,
-        parseInt(data?.batch, 10),
-        data?.email,
+      const res = await addBatchRequest(
+        data?.batchName,
+        data?.day,
+        data?.time,
+        parseInt(data?.teacher, 10),
         authToken!
       );
       if (res.status === 200) {
         setFormError('');
-        setFormSuccess(MESSAGES.STUDENT_CREATED);
-
+        setFormSuccess(MESSAGES.BATCH_CREATED);
         const response = res.data;
         console.log(response);
-
         // eslint-disable-next-line no-alert
-        alert(MESSAGES.STUDENT_CREATED);
-
+        alert(MESSAGES.BATCH_CREATED);
         formMethods.reset();
       }
     } catch (error) {
@@ -71,12 +68,12 @@ const AddStudentSection: FC<AddStudentSectionProps> = ({ batches }) => {
     }
   };
 
-  const getOptions = (arr: Array<Batch>) => {
+  const getOptions = (arr: Array<Teacher>) => {
     const options: LabelValuePair[] = [];
     arr.map((item) => {
       return options.push({
-        label: item.batchName,
-        value: item.batchId,
+        label: `${item.firstName} ${item.lastName}`,
+        value: item.userId,
       });
     });
     return options;
@@ -85,46 +82,38 @@ const AddStudentSection: FC<AddStudentSectionProps> = ({ batches }) => {
   return (
     <div className="flex flex-col gap-3 px-6 py-2 justify-evenly tablet:flex-row tablet:justify-between tablet:items-center tablet:p-10 desktop:px-36">
       <div className="flex flex-col w-full gap-10">
-        <p className="text-xl font-bold text-gold">Add Student</p>
+        <p className="text-xl font-bold text-gold">Create Batch</p>
         <FormProvider {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(onSubmit)}>
             <div className="grid w-full grid-cols-1 pb-4 align-middle origin-center tablet:grid-cols-2">
               <FormInput
                 type="text"
-                name="firstName"
-                placeholder="enter first name"
-                label="First Name *"
+                name="batchName"
+                placeholder="enter batch name"
+                label="Batch Name *"
                 disabled={isLoading}
               />
               <FormInput
-                type="email"
-                name="email"
-                placeholder="enter email"
-                label="Email Address *"
-                disabled={isLoading}
-              />
-              <FormInput
-                type="text"
-                name="lastName"
-                placeholder="enter last name"
-                label="Last Name *"
-                disabled={isLoading}
-              />
-              <FormInput
-                type="text"
-                name="phone"
-                placeholder="enter phone number"
-                label="Phone Number *"
+                type="time"
+                name="time"
+                placeholder="enter class time"
+                label="Class Timings *"
                 disabled={isLoading}
               />
               <FormSelect
-                name="batch"
-                placeholder="Select Batch"
-                label="Batch *"
-                options={getOptions(batches)}
+                name="day"
+                placeholder="Select Day"
+                label="Day *"
+                options={getDayOptions()}
+              />
+              <FormSelect
+                name="teacher"
+                placeholder="Select Teacher"
+                label="Teacher *"
+                options={getOptions(teachers)}
               />
             </div>
-            <FormButton text="Add Student" isLoading={isLoading} />
+            <FormButton text="Create Batch" isLoading={isLoading} />
             {formError !== '' ? (
               <div className="flex justify-center text-xl text-center">
                 <ErrorMessage errMessage={formError} iconRequired />
@@ -142,4 +131,4 @@ const AddStudentSection: FC<AddStudentSectionProps> = ({ batches }) => {
   );
 };
 
-export default AddStudentSection;
+export default AddBatchSection;
