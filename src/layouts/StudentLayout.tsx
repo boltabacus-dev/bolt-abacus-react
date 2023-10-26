@@ -19,7 +19,7 @@ const StudentLayout: FC<StudentLayoutProps> = ({ withNavBar, withFooter }) => {
 
   return (
     <>
-      {(!authToken || !user || (user && user.role !== 'student')) && (
+      {(!authToken || !user || (user && user.role !== 'Student')) && (
         <>
           {logout()}
           <Navigate to={LOGIN_PAGE} />
@@ -27,7 +27,7 @@ const StudentLayout: FC<StudentLayoutProps> = ({ withNavBar, withFooter }) => {
       )}
       <div className="flex flex-col min-h-screen">
         {withNavBar && <StudentNavBar />}
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="flex flex-col justify-center flex-1">
           <Outlet />
         </div>
         {withFooter && <StudentFooter />}

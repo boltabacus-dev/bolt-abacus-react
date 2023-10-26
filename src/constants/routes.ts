@@ -16,10 +16,18 @@ export const STUDENT_PRACTICE = `${STUDENT_ROUTE}/practice`;
 export const ADMIN_ROUTE = '/admin';
 export const ADMIN_DASHBOARD = `${ADMIN_ROUTE}/dashboard`;
 
+export const TEACHER_ROUTE = '/teacher';
+export const TEACHER_DASHBOARD = `${TEACHER_ROUTE}/dashboard`;
+
 // Backend Endpoints
 export const LOGIN_ENDPOINT = '/login/';
+
 export const STUDENT_DASHBOARD_ENDPOINT = '/levels/';
 export const STUDENT_LEVEL_ENDPOINT = '/classes/';
 export const STUDENT_QUIZ_ENDPOINT = '/quiz/';
 export const STUDENT_QUIZ_SUBMIT_ENDPOINT = '/quizCorrection/';
 export const STUDENT_REPORT_ENDPOINT = '/report/';
+
+export const GET_ALL_BATCHES_ENDPOINT = '/getAllBatches/';
+
+export const ADD_STUDENT_ENDPOINT = '/addStudent/';

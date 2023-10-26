@@ -9,11 +9,13 @@ import ProfileIcon from '@components/atoms/ProfileIcon';
 import { useAuthStore } from '@store/authStore';
 import {
   ABOUT_SECTION,
+  ADMIN_DASHBOARD,
   HOME_PAGE,
   LOGIN_PAGE,
   PROFILE_PAGE,
   SERVICES_SECTION,
   STUDENT_DASHBOARD,
+  TEACHER_DASHBOARD,
 } from '@constants/routes';
 
 export interface NavBarProps {}
@@ -42,7 +44,16 @@ const NavBar: FC<NavBarProps> = () => {
             </NavBarLink>
             {user ? (
               <>
-                <NavBarLink type="desktop" href={STUDENT_DASHBOARD}>
+                <NavBarLink
+                  type="desktop"
+                  href={
+                    user.role === 'Student'
+                      ? STUDENT_DASHBOARD
+                      : user.role === 'Teacher'
+                      ? TEACHER_DASHBOARD
+                      : ADMIN_DASHBOARD
+                  }
+                >
                   Dashboard
                 </NavBarLink>
                 <NavBarLink type="desktop" href={LOGIN_PAGE} onclick={logout}>
@@ -96,7 +107,16 @@ const NavBar: FC<NavBarProps> = () => {
               </NavBarLink>
               {user ? (
                 <>
-                  <NavBarLink type="mobile" href={STUDENT_DASHBOARD}>
+                  <NavBarLink
+                    type="mobile"
+                    href={
+                      user.role === 'Student'
+                        ? STUDENT_DASHBOARD
+                        : user.role === 'Teacher'
+                        ? TEACHER_DASHBOARD
+                        : ADMIN_DASHBOARD
+                    }
+                  >
                     Dashboard
                   </NavBarLink>
                   <NavBarLink type="mobile" href={LOGIN_PAGE} onclick={logout}>

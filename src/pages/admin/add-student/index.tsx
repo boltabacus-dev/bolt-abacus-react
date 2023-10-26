@@ -1,79 +1,96 @@
 /* eslint-disable no-console */
 
-import { FC } from 'react';
-import { FieldValues, FormProvider, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import { FC, useEffect, useState } from 'react';
+import { isAxiosError } from 'axios';
 
 import SeoComponent from '@components/atoms/SeoComponent';
-import FormInput from '@components/atoms/FormInput';
-import FormButton from '@components/atoms/FormButton';
+import LoadingBox from '@components/organisms/LoadingBox';
+import ErrorBox from '@components/organisms/ErrorBox';
+import AddStudentSection from '@components/sections/admin/AddStudentSection';
 
-import { addStudentFormSchema } from '@validations/admin';
+import { getAllBatchesRequest } from '@services/batch';
+import { useAuthStore } from '@store/authStore';
+
+import { Batch, GetAllBatchesResponse } from '@interfaces/apis/batch';
+import { ERRORS, MESSAGES } from '@constants/app';
+import { ADMIN_DASHBOARD, LOGIN_PAGE } from '@constants/routes';
 
 export interface AdminAddStudentPageProps {}
 
 const AdminAddStudentPage: FC<AdminAddStudentPageProps> = () => {
-  const formMethods = useForm({
-    resolver: zodResolver(addStudentFormSchema),
-  });
-  const isLoading = formMethods.formState.isSubmitting;
+  const authToken = useAuthStore((state) => state.authToken);
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
-  const onSubmit = async (data: FieldValues) => {
-    console.log(data);
-  };
+  const [loading, setLoading] = useState(true);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [fallBackLink, setFallBackLink] = useState<string>(ADMIN_DASHBOARD);
+  const [fallBackAction, setFallBackAction] = useState<string>(
+    MESSAGES.TRY_AGAIN
+  );
+
+  const [batches, setBatches] = useState<Array<Batch>>();
+
+  useEffect(() => {
+    const getAllBatchesData = async () => {
+      if (isAuthenticated) {
+        try {
+          const res = await getAllBatchesRequest(authToken!);
+          if (res.status === 200) {
+            console.log(res.data);
+            const allBatchesResponse: GetAllBatchesResponse = res.data;
+            setBatches(allBatchesResponse.batches);
+            setApiError(null);
+          }
+        } catch (error) {
+          if (isAxiosError(error)) {
+            const status = error.response?.status;
+            if (status === 401) {
+              setApiError(error.response?.data?.message);
+              setFallBackLink(LOGIN_PAGE);
+              setFallBackAction(MESSAGES.GO_LOGIN);
+            } else {
+              setApiError(ERRORS.SERVER_ERROR);
+            }
+          } else {
+            setApiError(ERRORS.SERVER_ERROR);
+          }
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    };
+    getAllBatchesData();
+  }, [authToken, isAuthenticated]);
 
   return (
-    <>
-      <SeoComponent title="Add Student" />
-      <div className="flex flex-col gap-4 px-6 py-2 justify-evenly tablet:flex-row tablet:justify-between tablet:items-center tablet:p-10 desktop:px-36">
-        <div className="flex flex-col w-full gap-10">
-          <p className="text-xl font-bold text-gold">Add Student</p>
-          <FormProvider {...formMethods}>
-            <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-              <div className="grid w-full grid-cols-2 pb-4 align-middle origin-center">
-                <FormInput
-                  type="text"
-                  name="firstName"
-                  placeholder="enter first name"
-                  label="First Name *"
-                  disabled={isLoading}
-                />
-                <FormInput
-                  type="email"
-                  name="email"
-                  placeholder="enter email"
-                  label="Email Address *"
-                  disabled={isLoading}
-                />
-                <FormInput
-                  type="text"
-                  name="lastName"
-                  placeholder="enter last name"
-                  label="Last Name *"
-                  disabled={isLoading}
-                />
-                <FormInput
-                  type="text"
-                  name="phone"
-                  placeholder="enter phone number"
-                  label="Phone Number *"
-                  disabled={isLoading}
-                />
-
-                <FormInput
-                  type="number"
-                  name="batch"
-                  placeholder="enter batch number"
-                  label="Phone Number *"
-                  disabled={isLoading}
-                />
-              </div>
-              <FormButton text="Add Student" isLoading={isLoading} />
-            </form>
-          </FormProvider>
+    <div>
+      {loading ? (
+        <>
+          <SeoComponent title="Loading" />
+          <LoadingBox />
+        </>
+      ) : (
+        <div>
+          {apiError ? (
+            <>
+              <SeoComponent title="Error" />
+              <ErrorBox
+                errorMessage={apiError}
+                link={fallBackLink}
+                buttonText={fallBackAction}
+              />
+            </>
+          ) : (
+            <>
+              <SeoComponent title="Add Student" />
+              <AddStudentSection batches={batches!} />
+            </>
+          )}
         </div>
-      </div>
-    </>
+      )}
+    </div>
   );
 };
 

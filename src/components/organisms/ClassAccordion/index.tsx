@@ -33,7 +33,7 @@ const createAccordionRows = (
       (quiz) => quiz.QuizType === 'Classwork' && quiz.topicId === topicId
     );
     const homework = progress?.find(
-      (quiz) => quiz.QuizType === 'HomeWork' && quiz.topicId === topicId
+      (quiz) => quiz.QuizType === 'Homework' && quiz.topicId === topicId
     );
 
     if (!progress) {

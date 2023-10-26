@@ -70,7 +70,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
             const classId = parseInt(params.classId!, 10);
             const topicId = parseInt(params.topicId!, 10);
             const quizType =
-              params.quizType === 'classwork' ? 'Classwork' : 'HomeWork';
+              params.quizType === 'classwork' ? 'Classwork' : 'Homework';
 
             const res = await quizRequest(
               levelId,

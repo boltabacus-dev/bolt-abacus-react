@@ -16,7 +16,7 @@ const AdminLayout: FC<AdminLayoutProps> = () => {
 
   return (
     <>
-      {(!authToken || !user || (user && user.role !== 'admin')) && (
+      {(!authToken || !user || (user && user.role !== 'Admin')) && (
         <>
           {logout()}
           <Navigate to={LOGIN_PAGE} />
@@ -24,7 +24,7 @@ const AdminLayout: FC<AdminLayoutProps> = () => {
       )}
       <div className="flex flex-col min-h-screen">
         <AdminNavBar />
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="flex flex-col justify-center flex-1">
           <Outlet />
         </div>
         <AdminFooter />

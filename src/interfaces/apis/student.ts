@@ -17,7 +17,7 @@ export type ClassSchema = z.infer<typeof SingleClassSchema>;
 
 const ProgressSchema = z.object({
   topicId: z.number(),
-  QuizType: z.enum(['HomeWork', 'Classwork']),
+  QuizType: z.enum(['Homework', 'Classwork']),
   isPass: z.boolean(),
 });
 export type ClassProgress = z.infer<typeof ProgressSchema>;

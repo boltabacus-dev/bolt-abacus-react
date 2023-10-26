@@ -14,6 +14,11 @@ import { useAuthStore } from '@store/authStore';
 import { LoginResponse } from '@interfaces/apis/auth';
 import { loginSchema } from '@validations/auth';
 import { ERRORS } from '@constants/app';
+import {
+  ADMIN_DASHBOARD,
+  STUDENT_DASHBOARD,
+  TEACHER_DASHBOARD,
+} from '@constants/routes';
 
 interface LoginFormProps {}
 
@@ -49,7 +54,13 @@ const LoginForm: FC<LoginFormProps> = () => {
           role: loginResponse.role,
         });
 
-        navigate(`/${loginResponse.role}/dashboard`);
+        if (loginResponse.role === 'Student') {
+          navigate(STUDENT_DASHBOARD);
+        } else if (loginResponse.role === 'Teacher') {
+          navigate(TEACHER_DASHBOARD);
+        } else if (loginResponse.role === 'Admin') {
+          navigate(ADMIN_DASHBOARD);
+        }
       }
     } catch (error) {
       if (isAxiosError(error)) {

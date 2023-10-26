@@ -6,7 +6,11 @@ import HeroImage from '@components/molecules/HeroImage';
 import LoginForm from '@components/organisms/LoginForm';
 
 import { useAuthStore } from '@store/authStore';
-import { STUDENT_DASHBOARD } from '@constants/routes';
+import {
+  ADMIN_DASHBOARD,
+  STUDENT_DASHBOARD,
+  TEACHER_DASHBOARD,
+} from '@constants/routes';
 
 import styles from './index.module.css';
 
@@ -14,10 +18,21 @@ export interface LoginPageProps {}
 
 const LoginPage: FC<LoginPageProps> = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const user = useAuthStore((state) => state.user);
 
   return (
     <>
-      {isAuthenticated && <Navigate to={STUDENT_DASHBOARD} />}
+      {isAuthenticated && user && (
+        <Navigate
+          to={
+            user.role === 'Student'
+              ? STUDENT_DASHBOARD
+              : user.role === 'Teacher'
+              ? TEACHER_DASHBOARD
+              : ADMIN_DASHBOARD
+          }
+        />
+      )}
       <SeoComponent title="Login" href="login" />
       <div
         className={`${styles.formSection} flex items-center justify-center px-2 desktop:pt-3`}

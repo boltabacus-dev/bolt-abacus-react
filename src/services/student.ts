@@ -1,6 +1,7 @@
 import axios from '@helpers/axios';
 
 import {
+  ADD_STUDENT_ENDPOINT,
   STUDENT_DASHBOARD_ENDPOINT,
   STUDENT_LEVEL_ENDPOINT,
   STUDENT_QUIZ_ENDPOINT,
@@ -77,6 +78,29 @@ export const reportRequest = async (
     {
       levelId,
       classId,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const addStudentRequest = async (
+  firstName: string,
+  lastName: string,
+  phoneNumber: string,
+  batchId: number,
+  email: string,
+  token: string
+) => {
+  return axios.post(
+    ADD_STUDENT_ENDPOINT,
+    {
+      firstName,
+      lastName,
+      phoneNumber,
+      batchId,
+      email,
     },
     {
       headers: { 'AUTH-TOKEN': token },

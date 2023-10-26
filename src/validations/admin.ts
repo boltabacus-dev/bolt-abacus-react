@@ -23,7 +23,7 @@ export const addStudentFormSchema = z.object({
   firstName: z.string().min(1, 'First Name is required').trim(),
   lastName: z.string().min(1, 'Last Name is required').trim(),
   email: z.string().min(1, 'Email is required').email('Invalid email').trim(),
-  batch: z.coerce.number().min(1, 'Invalid batch number'),
+  batch: z.coerce.number().min(1, 'Invalid batch'),
   phone: z
     .string()
     .trim()
