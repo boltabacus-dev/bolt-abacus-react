@@ -15,4 +15,5 @@ export const MESSAGES = {
   QUIZ_PASS: 'You passed. We are proud of you!',
   QUIZ_FAIL: 'You haven’t passed. You can always try again',
   STUDENT_CREATED: 'Student created successfully!',
+  TEACHER_CREATED: 'Teacher created successfully!',
 };

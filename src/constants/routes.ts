@@ -31,3 +31,4 @@ export const STUDENT_REPORT_ENDPOINT = '/report/';
 export const GET_ALL_BATCHES_ENDPOINT = '/getAllBatches/';
 
 export const ADD_STUDENT_ENDPOINT = '/addStudent/';
+export const ADD_TEACHER_ENDPOINT = '/addTeacher/';
