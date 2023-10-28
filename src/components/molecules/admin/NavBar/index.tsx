@@ -5,7 +5,15 @@ import BrandLogo from '@components/atoms/BrandLogo';
 import NavBarLink from '@components/atoms/NavBarLink';
 
 import { useAuthStore } from '@store/authStore';
-import { ADMIN_DASHBOARD, HOME_PAGE, LOGIN_PAGE } from '@constants/routes';
+import {
+  ADMIN_ADD_BATCH,
+  ADMIN_ADD_STUDENT,
+  ADMIN_ADD_TEACHER,
+  ADMIN_DASHBOARD,
+  HOME_PAGE,
+  LOGIN_PAGE,
+} from '@constants/routes';
+import Button from '@components/atoms/Button';
 
 export interface AdminNavBarProps {}
 
@@ -31,7 +39,7 @@ const AdminNavBar: FC<AdminNavBarProps> = () => {
                   Dashboard
                 </NavBarLink>
                 <NavBarLink type="desktop" href={LOGIN_PAGE} onclick={logout}>
-                  Log out
+                  <Button type="secondary" text="Logout" />
                 </NavBarLink>
               </>
             )}
@@ -72,6 +80,15 @@ const AdminNavBar: FC<AdminNavBarProps> = () => {
                 <>
                   <NavBarLink type="mobile" href={ADMIN_DASHBOARD}>
                     Dashboard
+                  </NavBarLink>
+                  <NavBarLink type="mobile" href={ADMIN_ADD_STUDENT}>
+                    Add Student
+                  </NavBarLink>
+                  <NavBarLink type="mobile" href={ADMIN_ADD_TEACHER}>
+                    Add Teacher
+                  </NavBarLink>
+                  <NavBarLink type="mobile" href={ADMIN_ADD_BATCH}>
+                    Add Batch
                   </NavBarLink>
                   <NavBarLink type="mobile" href={LOGIN_PAGE} onclick={logout}>
                     Log out

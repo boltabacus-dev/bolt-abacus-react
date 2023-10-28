@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import QuizActionButton from '@components/atoms/QuizActionButton';
 import QuizHeader from '@components/molecules/QuizHeader';
 import Instructions from '@components/organisms/Instructions';
@@ -70,7 +69,6 @@ const QuizSection: FC<QuizSectionProps> = ({
     setLoading(true);
     const timeTaken = totalSeconds - remainingSeconds;
     try {
-      console.log('submitting answers:', answers);
       const res = await quizSubmitRequest(
         quizId,
         timeTaken,
@@ -81,12 +79,10 @@ const QuizSection: FC<QuizSectionProps> = ({
       if (res.status === 200) {
         setApiError(null);
         const resultResponse: QuizResult = res.data;
-        console.log(resultResponse);
         setResult(resultResponse.results);
         setQuizVerdict(resultResponse.pass);
       }
     } catch (error) {
-      console.log(error);
       setApiError(ERRORS.SERVER_ERROR);
     } finally {
       setLoading(false);
@@ -118,14 +114,12 @@ const QuizSection: FC<QuizSectionProps> = ({
 
   const answerQuestion = () => {
     const answers = getUpdatedAnswers(currentAnswer);
-    console.log('answer: ', answers);
     setQuizAnswers(answers);
     moveQuestion();
   };
 
   const skipQuestion = () => {
     const answers = getUpdatedAnswers(null);
-    console.log('skip: ', answers);
     setQuizAnswers(answers);
     moveQuestion();
   };
@@ -134,7 +128,7 @@ const QuizSection: FC<QuizSectionProps> = ({
     if (quizStarted) {
       start();
     }
-  }, [quizStarted]);
+  }, [quizStarted, start]);
 
   return (
     <div className="flex flex-col gap-10 p-6 tablet:p-10 tablet:gap-16 desktop:px-64 desktop:py-6 desktop:gap-8">

@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { FC, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -35,7 +33,6 @@ const AddBatchSection: FC<AddBatchSectionProps> = ({ teachers }) => {
   const isLoading = formMethods.formState.isSubmitting;
 
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
     try {
       const res = await addBatchRequest(
         data?.batchName,
@@ -47,8 +44,6 @@ const AddBatchSection: FC<AddBatchSectionProps> = ({ teachers }) => {
       if (res.status === 200) {
         setFormError('');
         setFormSuccess(MESSAGES.BATCH_CREATED);
-        const response = res.data;
-        console.log(response);
         // eslint-disable-next-line no-alert
         alert(MESSAGES.BATCH_CREATED);
         formMethods.reset();
@@ -85,7 +80,7 @@ const AddBatchSection: FC<AddBatchSectionProps> = ({ teachers }) => {
         <p className="text-xl font-bold text-gold">Create Batch</p>
         <FormProvider {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-            <div className="grid w-full grid-cols-1 pb-4 align-middle origin-center tablet:grid-cols-2">
+            <div className="grid w-full grid-cols-1 pb-4 align-middle origin-center desktop:grid-cols-2">
               <FormInput
                 type="text"
                 name="batchName"

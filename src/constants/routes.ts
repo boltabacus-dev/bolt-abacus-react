@@ -15,6 +15,10 @@ export const STUDENT_PRACTICE = `${STUDENT_ROUTE}/practice`;
 
 export const ADMIN_ROUTE = '/admin';
 export const ADMIN_DASHBOARD = `${ADMIN_ROUTE}/dashboard`;
+export const ADMIN_ADD_STUDENT = `${ADMIN_ROUTE}/add/student`;
+export const ADMIN_ADD_TEACHER = `${ADMIN_ROUTE}/add/teacher`;
+export const ADMIN_ADD_BATCH = `${ADMIN_ROUTE}/add/batch`;
+export const ADMIN_ADD_QUESTION = `${ADMIN_ROUTE}/add/question`;
 
 export const TEACHER_ROUTE = '/teacher';
 export const TEACHER_DASHBOARD = `${TEACHER_ROUTE}/dashboard`;

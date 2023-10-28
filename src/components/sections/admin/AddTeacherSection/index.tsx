@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { FC, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -30,7 +28,6 @@ const AddTeacherSection: FC<AddTeacherSectionProps> = () => {
   const isLoading = formMethods.formState.isSubmitting;
 
   const onSubmit = async (data: FieldValues) => {
-    console.log(data);
     try {
       const res = await addTeacherRequest(
         data?.firstName,
@@ -42,9 +39,6 @@ const AddTeacherSection: FC<AddTeacherSectionProps> = () => {
       if (res.status === 200) {
         setFormError('');
         setFormSuccess(MESSAGES.TEACHER_CREATED);
-
-        const response = res.data;
-        console.log(response);
 
         // eslint-disable-next-line no-alert
         alert(MESSAGES.TEACHER_CREATED);
@@ -72,7 +66,7 @@ const AddTeacherSection: FC<AddTeacherSectionProps> = () => {
         <p className="text-xl font-bold text-gold">Add Teacher</p>
         <FormProvider {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-            <div className="grid w-full grid-cols-1 pb-4 align-middle origin-center tablet:grid-cols-2">
+            <div className="grid w-full grid-cols-1 pb-4 align-middle origin-center desktop:grid-cols-2">
               <FormInput
                 type="text"
                 name="firstName"

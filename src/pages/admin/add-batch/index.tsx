@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { FC, useEffect, useState } from 'react';
 import { isAxiosError } from 'axios';
 
@@ -36,8 +34,6 @@ const AdminAddBatchPage: FC<AdminAddBatchPageProps> = () => {
         try {
           const res = await getAllTeachersRequest(authToken!);
           if (res.status === 200) {
-            console.log(res.data);
-
             const allTeachersResponse: GetAllTeachersResponse = res.data;
             setTeachers(allTeachersResponse.teachers);
             setApiError(null);

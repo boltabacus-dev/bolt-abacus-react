@@ -6,6 +6,7 @@ import AdminFooter from '@components/molecules/admin/Footer';
 
 import { useAuthStore } from '@store/authStore';
 import { LOGIN_PAGE } from '@constants/routes';
+import AdminLinkBar from '@components/molecules/admin/LinkBar';
 
 export interface AdminLayoutProps {}
 
@@ -24,8 +25,11 @@ const AdminLayout: FC<AdminLayoutProps> = () => {
       )}
       <div className="flex flex-col min-h-screen">
         <AdminNavBar />
-        <div className="flex flex-col justify-center flex-1">
-          <Outlet />
+        <div className="flex justify-center flex-1">
+          <AdminLinkBar />
+          <div className="flex-1">
+            <Outlet />
+          </div>
         </div>
         <AdminFooter />
       </div>

@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import { FC, useEffect, useState } from 'react';
 import { isAxiosError } from 'axios';
 
@@ -36,7 +34,6 @@ const AdminAddStudentPage: FC<AdminAddStudentPageProps> = () => {
         try {
           const res = await getAllBatchesRequest(authToken!);
           if (res.status === 200) {
-            console.log(res.data);
             const allBatchesResponse: GetAllBatchesResponse = res.data;
             setBatches(allBatchesResponse.batches);
             setApiError(null);
