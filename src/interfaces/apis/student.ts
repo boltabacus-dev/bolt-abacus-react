@@ -19,6 +19,7 @@ const ProgressSchema = z.object({
   topicId: z.number(),
   QuizType: z.enum(['Homework', 'Classwork']),
   isPass: z.boolean(),
+  percentage: z.number(),
 });
 export type ClassProgress = z.infer<typeof ProgressSchema>;
 

@@ -51,9 +51,23 @@ const createAccordionRows = (
         <ClassAccordionRow
           key={i}
           classwork={
-            classwork ? (classwork.isPass ? 'green' : 'yellow') : 'grey'
+            classwork
+              ? classwork.isPass
+                ? 'green'
+                : classwork.percentage > 0
+                ? 'yellow'
+                : 'grey'
+              : 'grey'
           }
-          homework={homework ? (homework.isPass ? 'green' : 'yellow') : 'grey'}
+          homework={
+            homework
+              ? homework.isPass
+                ? 'green'
+                : homework.percentage > 0
+                ? 'yellow'
+                : 'grey'
+              : 'grey'
+          }
           text={`Topic ${i + 1}`}
           link={`/student/quiz/${levelId}/${classSchema.classId}/${topicId}`}
         />
