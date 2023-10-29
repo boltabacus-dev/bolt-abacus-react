@@ -3,17 +3,16 @@ import { FC, useEffect, useState } from 'react';
 import SeoComponent from '@components/atoms/SeoComponent';
 import LoadingBox from '@components/organisms/LoadingBox';
 import ErrorBox from '@components/organisms/ErrorBox';
+import AddTeacherSection from '@components/sections/admin/AddTeacherSection';
 
 import { useAuthStore } from '@store/authStore';
 
 import { ADMIN_DASHBOARD, LOGIN_PAGE } from '@constants/routes';
 import { ERRORS, MESSAGES } from '@constants/app';
-import AddTeacherSection from '@components/sections/admin/AddTeacherSection';
 
 export interface AdminAddTeacherPageProps {}
 
 const AdminAddTeacherPage: FC<AdminAddTeacherPageProps> = () => {
-  const authToken = useAuthStore((state) => state.authToken);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const [loading, setLoading] = useState(true);
@@ -24,7 +23,7 @@ const AdminAddTeacherPage: FC<AdminAddTeacherPageProps> = () => {
   );
 
   useEffect(() => {
-    const getAllBatchesData = async () => {
+    const loadComponent = async () => {
       if (isAuthenticated) {
         setLoading(false);
         setApiError(null);
@@ -35,8 +34,8 @@ const AdminAddTeacherPage: FC<AdminAddTeacherPageProps> = () => {
         setFallBackAction(MESSAGES.GO_LOGIN);
       }
     };
-    getAllBatchesData();
-  }, [authToken, isAuthenticated]);
+    loadComponent();
+  }, [isAuthenticated]);
 
   return (
     <div>

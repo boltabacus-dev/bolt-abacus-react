@@ -80,7 +80,7 @@ const AddBatchSection: FC<AddBatchSectionProps> = ({ teachers }) => {
         <p className="text-xl font-bold text-gold">Create Batch</p>
         <FormProvider {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-            <div className="grid w-full grid-cols-1 pb-4 align-middle origin-center desktop:grid-cols-2">
+            <div className="grid w-full grid-cols-1 pb-4 justify-items-center desktop:justify-items-start desktop:grid-cols-2">
               <FormInput
                 type="text"
                 name="batchName"
@@ -108,7 +108,9 @@ const AddBatchSection: FC<AddBatchSectionProps> = ({ teachers }) => {
                 options={getOptions(teachers)}
               />
             </div>
-            <FormButton text="Create Batch" isLoading={isLoading} />
+            <div className="flex justify-center desktop:justify-start">
+              <FormButton text="Create Batch" isLoading={isLoading} />
+            </div>
             {formError !== '' ? (
               <div className="flex justify-center text-xl text-center">
                 <ErrorMessage errMessage={formError} iconRequired />

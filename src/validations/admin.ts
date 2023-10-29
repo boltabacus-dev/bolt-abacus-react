@@ -57,3 +57,16 @@ export const addBatchFormSchema = z.object({
 });
 
 export type TAddBatchFormSchema = z.infer<typeof addBatchFormSchema>;
+
+/*
+ * View Quiz Details Form Input Schema
+ */
+export const viewQuizFormSchema = z.object({
+  classId: z.coerce.number().min(1, 'Invalid Class Id'),
+  topicId: z.coerce.number().min(1, 'Invalid Topic Id'),
+  quizType: z.enum(['Classwork', 'Homework', 'Test'], {
+    errorMap: () => ({ message: 'Invalid Quiz Type' }),
+  }),
+});
+
+export type TViewQuizFormSchema = z.infer<typeof viewQuizFormSchema>;

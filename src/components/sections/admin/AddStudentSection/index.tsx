@@ -82,7 +82,7 @@ const AddStudentSection: FC<AddStudentSectionProps> = ({ batches }) => {
         <p className="text-xl font-bold text-gold">Add Student</p>
         <FormProvider {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(onSubmit)}>
-            <div className="grid w-full grid-cols-1 pb-4 align-middle origin-center desktop:grid-cols-2">
+            <div className="grid w-full grid-cols-1 pb-4 justify-items-center desktop:justify-items-start desktop:grid-cols-2">
               <FormInput
                 type="text"
                 name="firstName"
@@ -118,7 +118,9 @@ const AddStudentSection: FC<AddStudentSectionProps> = ({ batches }) => {
                 options={getOptions(batches)}
               />
             </div>
-            <FormButton text="Add Student" isLoading={isLoading} />
+            <div className="flex justify-center desktop:justify-start">
+              <FormButton text="Add Student" isLoading={isLoading} />
+            </div>
             {formError !== '' ? (
               <div className="flex justify-center text-xl text-center">
                 <ErrorMessage errMessage={formError} iconRequired />
