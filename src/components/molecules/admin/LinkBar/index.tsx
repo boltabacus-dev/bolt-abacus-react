@@ -4,6 +4,7 @@ import {
   ADMIN_ADD_QUESTION,
   ADMIN_ADD_STUDENT,
   ADMIN_ADD_TEACHER,
+  ADMIN_VIEW_QUIZ,
 } from '@constants/routes';
 import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -31,6 +32,12 @@ const AdminLinkBar: FC<AdminLinkBarProps> = () => {
           <AdminLinkButton
             text="Add Batch"
             active={location.pathname === ADMIN_ADD_BATCH}
+          />
+        </Link>
+        <Link to={ADMIN_VIEW_QUIZ}>
+          <AdminLinkButton
+            text="View Quiz"
+            active={location.pathname === ADMIN_VIEW_QUIZ}
           />
         </Link>
         <Link to={ADMIN_ADD_QUESTION}>

@@ -7,9 +7,11 @@ import NavBarLink from '@components/atoms/NavBarLink';
 import { useAuthStore } from '@store/authStore';
 import {
   ADMIN_ADD_BATCH,
+  ADMIN_ADD_QUESTION,
   ADMIN_ADD_STUDENT,
   ADMIN_ADD_TEACHER,
   ADMIN_DASHBOARD,
+  ADMIN_VIEW_QUIZ,
   HOME_PAGE,
   LOGIN_PAGE,
 } from '@constants/routes';
@@ -89,6 +91,12 @@ const AdminNavBar: FC<AdminNavBarProps> = () => {
                   </NavBarLink>
                   <NavBarLink type="mobile" href={ADMIN_ADD_BATCH}>
                     Add Batch
+                  </NavBarLink>
+                  <NavBarLink type="mobile" href={ADMIN_VIEW_QUIZ}>
+                    View Quiz
+                  </NavBarLink>
+                  <NavBarLink type="mobile" href={ADMIN_ADD_QUESTION}>
+                    Add Question
                   </NavBarLink>
                   <NavBarLink type="mobile" href={LOGIN_PAGE} onclick={logout}>
                     Log out

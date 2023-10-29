@@ -19,6 +19,7 @@ export const ADMIN_ADD_STUDENT = `${ADMIN_ROUTE}/add/student`;
 export const ADMIN_ADD_TEACHER = `${ADMIN_ROUTE}/add/teacher`;
 export const ADMIN_ADD_BATCH = `${ADMIN_ROUTE}/add/batch`;
 export const ADMIN_ADD_QUESTION = `${ADMIN_ROUTE}/add/question`;
+export const ADMIN_VIEW_QUIZ = `${ADMIN_ROUTE}/view/quiz`;
 
 export const TEACHER_ROUTE = '/teacher';
 export const TEACHER_DASHBOARD = `${TEACHER_ROUTE}/dashboard`;

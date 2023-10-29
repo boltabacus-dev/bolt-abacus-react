@@ -14,10 +14,12 @@ import StudentQuizPage from '@pages/student/quiz';
 import StudentTestPage from '@pages/student/test';
 import StudentReportPage from '@pages/student/report';
 import AdminDashboardPage from '@pages/admin/dashboard';
-import AdminEditQuestionPage from '@pages/admin/edit-question';
 import AdminAddTeacherPage from '@pages/admin/add-teacher';
 import AdminAddStudentPage from '@pages/admin/add-student';
 import AdminAddBatchPage from '@pages/admin/add-batch';
+import AdminAddQuestionPage from '@pages/admin/add-question';
+import AdminEditQuestionPage from '@pages/admin/edit-question';
+import AdminViewQuizPage from '@pages/admin/view-quiz';
 
 export const router = createBrowserRouter([
   {
@@ -117,6 +119,14 @@ export const router = createBrowserRouter([
           {
             path: 'add/batch',
             element: <AdminAddBatchPage />,
+          },
+          {
+            path: 'view/quiz',
+            element: <AdminViewQuizPage />,
+          },
+          {
+            path: 'add/question',
+            element: <AdminAddQuestionPage />,
           },
           {
             path: 'edit/question/:questionId',
