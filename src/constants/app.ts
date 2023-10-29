@@ -17,4 +17,5 @@ export const MESSAGES = {
   STUDENT_CREATED: 'Student created successfully!',
   TEACHER_CREATED: 'Teacher created successfully!',
   BATCH_CREATED: 'Batch created successfully!',
+  QUESTION_ADDED: 'Question added successfully!',
 };

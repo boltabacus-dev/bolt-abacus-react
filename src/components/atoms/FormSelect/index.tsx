@@ -14,6 +14,7 @@ export interface FormSelectProps {
   label: string;
   options: Array<LabelValuePair>;
   disabled?: boolean;
+  onchange?: (value: string) => void;
 }
 
 const FormSelect: FC<FormSelectProps> = ({
@@ -21,6 +22,7 @@ const FormSelect: FC<FormSelectProps> = ({
   label,
   options,
   placeholder,
+  onchange,
   ...props
 }) => {
   const {
@@ -45,7 +47,13 @@ const FormSelect: FC<FormSelectProps> = ({
             ? 'border-red/50 focus:border-red'
             : 'border-gold/50 focus:border-gold'
         }`}
-        {...register(name)}
+        {...register(name, {
+          onChange: (e) => {
+            if (onchange) {
+              onchange(e.target.value);
+            }
+          },
+        })}
         {...props}
         id={label}
       >

@@ -16,14 +16,25 @@ export const createClassAccordions = (
   // eslint-disable-next-line array-callback-return
   schema?.map((classSchema) => {
     if (!isLatestLevel) {
-      classAccordions.push(
-        <ClassAccordion
-          key={classSchema.classId}
-          levelId={level}
-          type="completed"
-          classSchema={classSchema}
-        />
-      );
+      if (level === 1 && classSchema.classId === 1) {
+        classAccordions.push(
+          <ClassAccordion
+            key={classSchema.classId}
+            levelId={level}
+            type="locked"
+            classSchema={classSchema}
+          />
+        );
+      } else {
+        classAccordions.push(
+          <ClassAccordion
+            key={classSchema.classId}
+            levelId={level}
+            type="completed"
+            classSchema={classSchema}
+          />
+        );
+      }
     } else if (latestClass && foundLatestClass) {
       classAccordions.push(
         <ClassAccordion
@@ -35,24 +46,46 @@ export const createClassAccordions = (
       );
     } else if (latestClass && classSchema.classId === latestClass) {
       foundLatestClass = true;
-      classAccordions.push(
-        <ClassAccordion
-          key={classSchema.classId}
-          levelId={level}
-          type="inprogress"
-          progress={progress}
-          classSchema={classSchema}
-        />
-      );
+      if (level === 1 && classSchema.classId === 1) {
+        classAccordions.push(
+          <ClassAccordion
+            key={classSchema.classId}
+            levelId={level}
+            type="locked"
+            classSchema={classSchema}
+          />
+        );
+      } else {
+        classAccordions.push(
+          <ClassAccordion
+            key={classSchema.classId}
+            levelId={level}
+            type="inprogress"
+            progress={progress}
+            classSchema={classSchema}
+          />
+        );
+      }
     } else if (latestClass) {
-      classAccordions.push(
-        <ClassAccordion
-          key={classSchema.classId}
-          levelId={level}
-          type="completed"
-          classSchema={classSchema}
-        />
-      );
+      if (level === 1 && classSchema.classId === 1) {
+        classAccordions.push(
+          <ClassAccordion
+            key={classSchema.classId}
+            levelId={level}
+            type="locked"
+            classSchema={classSchema}
+          />
+        );
+      } else {
+        classAccordions.push(
+          <ClassAccordion
+            key={classSchema.classId}
+            levelId={level}
+            type="completed"
+            classSchema={classSchema}
+          />
+        );
+      }
     }
   });
   return classAccordions;

@@ -70,7 +70,7 @@ const StudentLevelPage: FC<StudentLevelPageProps> = () => {
             if (isAxiosError(error)) {
               const status = error.response?.status;
               if (status === 403) {
-                setApiError(error.response?.data?.error);
+                setApiError(error.response?.data?.message);
                 setFallBackLink(STUDENT_DASHBOARD);
                 setFallBackAction(MESSAGES.GO_DASHBOARD);
               } else {

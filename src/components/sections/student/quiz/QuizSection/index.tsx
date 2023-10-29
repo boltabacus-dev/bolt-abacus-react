@@ -106,7 +106,7 @@ const QuizSection: FC<QuizSectionProps> = ({
       pause();
       submitQuiz(remainingSeconds);
     } else {
-      setCurrentIndex((currentIndex + 1) % quizQuestions.length);
+      setCurrentIndex(currentIndex + 1);
       setCurrentAnswer('');
       setIsNextDisabled(true);
     }

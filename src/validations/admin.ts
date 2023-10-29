@@ -62,6 +62,7 @@ export type TAddBatchFormSchema = z.infer<typeof addBatchFormSchema>;
  * View Quiz Details Form Input Schema
  */
 export const viewQuizFormSchema = z.object({
+  levelId: z.coerce.number().min(1, 'Invalid Level Id'),
   classId: z.coerce.number().min(1, 'Invalid Class Id'),
   topicId: z.coerce.number().min(1, 'Invalid Topic Id'),
   quizType: z.enum(['Classwork', 'Homework', 'Test'], {
@@ -70,3 +71,28 @@ export const viewQuizFormSchema = z.object({
 });
 
 export type TViewQuizFormSchema = z.infer<typeof viewQuizFormSchema>;
+
+/*
+ * Add Quiz Question Form Input Schema
+ */
+export const addQuestionSchema = z.object({
+  levelId: z.coerce.number().min(1, 'Invalid Level Id'),
+  classId: z.coerce.number().min(1, 'Invalid Class Id'),
+  topicId: z.coerce.number().min(1, 'Invalid Topic Id'),
+  quizType: z.enum(['Classwork', 'Homework', 'Test'], {
+    errorMap: () => ({ message: 'Invalid Quiz Type' }),
+  }),
+  number: z.array(
+    z.coerce.number({
+      errorMap: () => ({ message: 'Invalid Number' }),
+    })
+  ),
+  operator: z.enum(['+', '/', '*'], {
+    errorMap: () => ({ message: 'Invalid Operator' }),
+  }),
+  correctAnswer: z.coerce.number({
+    errorMap: () => ({ message: 'Invalid Correct Answer' }),
+  }),
+});
+
+export type TAddQuestionSchema = z.infer<typeof addQuestionSchema>;
