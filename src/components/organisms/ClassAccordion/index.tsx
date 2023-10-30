@@ -77,6 +77,38 @@ const createAccordionRows = (
   return accordionRows;
 };
 
+const createTestAccordionButton = (
+  levelId: number,
+  classSchema: ClassSchema,
+  progress: Array<ClassProgress>
+) => {
+  if (!progress) {
+    return (
+      <AccordionButton
+        type="green"
+        text="Test"
+        link={`/student/test/${levelId}/${classSchema.classId}`}
+      />
+    );
+  }
+  const test = progress?.find((quiz) => quiz.QuizType === 'Test');
+  const type = test
+    ? test?.isPass
+      ? 'green'
+      : test?.percentage > 0
+      ? 'yellow'
+      : 'grey'
+    : 'grey';
+
+  return (
+    <AccordionButton
+      type={type}
+      text="Test"
+      link={`/student/test/${levelId}/${classSchema.classId}`}
+    />
+  );
+};
+
 const ClassAccordion: FC<ClassAccordionProps> = ({
   type,
   classSchema,
@@ -162,13 +194,7 @@ const ClassAccordion: FC<ClassAccordionProps> = ({
                 {createAccordionRows(levelId, classSchema, progress!)}
               </div>
               <div className="mt-4 tablet:mt-0">
-                {/* TODO: Add test button details after API changes */}
-                <AccordionButton
-                  type="grey"
-                  text="Test"
-                  link={`/student/test/${levelId}/${classSchema.classId}`}
-                  // disabled={true}
-                />
+                {createTestAccordionButton(levelId, classSchema, progress!)}
               </div>
             </div>
           </div>
