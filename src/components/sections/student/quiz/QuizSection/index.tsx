@@ -102,7 +102,7 @@ const QuizSection: FC<QuizSectionProps> = ({
   });
 
   const moveQuestion = () => {
-    if (currentIndex + 1 === quizQuestions.length) {
+    if (currentIndex + 1 >= quizQuestions.length) {
       pause();
       submitQuiz(remainingSeconds);
     } else {

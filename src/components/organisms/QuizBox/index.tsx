@@ -41,8 +41,8 @@ const QuizBox: FC<QuizBoxProps> = ({
               )}
             </span>
             <div className="flex flex-col items-end gap-1 tracking-widest">
-              {quizQuestion.question.numbers.map((number) => {
-                return <span key={number}>{number}</span>;
+              {quizQuestion.question.numbers.map((number, index) => {
+                return <span key={index}>{number}</span>;
               })}
             </div>
           </div>

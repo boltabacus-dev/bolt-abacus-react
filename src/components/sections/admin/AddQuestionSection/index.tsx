@@ -227,7 +227,7 @@ const AddQuestionSection: FC<AddQuestionSectionProps> = () => {
               Numbers *
             </div>
             <div className="grid w-full grid-cols-2 pb-4 justify-items-center desktop:justify-items-start desktop:grid-cols-4">
-              {fields.map((field, index) => {
+              {fields.map((_field, index) => {
                 const err = formMethods.formState.errors.number;
                 return (
                   <div
