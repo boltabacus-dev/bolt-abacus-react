@@ -29,7 +29,7 @@ const CurriculumSection: FC<CurriculumSectionProps> = () => {
           <div ref={targetRef} className="relative">
             {levels.map((level, index) => (
               <Level
-                key={level.title}
+                key={index}
                 title={level.title}
                 points={level.points}
                 lastLevel={levels.length - 1 === index}

@@ -26,9 +26,9 @@ const Level: FC<LevelProps> = ({ title, points, lastLevel }) => {
           {title}
         </h2>
         <div className="pt-2">
-          {points.map((point) => (
+          {points.map((point, index) => (
             <li
-              key={point}
+              key={index}
               className="py-1 ml-3 list-disc text-md tablet:ml-6 desktop:text-lg"
             >
               {point}

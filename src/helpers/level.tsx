@@ -14,12 +14,12 @@ export const createClassAccordions = (
   const classAccordions: Array<ReactNode> = [];
   let foundLatestClass = false;
   // eslint-disable-next-line array-callback-return
-  schema?.map((classSchema) => {
+  schema?.map((classSchema, index) => {
     if (!isLatestLevel) {
       if (level === 1 && classSchema.classId === 1) {
         classAccordions.push(
           <ClassAccordion
-            key={classSchema.classId}
+            key={index}
             levelId={level}
             type="locked"
             classSchema={classSchema}
@@ -28,7 +28,7 @@ export const createClassAccordions = (
       } else {
         classAccordions.push(
           <ClassAccordion
-            key={classSchema.classId}
+            key={index}
             levelId={level}
             type="completed"
             classSchema={classSchema}
@@ -38,7 +38,7 @@ export const createClassAccordions = (
     } else if (latestClass && foundLatestClass) {
       classAccordions.push(
         <ClassAccordion
-          key={classSchema.classId}
+          key={index}
           levelId={level}
           type="locked"
           classSchema={classSchema}
@@ -49,7 +49,7 @@ export const createClassAccordions = (
       if (level === 1 && classSchema.classId === 1) {
         classAccordions.push(
           <ClassAccordion
-            key={classSchema.classId}
+            key={index}
             levelId={level}
             type="locked"
             classSchema={classSchema}
@@ -58,7 +58,7 @@ export const createClassAccordions = (
       } else {
         classAccordions.push(
           <ClassAccordion
-            key={classSchema.classId}
+            key={index}
             levelId={level}
             type="inprogress"
             progress={progress}
@@ -70,7 +70,7 @@ export const createClassAccordions = (
       if (level === 1 && classSchema.classId === 1) {
         classAccordions.push(
           <ClassAccordion
-            key={classSchema.classId}
+            key={index}
             levelId={level}
             type="locked"
             classSchema={classSchema}
@@ -79,7 +79,7 @@ export const createClassAccordions = (
       } else {
         classAccordions.push(
           <ClassAccordion
-            key={classSchema.classId}
+            key={index}
             levelId={level}
             type="completed"
             classSchema={classSchema}

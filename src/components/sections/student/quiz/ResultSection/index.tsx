@@ -9,13 +9,15 @@ import { QuestionResult } from '@interfaces/apis/student';
 import QuizActionButton from '@components/atoms/QuizActionButton';
 import { MESSAGES } from '@constants/app';
 import { STUDENT_DASHBOARD } from '@constants/routes';
+import { secondsToMinutesSeconds } from '@helpers/timer';
 
 export interface ResultSectionProps {
   result: Array<QuestionResult>;
   verdict: boolean;
+  time: number;
 }
 
-const ResultSection: FC<ResultSectionProps> = ({ result, verdict }) => {
+const ResultSection: FC<ResultSectionProps> = ({ result, verdict, time }) => {
   const params = useParams<QuizPageParams>();
 
   return (
@@ -39,7 +41,9 @@ const ResultSection: FC<ResultSectionProps> = ({ result, verdict }) => {
           <p className="font-bold text-gold tablet:text-lg">
             {params.quizType === 'classwork' ? 'Classwork' : 'Homework'}
           </p>
-          <p className="font-bold text-sm tablet:text-md">Time Taken: 10:12</p>
+          <p className="font-bold text-sm tablet:text-md">
+            Time Taken: {secondsToMinutesSeconds(time)}
+          </p>
         </div>
         <QuizResultTable result={result} />
         <div className="py-2 flex items-center gap-5 justify-center tablet:py-2">

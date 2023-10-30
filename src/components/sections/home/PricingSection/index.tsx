@@ -16,8 +16,8 @@ const PricingSection: FC<PricingSectionProps> = () => {
         Pricing
       </h1>
       <div className="grid grid-cols-1 gap-12 py-10 mx-auto mt-10 tablet:py-16 tablet:grid-cols-3 desktop:grid-cols-3">
-        {pricingPlans.map((plan) => (
-          <PricingCard key={plan.title} plan={plan} />
+        {pricingPlans.map((plan, index) => (
+          <PricingCard key={index} plan={plan} />
         ))}
       </div>
     </div>

@@ -24,7 +24,7 @@ const QuizQuestionsTable: FC<QuizQuestionsTableProps> = ({ questions }) => {
           const isLast = questions.length === index + 1;
           return (
             <div
-              key={question.questionId}
+              key={index}
               className={`grid grid-cols-4 gap-2 text-xs border-b border-[#636363] ${
                 isLast && 'mb-4'
               } tablet:text-md`}

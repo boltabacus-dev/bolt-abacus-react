@@ -41,6 +41,7 @@ const QuizSection: FC<QuizSectionProps> = ({
   const [apiError, setApiError] = useState<string | null>(null);
   const [result, setResult] = useState<Array<QuestionResult>>();
   const [quizVerdict, setQuizVerdict] = useState<boolean>();
+  const [quizCompletionTime, setQuizCompletionTime] = useState<number>();
 
   const [quizStarted, setQuizStarted] = useState<boolean>(false);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -81,6 +82,7 @@ const QuizSection: FC<QuizSectionProps> = ({
         const resultResponse: QuizResult = res.data;
         setResult(resultResponse.results);
         setQuizVerdict(resultResponse.pass);
+        setQuizCompletionTime(resultResponse.time);
       }
     } catch (error) {
       setApiError(ERRORS.SERVER_ERROR);
@@ -149,7 +151,11 @@ const QuizSection: FC<QuizSectionProps> = ({
                       buttonText={MESSAGES.TRY_AGAIN}
                     />
                   ) : (
-                    <ResultSection result={result!} verdict={quizVerdict!} />
+                    <ResultSection
+                      result={result!}
+                      verdict={quizVerdict!}
+                      time={quizCompletionTime!}
+                    />
                   )}
                 </div>
               )}

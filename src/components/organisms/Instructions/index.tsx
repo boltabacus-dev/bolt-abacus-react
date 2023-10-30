@@ -16,8 +16,8 @@ const Instructions: FC<InstructionsProps> = ({ startQuiz }) => {
       <div className="flex flex-col gap-6 border border-gold px-14 py-8 bg-darkBlack rounded-lg">
         <p className="text-xl text-gold font-bold">Instructions</p>
         <div className="text-md p-1">
-          {quizInstructions.map((instruction) => (
-            <li key={instruction}>{instruction}</li>
+          {quizInstructions.map((instruction, index) => (
+            <li key={index}>{instruction}</li>
           ))}
         </div>
         <div

@@ -11,7 +11,7 @@ const Breadcrumbs: FC<BreadcrumbsProps> = ({ links }) => {
         {links.map((link, index) => {
           if (index + 1 === links.length) {
             return (
-              <span key={link} className="font-bold text-sm tablet:text-md">
+              <span key={index} className="font-bold text-sm tablet:text-md">
                 {link}
               </span>
             );

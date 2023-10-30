@@ -49,9 +49,9 @@ const VanillaFormSelect: FC<VanillaFormSelectProps> = ({
         >
           {placeholder}
         </option>
-        {options.map((option) => (
+        {options.map((option, index) => (
           <option
-            key={option.value}
+            key={index}
             className="max-w-md text-lg tablet:text-xl desktop:text-lg"
             value={option.value}
           >

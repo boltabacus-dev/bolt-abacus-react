@@ -65,7 +65,7 @@ export type QuestionResult = z.infer<typeof QuestionResultSchema>;
 export const QuizResultSchema = z.object({
   results: z.array(QuestionResultSchema),
   pass: z.boolean(),
-  // time: z.number()
+  time: z.number(),
 });
 export type QuizResult = z.infer<typeof QuizResultSchema>;
 

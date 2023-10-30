@@ -41,8 +41,8 @@ const PricingCard: FC<PricingCardProps> = ({ plan }) => {
         </div>
         <hr className="border-grey mt-7" />
         <ul className="flex-1 mt-6 space-y-4">
-          {plan.features.map((feature) => (
-            <li key={feature} className="flex text-sm">
+          {plan.features.map((feature, index) => (
+            <li key={index} className="flex text-sm">
               <BiCheck className="text-xl shrink-0 text-gold" />
               <span className="ml-3">{feature}</span>
             </li>
