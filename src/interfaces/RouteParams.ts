@@ -5,6 +5,11 @@ export type QuizPageParams = {
   quizType: string;
 };
 
+export type TestPageParams = {
+  levelId: string;
+  classId: string;
+};
+
 export type LevelPageParams = {
   levelId: string;
 };

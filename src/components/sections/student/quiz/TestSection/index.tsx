@@ -16,20 +16,24 @@ import {
 import { quizSubmitRequest } from '@services/student';
 import { useAuthStore } from '@store/authStore';
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
-import { useStopwatch } from 'react-timer-hook';
+import { useTimer } from 'react-timer-hook';
 
-export interface QuizSectionProps {
+export interface TestSectionProps {
   quizId: number;
   quizQuestions: Array<QuizQuestion>;
   quizAnswers: Array<QuizAnswer>;
   setQuizAnswers: Dispatch<SetStateAction<Array<QuizAnswer>>>;
+  totalSeconds: number;
+  expiryTimestamp: Date;
 }
 
-const QuizSection: FC<QuizSectionProps> = ({
+const TestSection: FC<TestSectionProps> = ({
   quizId,
   quizQuestions,
   quizAnswers,
   setQuizAnswers,
+  totalSeconds,
+  expiryTimestamp,
 }) => {
   const authToken = useAuthStore((state) => state.authToken);
 
@@ -60,10 +64,11 @@ const QuizSection: FC<QuizSectionProps> = ({
     return answers;
   };
 
-  const submitQuiz = async (timeTaken: number) => {
+  const submitQuiz = async (remainingSeconds: number) => {
     const answers = getUpdatedAnswers(currentAnswer);
     setQuizCompleted(true);
     setLoading(true);
+    const timeTaken = totalSeconds - remainingSeconds;
     try {
       const res = await quizSubmitRequest(
         quizId,
@@ -86,14 +91,22 @@ const QuizSection: FC<QuizSectionProps> = ({
     }
   };
 
-  const { start, pause, totalSeconds, seconds, minutes } = useStopwatch({
+  const {
+    start,
+    pause,
+    totalSeconds: remainingSeconds,
+    seconds,
+    minutes,
+  } = useTimer({
     autoStart: false,
+    expiryTimestamp,
+    onExpire: () => submitQuiz(0),
   });
 
   const moveQuestion = () => {
     if (currentIndex + 1 >= quizQuestions.length) {
       pause();
-      submitQuiz(totalSeconds);
+      submitQuiz(remainingSeconds);
     } else {
       setCurrentIndex(currentIndex + 1);
       setCurrentAnswer('');
@@ -122,7 +135,7 @@ const QuizSection: FC<QuizSectionProps> = ({
   return (
     <div className="flex flex-col gap-10 p-6 tablet:p-10 tablet:gap-16 desktop:px-64 desktop:py-6 desktop:gap-8">
       {!quizStarted ? (
-        <Instructions startQuiz={setQuizStarted} type="quiz" />
+        <Instructions startQuiz={setQuizStarted} type="test" />
       ) : (
         <div>
           {quizCompleted ? (
@@ -134,7 +147,7 @@ const QuizSection: FC<QuizSectionProps> = ({
                   {apiError ? (
                     <ErrorSection
                       errorMessage={apiError}
-                      onClick={() => submitQuiz(totalSeconds)}
+                      onClick={() => submitQuiz(remainingSeconds)}
                       buttonText={MESSAGES.TRY_AGAIN}
                     />
                   ) : (
@@ -193,4 +206,4 @@ const QuizSection: FC<QuizSectionProps> = ({
   );
 };
 
-export default QuizSection;
+export default TestSection;

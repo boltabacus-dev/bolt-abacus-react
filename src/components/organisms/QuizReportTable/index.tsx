@@ -28,10 +28,10 @@ const QuizReportTable: FC<QuizReportTableProps> = ({ quizReport }) => {
               </div>
             </div>
             <div className="flex items-center justify-center p-3 text-center break-all tablet:p-4 desktop:p-3">
-              <span>{topic.Classwork}%</span>
+              <span>{topic.Classwork.toFixed(2)}%</span>
             </div>
             <div className="flex items-center justify-center p-3 tablet:p-4 desktop:p-3">
-              <span>{topic.Homework}%</span>
+              <span>{topic.Homework.toFixed(2)}%</span>
             </div>
           </div>
         );

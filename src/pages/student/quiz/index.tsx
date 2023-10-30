@@ -19,7 +19,6 @@ import { QuizPageParams } from '@interfaces/RouteParams';
 import { LOGIN_PAGE, STUDENT_DASHBOARD } from '@constants/routes';
 import { ERRORS, MESSAGES } from '@constants/app';
 import { getInitialQuizAnswers } from '@helpers/quiz';
-import { minutesToSeconds } from '@helpers/timer';
 
 export interface StudentQuizPageProps {}
 
@@ -39,15 +38,6 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
   const [quizQuestions, setQuizQuestions] = useState<Array<QuizQuestion>>([]);
   const [quizId, setQuizId] = useState<number>();
   const [quizAnswers, setQuizAnswers] = useState<Array<QuizAnswer>>([]);
-  const [timeInSeconds, setTimeInSeconds] = useState<number>();
-  const [expiryTimestamp, setExpiryTimestamp] = useState<Date>(new Date());
-
-  const setTimer = (minutes: number) => {
-    const timestamp = new Date();
-    timestamp.setSeconds(timestamp.getSeconds() + minutes * 60);
-    setTimeInSeconds(minutesToSeconds(minutes));
-    setExpiryTimestamp(timestamp);
-  };
 
   useEffect(() => {
     const getLevelData = async () => {
@@ -86,8 +76,6 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
               setQuizQuestions(quizResponse.questions);
               setQuizAnswers(getInitialQuizAnswers(quizResponse.questions));
               setQuizId(quizResponse.quizId);
-
-              setTimer(quizResponse.time);
             }
           } catch (error) {
             if (isAxiosError(error)) {
@@ -142,8 +130,6 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
                 quizQuestions={quizQuestions!}
                 quizAnswers={quizAnswers}
                 setQuizAnswers={setQuizAnswers}
-                totalSeconds={timeInSeconds!}
-                expiryTimestamp={expiryTimestamp!}
               />
             </>
           )}

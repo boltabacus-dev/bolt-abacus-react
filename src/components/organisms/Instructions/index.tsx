@@ -1,12 +1,16 @@
 import QuizActionButton from '@components/atoms/QuizActionButton';
-import { quizInstructions } from '@constants/instructionDetails';
+import {
+  quizInstructions,
+  testInstructions,
+} from '@constants/instructionDetails';
 import { Dispatch, FC, SetStateAction } from 'react';
 
 export interface InstructionsProps {
+  type: 'quiz' | 'test';
   startQuiz: Dispatch<SetStateAction<boolean>>;
 }
 
-const Instructions: FC<InstructionsProps> = ({ startQuiz }) => {
+const Instructions: FC<InstructionsProps> = ({ type, startQuiz }) => {
   const startQuizHandler = () => {
     startQuiz(true);
   };
@@ -16,9 +20,19 @@ const Instructions: FC<InstructionsProps> = ({ startQuiz }) => {
       <div className="flex flex-col gap-6 border border-gold px-14 py-8 bg-darkBlack rounded-lg">
         <p className="text-xl text-gold font-bold">Instructions</p>
         <div className="text-md p-1">
-          {quizInstructions.map((instruction, index) => (
-            <li key={index}>{instruction}</li>
-          ))}
+          {type === 'quiz' ? (
+            <>
+              {quizInstructions.map((instruction, index) => (
+                <li key={index}>{instruction}</li>
+              ))}
+            </>
+          ) : (
+            <>
+              {testInstructions.map((instruction, index) => (
+                <li key={index}>{instruction}</li>
+              ))}
+            </>
+          )}
         </div>
         <div
           role="button"

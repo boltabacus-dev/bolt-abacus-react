@@ -36,6 +36,11 @@ export const areValidQuizParams = (
   return true;
 };
 
+export const areValidTestParams = (levelId: string, classId: string) => {
+  if (!isValidLevelId(levelId) || !isValidId(classId)) return false;
+  return true;
+};
+
 export const areValidReportsParams = (levelId: string, classId: string) => {
   if (!isValidLevelId(levelId) || !isValidId(classId)) return false;
   return true;

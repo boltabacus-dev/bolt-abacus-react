@@ -19,16 +19,18 @@ export interface ResultSectionProps {
 
 const ResultSection: FC<ResultSectionProps> = ({ result, verdict, time }) => {
   const params = useParams<QuizPageParams>();
-
-  return (
-    <div className="flex flex-col gap-6">
-      <Breadcrumbs
-        links={[
+  const links =
+    params.topicId === undefined
+      ? [`Level ${params.levelId}`, `Class ${params.classId}`]
+      : [
           `Level ${params.levelId}`,
           `Class ${params.classId}`,
           `Topic ${params.topicId}`,
-        ]}
-      />
+        ];
+
+  return (
+    <div className="flex flex-col gap-6">
+      <Breadcrumbs links={links} />
       <div className="p-2 flex flex-col gap-4">
         <div className="flex justify-center items-center text-bold text-lg font-semibold">
           {verdict ? (
@@ -38,8 +40,12 @@ const ResultSection: FC<ResultSectionProps> = ({ result, verdict, time }) => {
           )}
         </div>
         <div className="flex gap-2 justify-between">
-          <p className="font-bold text-gold tablet:text-lg">
-            {params.quizType === 'classwork' ? 'Classwork' : 'Homework'}
+          <p className="font-bold text-gold tablet:text-xl">
+            {params.quizType === 'classwork'
+              ? 'Classwork'
+              : params.quizType === 'homework'
+              ? 'Homework'
+              : 'Test'}
           </p>
           <p className="font-bold text-sm tablet:text-md">
             Time Taken: {secondsToMinutesSeconds(time)}

@@ -1,4 +1,11 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  SetStateAction,
+  useEffect,
+  useRef,
+} from 'react';
 import { PiDivide } from 'react-icons/pi';
 import { RxCross1, RxPlus } from 'react-icons/rx';
 
@@ -17,6 +24,8 @@ const QuizBox: FC<QuizBoxProps> = ({
   setAnswer,
   setDisabled,
 }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const result = event.target.value.replace(/[^0-9-]/gi, '');
     setAnswer(result);
@@ -25,6 +34,10 @@ const QuizBox: FC<QuizBoxProps> = ({
     if (Number.isNaN(num)) setDisabled(true);
     else setDisabled(false);
   };
+
+  useEffect(() => {
+    inputRef?.current?.focus();
+  });
 
   return (
     <div className="w-full min-h-[300px] flex justify-center items-center p-2 py-6 bg-darkBlack shadow-boxWhite rounded-2xl">
@@ -53,6 +66,7 @@ const QuizBox: FC<QuizBoxProps> = ({
             className="w-28 px-4 py-3 bg-darkBlack outline-none border text-center border-[#A0A0A0] rounded-lg tablet:w-36"
             type="text"
             value={answer}
+            ref={inputRef}
             onChange={(e) => handleChange(e)}
           />
         </div>
