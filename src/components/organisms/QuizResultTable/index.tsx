@@ -42,7 +42,7 @@ const QuizResultTable: FC<QuizResultTableProps> = ({ result }) => {
               {question.question}
             </div>
             <div className="flex justify-center items-center p-3 tablet:p-4 desktop:p-3">
-              {question.answer ? question.answer : '-'}
+              {question.answer !== null ? question.answer : '-'}
             </div>
           </div>
         );
