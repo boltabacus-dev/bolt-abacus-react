@@ -3,12 +3,12 @@ import { FC, useEffect, useState } from 'react';
 import SeoComponent from '@components/atoms/SeoComponent';
 import LoadingBox from '@components/organisms/LoadingBox';
 import ErrorBox from '@components/organisms/ErrorBox';
+import AddQuestionSection from '@components/sections/admin/AddQuestionSection';
 
 import { useAuthStore } from '@store/authStore';
 
 import { ERRORS, MESSAGES } from '@constants/app';
 import { ADMIN_DASHBOARD, LOGIN_PAGE } from '@constants/routes';
-import AddQuestionSection from '@components/sections/admin/AddQuestionSection';
 
 export interface AdminAddQuestionPageProps {}
 
@@ -57,7 +57,7 @@ const AdminAddQuestionPage: FC<AdminAddQuestionPageProps> = () => {
             </>
           ) : (
             <>
-              <SeoComponent title="View Quiz Details" />
+              <SeoComponent title="Add Question" />
               <AddQuestionSection />
             </>
           )}

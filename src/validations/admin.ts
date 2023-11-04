@@ -96,3 +96,22 @@ export const addQuestionSchema = z.object({
 });
 
 export type TAddQuestionSchema = z.infer<typeof addQuestionSchema>;
+
+/*
+ * Edit Quiz Question Form Input Schema
+ */
+export const editQuestionSchema = z.object({
+  number: z.coerce
+    .number({
+      errorMap: () => ({ message: 'Invalid Number' }),
+    })
+    .array(),
+  operator: z.enum(['+', '/', '*'], {
+    errorMap: () => ({ message: 'Invalid Operator' }),
+  }),
+  correctAnswer: z.coerce.number({
+    errorMap: () => ({ message: 'Invalid Correct Answer' }),
+  }),
+});
+
+export type TEditQuestionSchema = z.infer<typeof editQuestionSchema>;

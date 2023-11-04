@@ -18,3 +18,7 @@ export type ReportPageParams = {
   levelId: string;
   classId: string;
 };
+
+export type EditQuestionPageParams = {
+  questionId: string;
+};

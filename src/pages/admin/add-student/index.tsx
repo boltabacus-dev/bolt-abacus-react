@@ -56,6 +56,9 @@ const AdminAddStudentPage: FC<AdminAddStudentPageProps> = () => {
         }
       } else {
         setLoading(false);
+        setApiError(ERRORS.AUTHENTICATION_ERROR);
+        setFallBackLink(LOGIN_PAGE);
+        setFallBackAction(MESSAGES.GO_LOGIN);
       }
     };
     getAllBatchesData();

@@ -40,6 +40,8 @@ export const GET_ALL_TEACHERS_ENDPOINT = '/getTeachers/';
 export const GET_LEVEL_SCHEMA_ENDPOINT = '/getTopicsData/';
 export const GET_ALL_QUIZ_QUESTIONS_ENDPOINT = '/getAllQuestions/';
 
+export const GET_QUESTION_ENDPOINT = '/getQuestion/';
+
 export const ADD_STUDENT_ENDPOINT = '/addStudent/';
 export const ADD_TEACHER_ENDPOINT = '/addTeacher/';
 export const ADD_BATCH_ENDPOINT = '/addBatch/';

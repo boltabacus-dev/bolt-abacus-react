@@ -3,6 +3,7 @@ import axios from '@helpers/axios';
 import {
   ADD_QUESTION_ENDPOINT,
   GET_ALL_QUIZ_QUESTIONS_ENDPOINT,
+  GET_QUESTION_ENDPOINT,
 } from '@constants/routes';
 
 export const addQuestionsRequest = async (
@@ -29,6 +30,20 @@ export const addQuestionsRequest = async (
     },
     {
       headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const getQuestionRequest = async (questionId: number, token: string) => {
+  return axios.post(
+    GET_QUESTION_ENDPOINT,
+    {
+      questionId,
+    },
+    {
+      headers: {
+        'AUTH-TOKEN': token,
+      },
     }
   );
 };
