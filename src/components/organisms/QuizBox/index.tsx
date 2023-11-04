@@ -1,5 +1,6 @@
 import {
   ChangeEvent,
+  KeyboardEvent,
   Dispatch,
   FC,
   SetStateAction,
@@ -16,6 +17,7 @@ export interface QuizBoxProps {
   answer: string;
   setAnswer: Dispatch<SetStateAction<string>>;
   setDisabled: Dispatch<SetStateAction<boolean>>;
+  submitAnswer: () => void;
 }
 
 const QuizBox: FC<QuizBoxProps> = ({
@@ -23,6 +25,7 @@ const QuizBox: FC<QuizBoxProps> = ({
   answer,
   setAnswer,
   setDisabled,
+  submitAnswer,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -33,6 +36,12 @@ const QuizBox: FC<QuizBoxProps> = ({
     const num = parseInt(result, 10);
     if (Number.isNaN(num)) setDisabled(true);
     else setDisabled(false);
+  };
+
+  const handleEnter = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.code === 'Enter' || event.code === 'NumpadEnter') {
+      submitAnswer();
+    }
   };
 
   useEffect(() => {
@@ -68,6 +77,7 @@ const QuizBox: FC<QuizBoxProps> = ({
             value={answer}
             ref={inputRef}
             onChange={(e) => handleChange(e)}
+            onKeyDown={(e) => handleEnter(e)}
           />
         </div>
       </div>

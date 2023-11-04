@@ -46,7 +46,6 @@ const StudentReportPage: FC<StudentReportPageProps> = () => {
             const levelId = parseInt(params.levelId!, 10);
             const classId = parseInt(params.classId!, 10);
 
-            // TODO: API call for report details
             const res = await reportRequest(levelId, classId, authToken!);
 
             if (res.status === 200) {

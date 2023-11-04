@@ -174,6 +174,7 @@ const TestSection: FC<TestSectionProps> = ({
                   answer={currentAnswer}
                   setAnswer={setCurrentAnswer}
                   setDisabled={setIsNextDisabled}
+                  submitAnswer={answerQuestion}
                 />
               </div>
               <div className="flex items-center justify-center gap-4 pt-4 tablet:gap-12">

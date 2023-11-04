@@ -109,6 +109,26 @@ const createTestAccordionButton = (
   );
 };
 
+const createProgressBar = (
+  type: 'completed' | 'inprogress' | 'locked',
+  progress: Array<ClassProgress>
+) => {
+  if (type === 'completed') {
+    return <ProgressBar percentage={100} type="blue" />;
+  }
+  if (type === 'inprogress') {
+    const passProgress = progress.filter((p) => p.isPass);
+    return (
+      <ProgressBar
+        percentage={(passProgress.length / progress.length) * 100}
+        type="purple"
+        isBgBlack
+      />
+    );
+  }
+  return <ProgressBar percentage={0} type="locked" isBgBlack />;
+};
+
 const ClassAccordion: FC<ClassAccordionProps> = ({
   type,
   classSchema,
@@ -125,22 +145,7 @@ const ClassAccordion: FC<ClassAccordionProps> = ({
         <div className="flex flex-col flex-1 gap-5 tablet:flex-row tablet:gap-10 tablet:justify-center tablet:items-center">
           <p className="text-lg font-medium">Class {classSchema.classId}</p>
           <div className="flex items-center justify-center flex-1">
-            {type === 'completed' && (
-              <ProgressBar percentage={100} type="blue" />
-            )}
-
-            {type === 'inprogress' && progress && (
-              <ProgressBar
-                percentage={
-                  (progress.length / (classSchema.topicIds.length * 2)) * 100
-                }
-                type="purple"
-                isBgBlack
-              />
-            )}
-            {type === 'locked' && (
-              <ProgressBar percentage={0} type="locked" isBgBlack />
-            )}
+            {createProgressBar(type, progress!)}
           </div>
         </div>
         <div className="flex flex-1 gap-6">
