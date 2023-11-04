@@ -18,4 +18,5 @@ export const MESSAGES = {
   TEACHER_CREATED: 'Teacher created successfully!',
   BATCH_CREATED: 'Batch created successfully!',
   QUESTION_ADDED: 'Question added successfully!',
+  QUESTION_EDITED: 'Question edited successfully!',
 };

@@ -41,8 +41,9 @@ export const GET_LEVEL_SCHEMA_ENDPOINT = '/getTopicsData/';
 export const GET_ALL_QUIZ_QUESTIONS_ENDPOINT = '/getAllQuestions/';
 
 export const GET_QUESTION_ENDPOINT = '/getQuestion/';
+export const ADD_QUESTION_ENDPOINT = '/addQuestion/';
+export const EDIT_QUESTION_ENDPOINT = '/editQuestion/';
 
 export const ADD_STUDENT_ENDPOINT = '/addStudent/';
 export const ADD_TEACHER_ENDPOINT = '/addTeacher/';
 export const ADD_BATCH_ENDPOINT = '/addBatch/';
-export const ADD_QUESTION_ENDPOINT = '/addQuestion/';

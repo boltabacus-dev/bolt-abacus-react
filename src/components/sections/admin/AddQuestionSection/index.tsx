@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { FC, useState } from 'react';
 import { isAxiosError } from 'axios';
 import {
@@ -8,26 +7,29 @@ import {
   useForm,
 } from 'react-hook-form';
 import { MdDelete } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import FormSelect, { LabelValuePair } from '@components/atoms/FormSelect';
+import FormInput from '@components/atoms/FormInput';
 import FormButton from '@components/atoms/FormButton';
 import ErrorMessage from '@components/atoms/ErrorMessage';
 import SuccessMessage from '@components/atoms/SuccessMessage';
 
 import { useAuthStore } from '@store/authStore';
 import { getLevelSchemaRequest } from '@services/admin';
+import { addQuestionsRequest } from '@services/question';
 import { addQuestionSchema } from '@validations/admin';
 import { ClassSchema, GetLevelSchemaResponse } from '@interfaces/apis/admin';
 
 import { ERRORS, MESSAGES } from '@constants/app';
 import { levelOptions } from '@constants/levelOptions';
-import FormInput from '@components/atoms/FormInput';
-import { addQuestionsRequest } from '@services/question';
+import { ADMIN_VIEW_QUIZ } from '@constants/routes';
 
 export interface AddQuestionSectionProps {}
 
 const AddQuestionSection: FC<AddQuestionSectionProps> = () => {
+  const navigate = useNavigate();
   const authToken = useAuthStore((state) => state.authToken);
 
   const [loading, setLoading] = useState(false);
@@ -142,9 +144,11 @@ const AddQuestionSection: FC<AddQuestionSectionProps> = () => {
         authToken!
       );
       if (res.status === 200) {
-        console.log(res.data);
         setFormError('');
         setFormSuccess(MESSAGES.QUESTION_ADDED);
+        // eslint-disable-next-line no-alert
+        alert(MESSAGES.QUESTION_ADDED);
+        navigate(ADMIN_VIEW_QUIZ);
       }
     } catch (error) {
       if (isAxiosError(error)) {

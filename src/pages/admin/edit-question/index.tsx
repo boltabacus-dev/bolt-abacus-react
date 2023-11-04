@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { FC, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { isAxiosError } from 'axios';
@@ -49,10 +48,8 @@ const AdminEditQuestionPage: FC<AdminEditQuestionPageProps> = () => {
             const getQuestionResponse: QuizQuestion = res.data;
             setQuestionData(getQuestionResponse);
             setApiError(null);
-            console.log(getQuestionResponse);
           }
         } catch (error) {
-          console.log(error);
           if (isAxiosError(error)) {
             const status = error.response?.status;
             if (status === 401) {

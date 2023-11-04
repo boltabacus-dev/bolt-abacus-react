@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { isAxiosError } from 'axios';
 import {
   FieldValues,
@@ -9,39 +8,49 @@ import {
 } from 'react-hook-form';
 import { MdDelete } from 'react-icons/md';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate } from 'react-router-dom';
 
 import FormInput from '@components/atoms/FormInput';
+import FormSelect from '@components/atoms/FormSelect';
 import FormButton from '@components/atoms/FormButton';
 import ErrorMessage from '@components/atoms/ErrorMessage';
 import SuccessMessage from '@components/atoms/SuccessMessage';
 
+import { useAuthStore } from '@store/authStore';
+import { editQuestionsRequest } from '@services/question';
 import { editQuestionSchema } from '@validations/admin';
-
-import { ERRORS } from '@constants/app';
-import FormSelect from '@components/atoms/FormSelect';
 import { QuizQuestion } from '@interfaces/apis/admin';
+
+import { ERRORS, MESSAGES } from '@constants/app';
+import { ADMIN_VIEW_QUIZ } from '@constants/routes';
 
 export interface EditQuestionSectionProps {
   question: QuizQuestion;
 }
 
 const EditQuestionSection: FC<EditQuestionSectionProps> = ({ question }) => {
+  const navigate = useNavigate();
+  const authToken = useAuthStore((state) => state.authToken);
+
   const [formError, setFormError] = useState('');
   const [formSuccess, setFormSuccess] = useState('');
 
   const formMethods = useForm({
     resolver: zodResolver(editQuestionSchema),
-    defaultValues: editQuestionSchema.parse({
-      number: question.question.numbers,
-      operator: question.question.operator,
-      correctAnswer: question.correctAnswer,
-    }),
   });
-  const isFormLoading = formMethods.formState.isSubmitting;
   const { fields, append, remove } = useFieldArray({
     control: formMethods.control,
     name: 'number',
   });
+
+  useEffect(() => {
+    formMethods.setValue('number', question.question.numbers);
+    formMethods.setValue('operator', question.question.operator);
+    formMethods.setValue('correctAnswer', question.correctAnswer);
+  }, [formMethods, question]);
+
+  const isFormLoading = formMethods.formState.isSubmitting;
+  const isFormDataChanged = formMethods.formState.isDirty;
 
   const onSubmit = async (data: FieldValues) => {
     if (data?.number?.length < 2) {
@@ -50,7 +59,22 @@ const EditQuestionSection: FC<EditQuestionSectionProps> = ({ question }) => {
       return;
     }
     try {
-      console.log(data);
+      const res = await editQuestionsRequest(
+        question.questionId,
+        {
+          operator: data?.operator,
+          numbers: data?.number,
+        },
+        data?.correctAnswer,
+        authToken!
+      );
+      if (res.status === 200) {
+        setFormError('');
+        setFormSuccess(MESSAGES.QUESTION_EDITED);
+        // eslint-disable-next-line no-alert
+        alert(MESSAGES.QUESTION_EDITED);
+        navigate(ADMIN_VIEW_QUIZ);
+      }
     } catch (error) {
       if (isAxiosError(error)) {
         const status = error.response?.status;
@@ -138,7 +162,11 @@ const EditQuestionSection: FC<EditQuestionSectionProps> = ({ question }) => {
             </button>
 
             <div className="flex justify-center desktop:justify-start">
-              <FormButton text="Add Question" isLoading={isFormLoading} />
+              <FormButton
+                text="Edit Question"
+                isLoading={isFormLoading}
+                disabled={!isFormDataChanged}
+              />
             </div>
             {formError !== '' ? (
               <div className="flex justify-center text-xl text-center">

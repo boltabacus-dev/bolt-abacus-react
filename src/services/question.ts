@@ -2,6 +2,7 @@ import axios from '@helpers/axios';
 
 import {
   ADD_QUESTION_ENDPOINT,
+  EDIT_QUESTION_ENDPOINT,
   GET_ALL_QUIZ_QUESTIONS_ENDPOINT,
   GET_QUESTION_ENDPOINT,
 } from '@constants/routes';
@@ -25,6 +26,28 @@ export const addQuestionsRequest = async (
       classId,
       topicId,
       quizType,
+      question,
+      correctAnswer,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const editQuestionsRequest = async (
+  questionId: number,
+  question: {
+    operator: string;
+    numbers: number[];
+  },
+  correctAnswer: number,
+  token: string
+) => {
+  return axios.post(
+    EDIT_QUESTION_ENDPOINT,
+    {
+      questionId,
       question,
       correctAnswer,
     },

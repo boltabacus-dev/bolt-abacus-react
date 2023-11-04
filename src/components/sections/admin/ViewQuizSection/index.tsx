@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { FC, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
@@ -96,7 +95,6 @@ const ViewQuizSection: FC<ViewQuizSectionProps> = () => {
     setLoading(true);
     try {
       const classId = parseInt(value, 10);
-      console.log(levelSchema, classId);
 
       const classSchema = levelSchema?.find((cls) => cls.classId === classId);
 
