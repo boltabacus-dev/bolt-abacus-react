@@ -47,3 +47,6 @@ export const EDIT_QUESTION_ENDPOINT = '/editQuestion/';
 export const ADD_STUDENT_ENDPOINT = '/addStudent/';
 export const ADD_TEACHER_ENDPOINT = '/addTeacher/';
 export const ADD_BATCH_ENDPOINT = '/addBatch/';
+
+export const GET_ALL_TEACHER_BATCHES_ENDPOINT = '/getTeacherBatches/';
+export const UPDATE_BATCH_LINK_ENDPOINT = '/updateBatchLink/';

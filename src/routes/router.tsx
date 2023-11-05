@@ -4,6 +4,7 @@ import DefaultLayout from '@layouts/DefaultLayout';
 import RootLayout from '@layouts/RootLayout';
 import StudentLayout from '@layouts/StudentLayout';
 import AdminLayout from '@layouts/AdminLayout';
+import TeacherLayout from '@layouts/TeacherLayout';
 
 import HomePage from '@pages/home';
 import Custom404Page from '@pages/not-found';
@@ -20,6 +21,8 @@ import AdminAddBatchPage from '@pages/admin/add-batch';
 import AdminAddQuestionPage from '@pages/admin/add-question';
 import AdminEditQuestionPage from '@pages/admin/edit-question';
 import AdminViewQuizPage from '@pages/admin/view-quiz';
+import TeacherDashboardPage from '@pages/teacher/dashboard';
+import TeacherUpdateLinkPage from '@pages/teacher/update-link';
 
 export const router = createBrowserRouter([
   {
@@ -140,6 +143,25 @@ export const router = createBrowserRouter([
                 buttonText="Go to Dashboard"
               />
             ),
+          },
+        ],
+      },
+      // Route: 'boltabacus.com/teacher'
+      {
+        path: 'teacher',
+        element: <TeacherLayout />,
+        children: [
+          {
+            path: '',
+            element: <TeacherDashboardPage />,
+          },
+          {
+            path: 'dashboard',
+            element: <TeacherDashboardPage />,
+          },
+          {
+            path: 'update-link/:batchId',
+            element: <TeacherUpdateLinkPage />,
           },
         ],
       },

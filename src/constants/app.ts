@@ -7,6 +7,7 @@ export const ERRORS = {
   INVALID_LEVEL: 'Invalid Level. Class does not exists.',
   INVALID_QUIZ: 'Invalid Quiz. Quiz does not exists.',
   INVALID_REPORT: 'Invalid Report. Report does not exists.',
+  INVALID_BATCH: 'Invalid Batch. Batch does not exists',
 };
 export const MESSAGES = {
   TRY_AGAIN: 'Please Try Again',
