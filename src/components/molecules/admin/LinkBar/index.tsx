@@ -5,6 +5,7 @@ import {
   ADMIN_ADD_STUDENT,
   ADMIN_ADD_TEACHER,
   ADMIN_VIEW_QUIZ,
+  RESET_PASSWORD_PAGE,
 } from '@constants/routes';
 import { FC } from 'react';
 import { Link, useLocation } from 'react-router-dom';
@@ -14,8 +15,8 @@ export interface AdminLinkBarProps {}
 const AdminLinkBar: FC<AdminLinkBarProps> = () => {
   const location = useLocation();
   return (
-    <div className="pl-4 py-12 hidden tablet:flex">
-      <div className="bg-grey rounded-lg p-4 flex flex-col gap-3 flex-1 text-lg">
+    <div className="hidden py-12 pl-4 tablet:flex">
+      <div className="flex flex-col flex-1 gap-3 p-4 text-lg rounded-lg bg-grey">
         <Link to={ADMIN_ADD_STUDENT}>
           <AdminLinkButton
             text="Add Student"
@@ -44,6 +45,12 @@ const AdminLinkBar: FC<AdminLinkBarProps> = () => {
           <AdminLinkButton
             text="Add Question"
             active={location.pathname === ADMIN_ADD_QUESTION}
+          />
+        </Link>
+        <Link to={RESET_PASSWORD_PAGE}>
+          <AdminLinkButton
+            text="Reset Password"
+            active={location.pathname === RESET_PASSWORD_PAGE}
           />
         </Link>
       </div>

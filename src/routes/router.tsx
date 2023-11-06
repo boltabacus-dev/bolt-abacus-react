@@ -9,6 +9,7 @@ import TeacherLayout from '@layouts/TeacherLayout';
 import HomePage from '@pages/home';
 import Custom404Page from '@pages/not-found';
 import LoginPage from '@pages/login';
+import ResetPasswordPage from '@pages/reset-password';
 import StudentDashboardPage from '@pages/student/dashboard';
 import StudentLevelPage from '@pages/student/level';
 import StudentQuizPage from '@pages/student/quiz';
@@ -48,6 +49,17 @@ export const router = createBrowserRouter([
           {
             path: '',
             element: <LoginPage />,
+          },
+        ],
+      },
+      // Route: 'boltabacus.com/reset-password' -> With Navbar only
+      {
+        path: 'reset-password',
+        element: <RootLayout withNavBar withFooter={false} />,
+        children: [
+          {
+            path: '',
+            element: <ResetPasswordPage />,
           },
         ],
       },
