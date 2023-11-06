@@ -34,3 +34,15 @@ export const getDayOptions = () => {
 
   return options;
 };
+
+const colorsArray = [
+  'bg-cardPink',
+  'bg-cardRed',
+  'bg-cardPurple',
+  'bg-cardGreen',
+  'bg-cardBlue',
+];
+
+export const getBatchCardBgColor = (): string => {
+  return colorsArray[Math.floor(Math.random() * colorsArray.length)];
+};

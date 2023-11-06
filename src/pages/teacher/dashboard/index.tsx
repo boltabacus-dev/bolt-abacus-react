@@ -1,14 +1,18 @@
-/* eslint-disable no-console */
+import { FC, useEffect, useState } from 'react';
+import { isAxiosError } from 'axios';
+
 import SeoComponent from '@components/atoms/SeoComponent';
 import ErrorBox from '@components/organisms/ErrorBox';
 import LoadingBox from '@components/organisms/LoadingBox';
 import TeacherDashboardSection from '@components/sections/teacher/DashboardSection';
+
+import { useAuthStore } from '@store/authStore';
+import { Days } from '@interfaces/Batch';
+import { Batch, GetTeacherBatchesResponse } from '@interfaces/apis/teacher';
+import { getTeacherBatchDetails } from '@services/teacher';
+
 import { ERRORS, MESSAGES } from '@constants/app';
 import { LOGIN_PAGE, TEACHER_DASHBOARD } from '@constants/routes';
-import { getTeacherBatchDetails } from '@services/teacher';
-import { useAuthStore } from '@store/authStore';
-import { isAxiosError } from 'axios';
-import { FC, useEffect, useState } from 'react';
 
 export interface TeacherDashboardPageProps {}
 
@@ -23,6 +27,8 @@ const TeacherDashboardPage: FC<TeacherDashboardPageProps> = () => {
     MESSAGES.TRY_AGAIN
   );
 
+  const [batches, setBatches] = useState<{ [key in Days]: Batch[] }>();
+
   useEffect(() => {
     const getBatchDetails = async () => {
       if (isAuthenticated) {
@@ -30,7 +36,9 @@ const TeacherDashboardPage: FC<TeacherDashboardPageProps> = () => {
           const res = await getTeacherBatchDetails(authToken!);
 
           if (res.status === 200) {
-            console.log(res.data);
+            const getTeacherBatchesResponse: GetTeacherBatchesResponse =
+              res.data;
+            setBatches(getTeacherBatchesResponse.batches);
           }
         } catch (error) {
           if (isAxiosError(error)) {
@@ -39,9 +47,6 @@ const TeacherDashboardPage: FC<TeacherDashboardPageProps> = () => {
               setApiError(error.response?.data?.message);
               setFallBackLink(TEACHER_DASHBOARD);
               setFallBackAction(MESSAGES.GO_DASHBOARD);
-            } else if (status === 404) {
-              // TODO: Remove this after API integration
-              return;
             } else {
               setApiError(ERRORS.SERVER_ERROR);
             }
@@ -82,7 +87,7 @@ const TeacherDashboardPage: FC<TeacherDashboardPageProps> = () => {
           ) : (
             <>
               <SeoComponent title="Dashboard" />
-              <TeacherDashboardSection />
+              <TeacherDashboardSection batches={batches!} />
             </>
           )}
         </div>
