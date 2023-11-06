@@ -1,6 +1,5 @@
 import { z } from 'zod';
-
-// TODO: Add proper validations for passwords
+import validator from 'validator';
 
 /*
  * Login Form Input Schema
@@ -17,8 +16,18 @@ export type TLoginSchema = z.infer<typeof loginSchema>;
  */
 export const resetPasswordSchema = z
   .object({
-    password: z.string().min(1, 'Password is required'),
-    confirmPassword: z.string().min(1, 'Confirm Password is required'),
+    password: z
+      .string()
+      .refine(
+        validator.isStrongPassword,
+        'Password should contain minimum of 8 characters with lowercase, uppercase and symbol'
+      ),
+    confirmPassword: z
+      .string()
+      .refine(
+        validator.isStrongPassword,
+        'Password should contain minimum of 8 characters with lowercase, uppercase and symbol'
+      ),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords must match',
@@ -26,5 +35,3 @@ export const resetPasswordSchema = z
   });
 
 export type TResetPasswordSchema = z.infer<typeof resetPasswordSchema>;
-
-// TODO: Add Schema for Signup Form

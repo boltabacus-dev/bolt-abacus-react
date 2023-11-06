@@ -10,9 +10,17 @@ export interface FormInputProps {
   label: string;
   hasError?: boolean;
   disabled?: boolean;
+  showPassword?: boolean;
 }
 
-const FormInput: FC<FormInputProps> = ({ name, label, hasError, ...props }) => {
+const FormInput: FC<FormInputProps> = ({
+  name,
+  label,
+  hasError,
+  type,
+  showPassword = false,
+  ...props
+}) => {
   const {
     register,
     formState: { errors },
@@ -36,6 +44,7 @@ const FormInput: FC<FormInputProps> = ({ name, label, hasError, ...props }) => {
             : 'border-gold/50 focus:border-gold'
         }`}
         {...register(name)}
+        type={type === 'password' ? (showPassword ? 'text' : 'password') : type}
         {...props}
         id={label}
       />

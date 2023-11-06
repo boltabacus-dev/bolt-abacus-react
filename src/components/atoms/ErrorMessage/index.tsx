@@ -8,7 +8,7 @@ export interface ErrorMessageProps {
 
 const errorMessage: FC<ErrorMessageProps> = ({ errMessage, iconRequired }) => {
   return (
-    <div className="flex items-center gap-1 text-red">
+    <div className="flex items-center gap-2 text-red">
       {iconRequired && <IoAlertCircleOutline size={18} />}
       <p className="text-xs tablet:text-md desktop:text-sm">{errMessage}</p>
     </div>

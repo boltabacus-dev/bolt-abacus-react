@@ -28,6 +28,7 @@ export const TEACHER_UPDATE_LINK = `${TEACHER_ROUTE}/update-link`;
 
 // Backend Endpoints
 export const LOGIN_ENDPOINT = '/login/';
+export const RESET_PASSWORD_ENDPOINT = '/resetPassword/';
 
 export const STUDENT_DASHBOARD_ENDPOINT = '/levels/';
 export const STUDENT_LEVEL_ENDPOINT = '/classes/';
