@@ -25,11 +25,19 @@ const Button: FC<ButtonProps> = ({
     <button
       type="button"
       className={`w-full px-3 py-2 font-semibold text-center rounded-lg text-md
-				${!isLoading ? 'duration-150 ease-in-out hover:shadow-golden' : ''}
-				${type === 'primary' ? 'bg-gold disabled:bg-gold/30 text-black' : ''}
-				${type === 'secondary' ? 'bg-black text-white border border-gold' : ''}
+				${!isLoading ? 'duration-150 ease-in-out' : ''}
+				${
+          type === 'primary'
+            ? 'bg-gold disabled:bg-gold/30 text-black hover:shadow-golden'
+            : ''
+        }
+				${
+          type === 'secondary'
+            ? 'bg-black text-white border border-gold hover:shadow-golden'
+            : ''
+        }
 				${type === 'active' ? 'bg-gold text-black shadow-golden' : ''}
-				${type === 'purple' ? 'bg-purple text-white hover:shadow-purpled' : ''}
+				${type === 'purple' ? 'bg-purple text-black hover:shadow-purpled' : ''}
 				${type === 'blue' ? 'bg-blue text-white hover:shadow-blued' : ''}
 				${type === 'black' ? 'text-gold border-2 border-gold' : ''}
 				${type === 'blackWhite' ? 'text-white bg-black hover:shadow-black' : ''}
