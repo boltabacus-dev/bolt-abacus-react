@@ -150,9 +150,25 @@ const ClassAccordion: FC<ClassAccordionProps> = ({
         </div>
         <div className="flex flex-1 gap-6">
           <div className="flex-1">
-            {type === 'completed' && <Button type="black" text="Finished" />}
+            {type === 'completed' && (
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => setIsOpen(!isOpen)}
+                onKeyDown={() => setIsOpen(!isOpen)}
+              >
+                <Button type="black" text="Finished" />
+              </div>
+            )}
             {type === 'inprogress' && (
-              <Button type="primary" text={`Let's Go !`} />
+              <div
+                role="button"
+                tabIndex={0}
+                onClick={() => setIsOpen(!isOpen)}
+                onKeyDown={() => setIsOpen(!isOpen)}
+              >
+                <Button type="primary" text={`Let's Go !`} />
+              </div>
             )}
           </div>
           <div className="flex-1">
