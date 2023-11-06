@@ -53,7 +53,7 @@ const LoginForm: FC<LoginFormProps> = () => {
           },
           email: loginResponse.email,
           // TODO: Update phone after login API changes
-          phone: '9440006208',
+          phone: loginResponse.phone,
           role: loginResponse.role,
         });
 
