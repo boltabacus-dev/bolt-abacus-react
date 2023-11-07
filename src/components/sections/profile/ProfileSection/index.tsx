@@ -12,8 +12,8 @@ export interface ProfileSectionProps {
 
 const ProfileSection: FC<ProfileSectionProps> = ({ user }) => {
   return (
-    <div className="flex items-center gap-4 px-6 py-2 justify-evenly">
-      <div className="flex flex-col gap-8 px-8 py-10 bg-darkBlack tablet:px-16 rounded-xl shadow-boxWhite">
+    <div className="flex items-center gap-4 py-2 justify-evenly">
+      <div className="flex flex-col gap-8 px-6 py-10 bg-darkBlack tablet:px-16 rounded-xl shadow-boxWhite">
         <div className="flex items-center justify-center p-4">
           <ProfileIcon
             text={user.name.first.charAt(0) + user.name.last.charAt(0)}
@@ -21,21 +21,21 @@ const ProfileSection: FC<ProfileSectionProps> = ({ user }) => {
           />
         </div>
         <div className="flex flex-col gap-6 tablet:text-lg">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <div className="font-semibold text-gold/75">Name: </div>
             <div className="">
               {user.name.first} {user.name.last}
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <div className="font-semibold text-gold/75">Phone: </div>
             <div className="">{user.phone}</div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <div className="font-semibold text-gold/75">Email: </div>
             <div className="">{user.email}</div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <div className="font-semibold text-gold/75">Role: </div>
             <div className="">{user.role}</div>
           </div>

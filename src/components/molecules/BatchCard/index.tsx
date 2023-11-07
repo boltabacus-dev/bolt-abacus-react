@@ -20,7 +20,7 @@ const BatchCard: FC<BatchCardProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col gap-4 p-3 bg-darkBlue rounded-xl w-fit ${bgColor}`}
+      className={`min-h-[180px] flex flex-col justify-center gap-4 p-3 rounded-xl w-fit tablet:min-w-[170px] desktop:min-w-fit ${bgColor}`}
     >
       <p className="font-semibold text-left text-white">{batchName}</p>
       <div className="flex gap-2">
