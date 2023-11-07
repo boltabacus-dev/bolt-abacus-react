@@ -2,6 +2,7 @@ import { isAxiosError } from 'axios';
 import { FC, useState } from 'react';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import swal from 'sweetalert';
 
 import FormInput from '@components/atoms/FormInput';
 import FormButton from '@components/atoms/FormButton';
@@ -42,8 +43,10 @@ const TeacherUpdateLinkSection: FC<TeacherUpdateLinkSectionProps> = ({
       if (res.status === 200) {
         setFormError('');
         setFormSuccess(MESSAGES.LINK_UPDATED);
-        // eslint-disable-next-line no-alert
-        alert(MESSAGES.LINK_UPDATED);
+        swal(MESSAGES.LINK_UPDATED, {
+          icon: 'success',
+        });
+
         formMethods.reset();
         navigate(TEACHER_DASHBOARD);
       }

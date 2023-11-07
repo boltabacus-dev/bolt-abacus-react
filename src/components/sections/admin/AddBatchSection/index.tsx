@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
+import swal from 'sweetalert';
 
 import FormButton from '@components/atoms/FormButton';
 import FormInput from '@components/atoms/FormInput';
@@ -44,8 +45,10 @@ const AddBatchSection: FC<AddBatchSectionProps> = ({ teachers }) => {
       if (res.status === 200) {
         setFormError('');
         setFormSuccess(MESSAGES.BATCH_CREATED);
-        // eslint-disable-next-line no-alert
-        alert(MESSAGES.BATCH_CREATED);
+        swal(MESSAGES.BATCH_CREATED, {
+          icon: 'success',
+        });
+
         formMethods.reset();
       }
     } catch (error) {

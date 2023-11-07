@@ -9,6 +9,7 @@ import {
 import { MdDelete } from 'react-icons/md';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 import FormInput from '@components/atoms/FormInput';
 import FormSelect from '@components/atoms/FormSelect';
@@ -71,8 +72,10 @@ const EditQuestionSection: FC<EditQuestionSectionProps> = ({ question }) => {
       if (res.status === 200) {
         setFormError('');
         setFormSuccess(MESSAGES.QUESTION_EDITED);
-        // eslint-disable-next-line no-alert
-        alert(MESSAGES.QUESTION_EDITED);
+        swal(MESSAGES.QUESTION_EDITED, {
+          icon: 'success',
+        });
+
         navigate(ADMIN_VIEW_QUIZ);
       }
     } catch (error) {
@@ -90,7 +93,7 @@ const EditQuestionSection: FC<EditQuestionSectionProps> = ({ question }) => {
   };
 
   return (
-    <div className="flex gap-10 px-6 py-2 justify-evenly flex-col tablet:justify-between tablet:items-center tablet:p-10 desktop:px-36">
+    <div className="flex flex-col gap-10 px-6 py-2 justify-evenly tablet:justify-between tablet:items-center tablet:p-10 desktop:px-36">
       <div className="flex flex-col w-full gap-10">
         <p className="text-xl font-bold text-gold">Edit Question</p>
         <FormProvider {...formMethods}>
@@ -122,7 +125,7 @@ const EditQuestionSection: FC<EditQuestionSectionProps> = ({ question }) => {
                 label="Correct Answer *"
               />
             </div>
-            <div className="pt-10 font-semibold text-white text-lg desktop:font-medium">
+            <div className="pt-10 text-lg font-semibold text-white desktop:font-medium">
               Numbers *
             </div>
             <div className="grid w-full grid-cols-2 pb-4 justify-items-center desktop:justify-items-start desktop:grid-cols-4">
@@ -144,7 +147,7 @@ const EditQuestionSection: FC<EditQuestionSectionProps> = ({ question }) => {
                     />
                     <button
                       type="button"
-                      className="px-2 font-semibold text-center duration-150 ease-in-out text-xl hover:text-red"
+                      className="px-2 text-xl font-semibold text-center duration-150 ease-in-out hover:text-red"
                       onClick={() => remove(index)}
                     >
                       <MdDelete />
@@ -155,7 +158,7 @@ const EditQuestionSection: FC<EditQuestionSectionProps> = ({ question }) => {
             </div>
             <button
               type="button"
-              className="px-3 py-1 font-semibold text-center rounded-lg text-md duration-150 ease-in-out border border-gold hover:text-gold flex items-center justify-center"
+              className="flex items-center justify-center px-3 py-1 font-semibold text-center duration-150 ease-in-out border rounded-lg text-md border-gold hover:text-gold"
               onClick={() => append(1)}
             >
               Add Number

@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
+import swal from 'sweetalert';
 
 import FormButton from '@components/atoms/FormButton';
 import FormInput from '@components/atoms/FormInput';
@@ -39,9 +40,9 @@ const AddTeacherSection: FC<AddTeacherSectionProps> = () => {
       if (res.status === 200) {
         setFormError('');
         setFormSuccess(MESSAGES.TEACHER_CREATED);
-
-        // eslint-disable-next-line no-alert
-        alert(MESSAGES.TEACHER_CREATED);
+        swal(MESSAGES.TEACHER_CREATED, {
+          icon: 'success',
+        });
 
         formMethods.reset();
       }

@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
+import swal from 'sweetalert';
 
 import FormButton from '@components/atoms/FormButton';
 import FormInput from '@components/atoms/FormInput';
@@ -44,9 +45,9 @@ const AddStudentSection: FC<AddStudentSectionProps> = ({ batches }) => {
       if (res.status === 200) {
         setFormError('');
         setFormSuccess(MESSAGES.STUDENT_CREATED);
-
-        // eslint-disable-next-line no-alert
-        alert(MESSAGES.STUDENT_CREATED);
+        swal(MESSAGES.STUDENT_CREATED, {
+          icon: 'success',
+        });
 
         formMethods.reset();
       }
@@ -54,7 +55,7 @@ const AddStudentSection: FC<AddStudentSectionProps> = ({ batches }) => {
       setFormSuccess('');
       if (isAxiosError(error)) {
         const status = error.response?.status;
-        if (status === 401) {
+        if (status === 400 || status === 401) {
           setFormError(error.response?.data?.message);
         } else {
           setFormError(ERRORS.SERVER_ERROR);

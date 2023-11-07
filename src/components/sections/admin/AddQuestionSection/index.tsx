@@ -9,6 +9,7 @@ import {
 import { MdDelete } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
+import swal from 'sweetalert';
 
 import FormSelect, { LabelValuePair } from '@components/atoms/FormSelect';
 import FormInput from '@components/atoms/FormInput';
@@ -146,8 +147,10 @@ const AddQuestionSection: FC<AddQuestionSectionProps> = () => {
       if (res.status === 200) {
         setFormError('');
         setFormSuccess(MESSAGES.QUESTION_ADDED);
-        // eslint-disable-next-line no-alert
-        alert(MESSAGES.QUESTION_ADDED);
+        swal(MESSAGES.QUESTION_ADDED, {
+          icon: 'success',
+        });
+
         navigate(ADMIN_VIEW_QUIZ);
       }
     } catch (error) {
