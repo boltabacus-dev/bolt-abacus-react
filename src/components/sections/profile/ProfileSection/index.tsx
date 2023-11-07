@@ -18,7 +18,9 @@ const ProfileSection: FC<ProfileSectionProps> = ({ user }) => {
         <span>
           Name: {user.name.first} {user.name.last}
         </span>
-        {user.role === 'Student' && <span>Phone: {user.phone}</span>}
+        {(user.role === 'Student' || user.role === 'Teacher') && (
+          <span>Phone: {user.phone}</span>
+        )}
         <span>Role: {user.role}</span>
         <Link to={RESET_PASSWORD_PAGE}>
           <Button type="purple" text="Reset Password" />

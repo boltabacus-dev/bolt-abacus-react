@@ -11,7 +11,13 @@ export const addTeacherFormSchema = z.object({
   phone: z
     .string()
     .trim()
-    .refine(validator.isMobilePhone, 'Invalid mobile number'),
+    .refine(
+      (val) =>
+        validator.isMobilePhone(val, validator.isMobilePhoneLocales, {
+          strictMode: true,
+        }),
+      'Enter valid phone number with country code'
+    ),
 });
 
 export type TAddTeacherFormSchema = z.infer<typeof addTeacherFormSchema>;
@@ -27,8 +33,13 @@ export const addStudentFormSchema = z.object({
   phone: z
     .string()
     .trim()
-    .length(10, 'Invalid mobile number')
-    .refine(validator.isMobilePhone, 'Invalid mobile number'),
+    .refine(
+      (val) =>
+        validator.isMobilePhone(val, validator.isMobilePhoneLocales, {
+          strictMode: true,
+        }),
+      'Enter valid phone number with country code'
+    ),
 });
 
 export type TAddStudentFormSchema = z.infer<typeof addStudentFormSchema>;

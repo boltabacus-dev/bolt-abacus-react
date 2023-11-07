@@ -52,7 +52,6 @@ const LoginForm: FC<LoginFormProps> = () => {
             last: loginResponse.lastName,
           },
           email: loginResponse.email,
-          // TODO: Update phone after login API changes
           phone: loginResponse.phone,
           role: loginResponse.role,
         });
