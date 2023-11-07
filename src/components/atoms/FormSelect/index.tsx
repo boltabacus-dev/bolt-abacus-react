@@ -15,6 +15,7 @@ export interface FormSelectProps {
   options: Array<LabelValuePair>;
   disabled?: boolean;
   onchange?: (value: string) => void;
+  width?: 'fixed' | 'full';
 }
 
 const FormSelect: FC<FormSelectProps> = ({
@@ -22,6 +23,7 @@ const FormSelect: FC<FormSelectProps> = ({
   label,
   options,
   placeholder,
+  width,
   onchange,
   ...props
 }) => {
@@ -33,7 +35,13 @@ const FormSelect: FC<FormSelectProps> = ({
   const error = errors[name]?.message as string | undefined;
 
   return (
-    <div className="flex flex-col max-w-md py-3 my-4 gap-y-1 w-52 desktop:py-2 desktop:my-4 tablet:w-96 desktop:w-80">
+    <div
+      className={`flex flex-col py-3 my-4 gap-y-1 desktop:py-2 desktop:my-4 ${
+        width === 'fixed'
+          ? 'max-w-md w-52 tablet:w-96 desktop:w-80'
+          : 'w-full tablet:w-96 desktop:w-full'
+      } `}
+    >
       <label
         className="font-semibold text-white text-md tablet:text-lg desktop:text-md desktop:font-medium"
         htmlFor={label}
@@ -41,7 +49,7 @@ const FormSelect: FC<FormSelectProps> = ({
         {label}
       </label>
       <select
-        className={`max-w-md gap-2 px-3 py-2 my-3 text-lg text-white bg-black border-2 border-solid rounded-lg tablet:text-xl desktop:text-lg tablet:px-4 desktop:px-4 tablet:py-3 desktop:py-3 desktop:my-1 focus:outline-none placeholder:text-grey
+        className={`gap-2 px-3 py-2 my-3 text-lg text-white bg-black border-2 border-solid rounded-lg tablet:text-xl desktop:text-lg tablet:px-4 desktop:px-4 tablet:py-3 desktop:py-3 desktop:my-1 focus:outline-none placeholder:text-grey
         ${
           error
             ? 'border-red/50 focus:border-red'

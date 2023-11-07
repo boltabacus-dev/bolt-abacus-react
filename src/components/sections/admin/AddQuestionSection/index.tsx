@@ -165,7 +165,7 @@ const AddQuestionSection: FC<AddQuestionSectionProps> = () => {
   };
 
   return (
-    <div className="flex gap-10 px-6 py-2 justify-evenly flex-col tablet:justify-between tablet:items-center tablet:p-10 desktop:px-36">
+    <div className="flex flex-col gap-10 px-6 py-2 justify-evenly tablet:justify-between tablet:items-center tablet:p-10 desktop:px-36">
       <div className="flex flex-col w-full gap-10">
         <p className="text-xl font-bold text-gold">Add Question</p>
         <FormProvider {...formMethods}>
@@ -227,7 +227,7 @@ const AddQuestionSection: FC<AddQuestionSectionProps> = () => {
                 </>
               )}
             </div>
-            <div className="pt-10 font-semibold text-white text-lg desktop:font-medium">
+            <div className="pt-10 text-lg font-semibold text-white desktop:font-medium">
               Numbers *
             </div>
             <div className="grid w-full grid-cols-2 pb-4 justify-items-center desktop:justify-items-start desktop:grid-cols-4">
@@ -249,7 +249,7 @@ const AddQuestionSection: FC<AddQuestionSectionProps> = () => {
                     />
                     <button
                       type="button"
-                      className="px-2 font-semibold text-center duration-150 ease-in-out text-xl hover:text-red"
+                      className="px-2 text-xl font-semibold text-center duration-150 ease-in-out hover:text-red"
                       onClick={() => remove(index)}
                     >
                       <MdDelete />
@@ -260,13 +260,16 @@ const AddQuestionSection: FC<AddQuestionSectionProps> = () => {
             </div>
             <button
               type="button"
-              className="px-3 py-1 font-semibold text-center rounded-lg text-md duration-150 ease-in-out border border-gold hover:text-gold flex items-center justify-center"
+              className="flex items-center justify-center px-3 py-1 font-semibold text-center duration-150 ease-in-out border rounded-lg text-md border-gold hover:text-gold"
               onClick={() => append(1)}
             >
               Add Number
             </button>
             <div className="flex justify-center desktop:justify-start">
-              <FormButton text="Add Question" isLoading={isFormLoading} />
+              <FormButton
+                text="Add Question"
+                isLoading={isFormLoading || loading}
+              />
             </div>
             {formError !== '' ? (
               <div className="flex justify-center text-xl text-center">

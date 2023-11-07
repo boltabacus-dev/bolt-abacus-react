@@ -5,11 +5,23 @@ export interface FormButtonProps {
   text: string;
   isLoading: boolean;
   disabled?: boolean;
+  width?: 'full' | 'fixed';
 }
 
-const FormButton: FC<FormButtonProps> = ({ text, isLoading, disabled }) => {
+const FormButton: FC<FormButtonProps> = ({
+  text,
+  isLoading,
+  disabled,
+  width = 'fixed',
+}) => {
   return (
-    <div className="max-w-md pt-3 desktop:pt-2 w-52 tablet:w-96 desktop:w-80">
+    <div
+      className={`pt-3 desktop:pt-2 ${
+        width === 'fixed'
+          ? 'max-w-md w-52 tablet:w-96 desktop:w-80'
+          : 'w-full tablet:w-96 desktop:w-full'
+      } `}
+    >
       <button
         type="submit"
         className={`min-w-full cursor-pointer px-3 py-3 my-4 font-semibold text-center text-black rounded-lg bg-gold disabled:bg-gold/30
