@@ -40,3 +40,12 @@ export const GetTeacherBatchesResponseSchema = z.object({
 export type GetTeacherBatchesResponse = z.infer<
   typeof GetTeacherBatchesResponseSchema
 >;
+
+// Get Teacher Batches API Response
+export const UpdateClassResponseSchema = z.object({
+  message: z.string(),
+  class: z.number(),
+  level: z.number(),
+});
+
+export type UpdateClassResponse = z.infer<typeof UpdateClassResponseSchema>;

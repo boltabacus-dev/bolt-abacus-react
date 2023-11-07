@@ -23,6 +23,7 @@
     "react-icons": "^4.11.0",
     "react-router-dom": "^6.16.0",
     "react-timer-hook": "^3.0.7",
+    "sweetalert": "^2.1.2",
     "validator": "^13.11.0",
     "vite-plugin-svgr": "^4.1.0",
     "zod": "^3.22.4",

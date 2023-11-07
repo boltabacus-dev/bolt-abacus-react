@@ -75,3 +75,8 @@ html {
 .ReactCollapse--collapse {
   transition: height 300ms ease-in-out;
 }
+
+.swal-text {
+  padding: 1rem 2rem;
+  text-align: center;
+}
