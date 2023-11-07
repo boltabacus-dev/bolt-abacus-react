@@ -4,6 +4,7 @@ import { User } from '@interfaces/User';
 import Button from '@components/atoms/Button';
 import { Link } from 'react-router-dom';
 import { RESET_PASSWORD_PAGE } from '@constants/routes';
+import ProfileIcon from '@components/atoms/ProfileIcon';
 
 export interface ProfileSectionProps {
   user: User;
@@ -11,20 +12,39 @@ export interface ProfileSectionProps {
 
 const ProfileSection: FC<ProfileSectionProps> = ({ user }) => {
   return (
-    <div className="flex flex-col gap-4 px-6 py-2 justify-evenly tablet:flex-row tablet:justify-between tablet:items-center tablet:p-10 desktop:px-24">
-      <div className="flex flex-col w-full gap-6">
-        <p className="text-lg font-bold text-gold">Profile</p>
-        <span>Email: {user.email}</span>
-        <span>
-          Name: {user.name.first} {user.name.last}
-        </span>
-        {(user.role === 'Student' || user.role === 'Teacher') && (
-          <span>Phone: {user.phone}</span>
-        )}
-        <span>Role: {user.role}</span>
-        <Link to={RESET_PASSWORD_PAGE}>
-          <Button type="purple" text="Reset Password" />
-        </Link>
+    <div className="flex items-center gap-4 px-6 py-2 justify-evenly">
+      <div className="flex flex-col gap-8 px-8 py-10 bg-darkBlack tablet:px-16 rounded-xl shadow-boxWhite">
+        <div className="flex items-center justify-center p-4">
+          <ProfileIcon
+            text={user.name.first.charAt(0) + user.name.last.charAt(0)}
+            size="large"
+          />
+        </div>
+        <div className="flex flex-col gap-6 tablet:text-lg">
+          <div className="flex items-center gap-3">
+            <div className="font-semibold text-gold/75">Name: </div>
+            <div className="">
+              {user.name.first} {user.name.last}
+            </div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="font-semibold text-gold/75">Phone: </div>
+            <div className="">{user.phone}</div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="font-semibold text-gold/75">Email: </div>
+            <div className="">{user.email}</div>
+          </div>
+          <div className="flex items-center gap-3">
+            <div className="font-semibold text-gold/75">Role: </div>
+            <div className="">{user.role}</div>
+          </div>
+          <div className="w-full pt-4">
+            <Link to={RESET_PASSWORD_PAGE}>
+              <Button type="primary" text="Reset Password" />
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

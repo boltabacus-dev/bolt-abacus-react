@@ -57,7 +57,7 @@ const ProfilePage: FC<ProfilePageProps> = () => {
           ) : (
             <>
               <SeoComponent title="Profile" />
-              <div className="flex flex-col gap-4 p-6 justify-evenly tablet:justify-between tablet:items-center tablet:p-10 tablet:gap-8 desktop:p-20 desktop:py-8">
+              <div className="flex flex-col gap-4 py-10 justify-evenly tablet:p-10 tablet:gap-8 desktop:p-20 desktop:py-10">
                 {user && <ProfileSection user={user!} />}
               </div>
             </>
