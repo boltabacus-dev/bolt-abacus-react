@@ -25,6 +25,7 @@ import AdminEditQuestionPage from '@pages/admin/edit-question';
 import AdminViewQuizPage from '@pages/admin/view-quiz';
 import TeacherDashboardPage from '@pages/teacher/dashboard';
 import TeacherUpdateLinkPage from '@pages/teacher/update-link';
+import TeacherBatchReportPage from '@pages/teacher/report';
 
 export const router = createBrowserRouter([
   {
@@ -179,6 +180,10 @@ export const router = createBrowserRouter([
           {
             path: 'update-link/:batchId',
             element: <TeacherUpdateLinkPage />,
+          },
+          {
+            path: 'report/:batchId',
+            element: <TeacherBatchReportPage />,
           },
         ],
       },

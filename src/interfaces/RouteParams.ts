@@ -26,3 +26,7 @@ export type EditQuestionPageParams = {
 export type UpdateBatchLinkPageParams = {
   batchId: string;
 };
+
+export type BatchReportPageParams = {
+  batchId: string;
+};

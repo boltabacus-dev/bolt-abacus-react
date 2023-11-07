@@ -4,19 +4,19 @@ import { useParams } from 'react-router-dom';
 import SeoComponent from '@components/atoms/SeoComponent';
 import ErrorBox from '@components/organisms/ErrorBox';
 import LoadingBox from '@components/organisms/LoadingBox';
-import TeacherUpdateLinkSection from '@components/sections/teacher/UpdateLinkSection';
+import BatchReportSection from '@components/sections/teacher/BatchReportSection';
 
 import { useAuthStore } from '@store/authStore';
 import { isValidId } from '@helpers/paramsValidator';
-import { UpdateBatchLinkPageParams } from '@interfaces/RouteParams';
+import { BatchReportPageParams } from '@interfaces/RouteParams';
 
 import { ERRORS, MESSAGES } from '@constants/app';
 import { LOGIN_PAGE, TEACHER_DASHBOARD } from '@constants/routes';
 
-export interface TeacherUpdateLinkPageProps {}
+export interface TeacherBatchReportPageProps {}
 
-const TeacherUpdateLinkPage: FC<TeacherUpdateLinkPageProps> = () => {
-  const params = useParams<UpdateBatchLinkPageParams>();
+const TeacherBatchReportPage: FC<TeacherBatchReportPageProps> = () => {
+  const params = useParams<BatchReportPageParams>();
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
@@ -71,8 +71,8 @@ const TeacherUpdateLinkPage: FC<TeacherUpdateLinkPageProps> = () => {
             </>
           ) : (
             <>
-              <SeoComponent title="Update Zoom Link" />
-              <TeacherUpdateLinkSection batchId={batchId!} />
+              <SeoComponent title="Batch Report" />
+              <BatchReportSection batchId={batchId!} />
             </>
           )}
         </div>
@@ -81,4 +81,4 @@ const TeacherUpdateLinkPage: FC<TeacherUpdateLinkPageProps> = () => {
   );
 };
 
-export default TeacherUpdateLinkPage;
+export default TeacherBatchReportPage;

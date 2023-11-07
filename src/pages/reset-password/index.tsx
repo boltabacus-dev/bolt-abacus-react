@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { FC, useEffect, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -36,14 +35,10 @@ const ResetPasswordPage: FC<ResetPasswordPageProps> = () => {
   const { isSubmitting } = formMethods.formState;
 
   const onSubmit = async (data: FieldValues) => {
-    console.log({ resetPassword: data });
-
     try {
       const res = await resetPasswordRequest(data?.password, authToken!);
       if (res.status === 200) {
         setFormError('');
-        const resetPasswordResponse = res.data;
-        console.log(resetPasswordResponse);
         navigate(PROFILE_PAGE);
       }
     } catch (error) {

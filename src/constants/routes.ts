@@ -25,6 +25,7 @@ export const ADMIN_VIEW_QUIZ = `${ADMIN_ROUTE}/view/quiz`;
 export const TEACHER_ROUTE = '/teacher';
 export const TEACHER_DASHBOARD = `${TEACHER_ROUTE}/dashboard`;
 export const TEACHER_UPDATE_LINK = `${TEACHER_ROUTE}/update-link`;
+export const TEACHER_BATCH_REPORT = `${TEACHER_ROUTE}/report`;
 
 // Backend Endpoints
 export const LOGIN_ENDPOINT = '/login/';

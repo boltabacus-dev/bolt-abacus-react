@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AiFillLock, AiOutlineLink } from 'react-icons/ai';
 import { MdPeople } from 'react-icons/md';
 
-import { TEACHER_UPDATE_LINK } from '@constants/routes';
+import { TEACHER_BATCH_REPORT, TEACHER_UPDATE_LINK } from '@constants/routes';
 
 export interface BatchCardProps {
   batchName: string;
@@ -29,9 +29,11 @@ const BatchCard: FC<BatchCardProps> = ({
             <AiOutlineLink />
           </button>
         </Link>
-        <button type="button" className="p-2 text-black bg-white rounded">
-          <MdPeople />
-        </button>
+        <Link to={`${TEACHER_BATCH_REPORT}/${batchId}`}>
+          <button type="button" className="p-2 text-black bg-white rounded">
+            <MdPeople />
+          </button>
+        </Link>
         <button type="button" className="p-2 text-black bg-white rounded">
           <AiFillLock />
         </button>
