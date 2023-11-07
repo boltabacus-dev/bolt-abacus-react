@@ -9,6 +9,7 @@ export const ERRORS = {
   INVALID_REPORT: 'Invalid Report. Report does not exists.',
   INVALID_BATCH: 'Invalid Batch. Batch does not exists',
 };
+
 export const MESSAGES = {
   TRY_AGAIN: 'Please Try Again',
   GO_DASHBOARD: 'Go to Dashboard',
@@ -22,3 +23,5 @@ export const MESSAGES = {
   QUESTION_EDITED: 'Question edited successfully!',
   LINK_UPDATED: 'Zoom link updated successfully!',
 };
+
+export const NO_OF_CLASSES = 12;

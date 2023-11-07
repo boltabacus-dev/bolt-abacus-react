@@ -10,7 +10,7 @@ import WelcomeSection from '@components/sections/student/dashboard/WelcomeSectio
 
 import { dashboardRequest } from '@services/student';
 import { useAuthStore } from '@store/authStore';
-import { ERRORS, MESSAGES } from '@constants/app';
+import { ERRORS, MESSAGES, NO_OF_CLASSES } from '@constants/app';
 import { LOGIN_PAGE, STUDENT_DASHBOARD } from '@constants/routes';
 import { DashboardResponse } from '@interfaces/apis/student';
 
@@ -30,6 +30,7 @@ const StudentDashboardPage: FC<StudentDashboardPageProps> = () => {
   const [currentLevel, setCurrentLevel] = useState<number>();
   const [currentClass, setCurrentClass] = useState<number>();
   const [classLink, setClassLink] = useState<string>();
+  const [progress, setProgress] = useState<number>();
 
   useEffect(() => {
     const getDashboardData = async () => {
@@ -42,6 +43,7 @@ const StudentDashboardPage: FC<StudentDashboardPageProps> = () => {
             setCurrentClass(dashboardResponse.latestClass);
             setClassLink(dashboardResponse.latestLink);
             setApiError(null);
+            setProgress((dashboardResponse.latestClass / NO_OF_CLASSES) * 100);
           }
         } catch (error) {
           if (isAxiosError(error)) {
@@ -94,12 +96,12 @@ const StudentDashboardPage: FC<StudentDashboardPageProps> = () => {
               <InfoSection
                 currentLevel={currentLevel!}
                 description={`Class ${currentClass!}`}
-                progress={50}
+                progress={progress!}
               />
               <RoadmapSection
                 currentLevel={currentLevel!}
                 currentClass={currentClass!}
-                progress={10}
+                progress={progress!}
               />
             </>
           )}
