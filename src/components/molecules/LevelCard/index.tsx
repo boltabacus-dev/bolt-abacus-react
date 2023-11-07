@@ -58,8 +58,8 @@ const LevelCard: FC<LevelCardProps> = ({
           <>
             <ProgressBar type="blue" percentage={100} />
             <div className="pt-6">
-              <Link to="#report">
-                <Button type="black" text="Report" />
+              <Link to={`${STUDENT_LEVEL}/${level}`}>
+                <Button type="black" text="View Level" />
               </Link>
             </div>
           </>

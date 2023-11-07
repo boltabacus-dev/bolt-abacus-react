@@ -16,7 +16,7 @@ const SingleDayBatches: FC<SingleDayBatchesProps> = ({ day, batches }) => {
     <div className="flex flex-col gap-4 px-4 desktop:items-center desktop:border-l desktop:border-l-grey">
       <p className="py-4 text-lg font-medium">{day}</p>
       {batches.length > 0 ? (
-        <div className="grid grid-cols-2 gap-4 desktop:grid-cols-1">
+        <div className="grid grid-cols-1 gap-4 tablet:grid-cols-2 desktop:grid-cols-1">
           {batches.map((batch, id) => {
             const color = getBatchCardBgColor();
             return (

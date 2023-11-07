@@ -23,7 +23,7 @@ const FormSelect: FC<FormSelectProps> = ({
   label,
   options,
   placeholder,
-  width,
+  width = 'fixed',
   onchange,
   ...props
 }) => {
