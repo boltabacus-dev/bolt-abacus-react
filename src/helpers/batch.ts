@@ -46,3 +46,8 @@ const colorsArray = [
 export const getBatchCardBgColor = (): string => {
   return colorsArray[Math.floor(Math.random() * colorsArray.length)];
 };
+
+export const getScoreInteger = (n: number) => {
+  if (Math.floor(n) === n) return n;
+  return n.toFixed(2);
+};

@@ -1,5 +1,7 @@
-import { TestReport } from '@interfaces/apis/student';
 import { FC } from 'react';
+
+import { getScoreInteger } from '@helpers/batch';
+import { TestReport } from '@interfaces/apis/student';
 
 export interface TestReportTableProps {
   testReport: TestReport;
@@ -11,7 +13,7 @@ const TestReportTable: FC<TestReportTableProps> = ({ testReport }) => {
       <div className="grid grid-cols-3 gap-2 text-sm font-bold tablet:text-[18px] desktop:min-w-[800px]">
         <div className="p-2 text-center tablet:p-6">Test</div>
         <div className="p-2 font-normal text-center tablet:p-6">
-          <span>{testReport.Test.toFixed(2)}%</span>
+          <span>{getScoreInteger(testReport.Test)}%</span>
         </div>
       </div>
     </div>

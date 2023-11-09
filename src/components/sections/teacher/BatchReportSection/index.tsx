@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { FC, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,10 +10,16 @@ import ErrorMessage from '@components/atoms/ErrorMessage';
 import { useAuthStore } from '@store/authStore';
 import { getBatchReportSchema } from '@validations/teacher';
 import { ClassSchema, GetLevelSchemaResponse } from '@interfaces/apis/admin';
+import {
+  GetBatchReportResponse,
+  StudentReport,
+} from '@interfaces/apis/teacher';
 import { getLevelSchemaRequest } from '@services/admin';
+import { getBatchReportRequest } from '@services/teacher';
 
 import { ERRORS } from '@constants/app';
 import { levelOptions } from '@constants/levelOptions';
+import BatchReportTable from '@components/organisms/BatchReportTable';
 
 export interface BatchReportSectionProps {
   batchId: number;
@@ -30,6 +35,10 @@ const BatchReportSection: FC<BatchReportSectionProps> = ({ batchId }) => {
 
   const [classIdOptions, setClassIdOptions] = useState<LabelValuePair[]>([]);
   const [topicIdOptions, setTopicIdOptions] = useState<LabelValuePair[]>([]);
+
+  const [studentReports, setStudentReports] = useState<
+    StudentReport[] | null
+  >();
 
   const formMethods = useForm({
     resolver: zodResolver(getBatchReportSchema),
@@ -106,8 +115,21 @@ const BatchReportSection: FC<BatchReportSectionProps> = ({ batchId }) => {
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      console.log({ batchId, ...data });
+      const res = await getBatchReportRequest(
+        batchId,
+        data?.levelId,
+        data?.classId,
+        data?.topicId,
+        authToken!
+      );
+      if (res.status === 200) {
+        setFormError('');
+
+        const getBatchReportResponse: GetBatchReportResponse = res.data;
+        setStudentReports(getBatchReportResponse.reports);
+      }
     } catch (error) {
+      setStudentReports(null);
       if (isAxiosError(error)) {
         const status = error.response?.status;
         if (status === 401 || status === 403) {
@@ -167,6 +189,17 @@ const BatchReportSection: FC<BatchReportSectionProps> = ({ batchId }) => {
             ) : null}
           </form>
         </FormProvider>
+        {studentReports &&
+          (studentReports.length === 0 ? (
+            <div className="flex justify-center">
+              <ErrorMessage
+                errMessage="No Records Found"
+                iconRequired={false}
+              />
+            </div>
+          ) : (
+            <BatchReportTable studentReports={studentReports} />
+          ))}
       </div>
     </div>
   );

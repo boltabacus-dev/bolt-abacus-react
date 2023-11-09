@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import Button from '@components/atoms/Button';
 import ProgressBar from '@components/atoms/ProgressBar';
 
-import { STUDENT_LEVEL, STUDENT_PRACTICE } from '@constants/routes';
+import { STUDENT_LEVEL } from '@constants/routes';
 
 export interface InfoSectionProps {
   currentLevel: number;
@@ -50,9 +50,10 @@ const InfoSection: FC<InfoSectionProps> = ({
             Enhance your proficiency with 100 well crafted problems
           </p>
           <div className="pt-6">
-            <Link to={STUDENT_PRACTICE}>
-              <Button type="purple" text="Practice Now" />
-            </Link>
+            {/* TODO: Add Practice in V2 */}
+            {/* <Link to={STUDENT_PRACTICE}> */}
+            <Button type="purple" text="Coming Soon !" />
+            {/* </Link> */}
           </div>
         </div>
       </div>

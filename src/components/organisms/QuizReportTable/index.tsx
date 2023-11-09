@@ -1,5 +1,7 @@
-import { QuizReport } from '@interfaces/apis/student';
 import { FC } from 'react';
+
+import { getScoreInteger } from '@helpers/batch';
+import { QuizReport } from '@interfaces/apis/student';
 
 export interface QuizReportTableProps {
   quizReport: Array<QuizReport>;
@@ -28,10 +30,10 @@ const QuizReportTable: FC<QuizReportTableProps> = ({ quizReport }) => {
               </div>
             </div>
             <div className="flex items-center justify-center p-3 text-center break-all tablet:p-4 desktop:p-3">
-              <span>{topic.Classwork.toFixed(2)}%</span>
+              <span>{getScoreInteger(topic.Classwork)}%</span>
             </div>
             <div className="flex items-center justify-center p-3 tablet:p-4 desktop:p-3">
-              <span>{topic.Homework.toFixed(2)}%</span>
+              <span>{getScoreInteger(topic.Homework)}%</span>
             </div>
           </div>
         );

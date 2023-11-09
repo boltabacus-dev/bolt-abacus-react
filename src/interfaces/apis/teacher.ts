@@ -49,3 +49,21 @@ export const UpdateClassResponseSchema = z.object({
 });
 
 export type UpdateClassResponse = z.infer<typeof UpdateClassResponseSchema>;
+
+// Get Batch Report API Response
+export const StudentReportSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  classwork: z.number(),
+  homework: z.number(),
+  test: z.number(),
+});
+export type StudentReport = z.infer<typeof StudentReportSchema>;
+
+export const GetBatchReportResponseSchema = z.object({
+  reports: z.array(StudentReportSchema),
+});
+
+export type GetBatchReportResponse = z.infer<
+  typeof GetBatchReportResponseSchema
+>;

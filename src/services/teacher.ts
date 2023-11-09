@@ -4,6 +4,7 @@ import {
   ADD_TEACHER_ENDPOINT,
   GET_ALL_TEACHERS_ENDPOINT,
   GET_ALL_TEACHER_BATCHES_ENDPOINT,
+  GET_BATCH_REPORT_ENDPOINT,
   UPDATE_BATCH_LINK_ENDPOINT,
   UPDATE_CLASS_ENDPOINT,
 } from '@constants/routes';
@@ -63,6 +64,27 @@ export const updateClassRequest = async (batchId: number, token: string) => {
     UPDATE_CLASS_ENDPOINT,
     {
       batchId,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const getBatchReportRequest = async (
+  batchId: number,
+  levelId: number,
+  classId: number,
+  topicId: number,
+  token: string
+) => {
+  return axios.post(
+    GET_BATCH_REPORT_ENDPOINT,
+    {
+      batchId,
+      levelId,
+      classId,
+      topicId,
     },
     {
       headers: { 'AUTH-TOKEN': token },
