@@ -4,7 +4,7 @@ import { AiFillInstagram, AiFillLinkedin } from 'react-icons/ai';
 
 import BrandLogo from '@components/atoms/BrandLogo';
 
-import { TEACHER_DASHBOARD } from '@constants/routes';
+import { HOME_PAGE } from '@constants/routes';
 
 export interface TeacherFooterProps {}
 
@@ -16,7 +16,7 @@ const TeacherFooter: FC<TeacherFooterProps> = () => {
     >
       <div className="flex flex-col tablet:flex-row">
         <div className="py-2 tablet:flex-1">
-          <BrandLogo link={TEACHER_DASHBOARD} />
+          <BrandLogo link={HOME_PAGE} />
         </div>
         <div className="flex gap-12 mt-5 tablet:flex-1 desktop:flex-1">
           <div className="flex flex-col flex-1 gap-3 desktop:flex-row desktop:gap-12 desktop:justify-end">

@@ -28,7 +28,7 @@ const StudentNavBar: FC<StudentNavBarProps> = () => {
   return (
     <nav className="w-full h-24 max-h-24">
       <div className="flex items-center justify-between w-full h-full px-4 tablet:px-10 desktop:px-20">
-        <BrandLogo link={STUDENT_DASHBOARD} />
+        <BrandLogo link={HOME_PAGE} />
         <div>
           <ul className="items-center hidden tablet:flex desktop:flex">
             {user && (

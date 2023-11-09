@@ -7,6 +7,7 @@ export interface AccordionButtonProps {
   text: string;
   link?: string;
   disabled?: boolean;
+  withoutIcon?: boolean;
 }
 
 const AccordionButton: FC<AccordionButtonProps> = ({
@@ -14,6 +15,7 @@ const AccordionButton: FC<AccordionButtonProps> = ({
   text,
   link,
   disabled,
+  withoutIcon = false,
 }) => {
   return (
     <div className="flex">
@@ -27,19 +29,25 @@ const AccordionButton: FC<AccordionButtonProps> = ({
           {type === 'grey' && (
             <>
               <span className="font-semibold text-md">{text}</span>
-              <TiTick className="rounded-full bg-grey text-coal text-md" />
+              {!withoutIcon && (
+                <TiTick className="rounded-full bg-grey text-coal text-md" />
+              )}
             </>
           )}
           {type === 'green' && (
             <>
               <span className="font-semibold text-md">{text}</span>
-              <TiTick className="rounded-full bg-green text-coal text-md" />
+              {!withoutIcon && (
+                <TiTick className="rounded-full bg-green text-coal text-md" />
+              )}
             </>
           )}
           {type === 'yellow' && (
             <>
               <span className="font-semibold text-md">{text}</span>
-              <TiTick className="rounded-full bg-gold text-coal text-md" />
+              {!withoutIcon && (
+                <TiTick className="rounded-full bg-gold text-coal text-md" />
+              )}
             </>
           )}
         </div>
