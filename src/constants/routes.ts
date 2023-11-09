@@ -26,6 +26,7 @@ export const TEACHER_ROUTE = '/teacher';
 export const TEACHER_DASHBOARD = `${TEACHER_ROUTE}/dashboard`;
 export const TEACHER_UPDATE_LINK = `${TEACHER_ROUTE}/update-link`;
 export const TEACHER_BATCH_REPORT = `${TEACHER_ROUTE}/report`;
+export const TEACHER_STUDENT_PROGRESS = `${TEACHER_ROUTE}/student-progress`;
 
 // Backend Endpoints
 export const LOGIN_ENDPOINT = '/login/';

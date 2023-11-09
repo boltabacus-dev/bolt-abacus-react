@@ -1,0 +1,3 @@
+.progressSection {
+  height: calc(80vh - theme('spacing.24'));
+}

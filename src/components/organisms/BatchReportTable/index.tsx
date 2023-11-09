@@ -1,8 +1,11 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 
 import { getScoreInteger } from '@helpers/batch';
 import { StudentReport } from '@interfaces/apis/teacher';
+
 import { PASS_MARKS } from '@constants/app';
+import { TEACHER_STUDENT_PROGRESS } from '@constants/routes';
 
 export interface BatchReportTableProps {
   studentReports: StudentReport[];
@@ -29,9 +32,11 @@ const BatchReportTable: FC<BatchReportTableProps> = ({ studentReports }) => {
           >
             <div className="flex items-center justify-center p-1">
               <div className="flex items-center justify-center gap-1">
-                <p className="text-center capitalize">
-                  {report.firstName} {report.lastName}
-                </p>
+                <Link to={`${TEACHER_STUDENT_PROGRESS}/1`}>
+                  <p className="text-center capitalize hover:text-gold">
+                    {report.firstName} {report.lastName}
+                  </p>
+                </Link>
               </div>
             </div>
             <div className="flex items-center justify-center p-2 text-center">

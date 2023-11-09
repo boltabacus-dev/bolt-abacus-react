@@ -156,6 +156,7 @@ const BatchReportSection: FC<BatchReportSectionProps> = ({ batchId }) => {
                 label="Level Id *"
                 onchange={onLevelChange}
                 options={levelOptions}
+                width="full"
               />
               {!loading && (
                 <>
@@ -165,12 +166,14 @@ const BatchReportSection: FC<BatchReportSectionProps> = ({ batchId }) => {
                     label="Class Id *"
                     onchange={onClassChange}
                     options={classIdOptions!}
+                    width="full"
                   />
                   <FormSelect
                     name="topicId"
                     placeholder="Choose Topic Id"
                     label="Topic Id *"
                     options={topicIdOptions!}
+                    width="full"
                   />
                 </>
               )}

@@ -8,6 +8,7 @@ export const ERRORS = {
   INVALID_QUIZ: 'Invalid Quiz. Quiz does not exists.',
   INVALID_REPORT: 'Invalid Report. Report does not exists.',
   INVALID_BATCH: 'Invalid Batch. Batch does not exists',
+  INVALID_STUDENT: 'Invalid Student. Student does not exists',
 };
 
 export const MESSAGES = {

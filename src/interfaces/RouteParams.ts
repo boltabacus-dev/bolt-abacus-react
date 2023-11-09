@@ -30,3 +30,7 @@ export type UpdateBatchLinkPageParams = {
 export type BatchReportPageParams = {
   batchId: string;
 };
+
+export type StudentProgressPageParams = {
+  studentId: string;
+};
