@@ -132,7 +132,7 @@ const BatchReportSection: FC<BatchReportSectionProps> = ({ batchId }) => {
       setStudentReports(null);
       if (isAxiosError(error)) {
         const status = error.response?.status;
-        if (status === 401 || status === 403) {
+        if (status === 401 || status === 403 || status === 404) {
           setFormError(error.response?.data?.message);
         } else {
           setFormError(ERRORS.SERVER_ERROR);

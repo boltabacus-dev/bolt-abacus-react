@@ -56,3 +56,4 @@ export const GET_ALL_TEACHER_BATCHES_ENDPOINT = '/getTeacherBatches/';
 export const UPDATE_BATCH_LINK_ENDPOINT = '/updateBatchLink/';
 export const UPDATE_CLASS_ENDPOINT = '/updateClass/';
 export const GET_BATCH_REPORT_ENDPOINT = '/getClassReport/';
+export const GET_STUDENT_PROGRESS_ENDPOINT = '/getStudentProgress/';

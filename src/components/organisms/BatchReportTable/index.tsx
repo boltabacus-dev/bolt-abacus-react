@@ -32,7 +32,7 @@ const BatchReportTable: FC<BatchReportTableProps> = ({ studentReports }) => {
           >
             <div className="flex items-center justify-center p-1">
               <div className="flex items-center justify-center gap-1">
-                <Link to={`${TEACHER_STUDENT_PROGRESS}/1`}>
+                <Link to={`${TEACHER_STUDENT_PROGRESS}/${report.userId}`}>
                   <p className="text-center capitalize hover:text-gold">
                     {report.firstName} {report.lastName}
                   </p>

@@ -1,7 +1,6 @@
 import { z } from 'zod';
 
 // Get All Teaches API Response
-
 export const TeacherSchema = z.object({
   userId: z.number(),
   firstName: z.string(),
@@ -52,6 +51,7 @@ export type UpdateClassResponse = z.infer<typeof UpdateClassResponseSchema>;
 
 // Get Batch Report API Response
 export const StudentReportSchema = z.object({
+  userId: z.number(),
   firstName: z.string(),
   lastName: z.string(),
   classwork: z.number(),
@@ -66,4 +66,35 @@ export const GetBatchReportResponseSchema = z.object({
 
 export type GetBatchReportResponse = z.infer<
   typeof GetBatchReportResponseSchema
+>;
+
+// Get Student Progress API Response
+export const TopicProgressSchema = z.object({
+  topicId: z.number(),
+  Classwork: z.number(),
+  Homework: z.number(),
+});
+
+export const ClassProgressSchema = z.object({
+  classId: z.number(),
+  Test: z.number(),
+  topics: z.array(TopicProgressSchema),
+});
+export type ClassProgress = z.infer<typeof ClassProgressSchema>;
+
+export const LevelProgressSchema = z.object({
+  levelId: z.number(),
+  classes: z.array(ClassProgressSchema),
+});
+export type LevelProgress = z.infer<typeof LevelProgressSchema>;
+
+export const GetStudentProgressResponseSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  batchName: z.string(),
+  levels: z.array(LevelProgressSchema),
+});
+
+export type GetStudentProgressResponse = z.infer<
+  typeof GetStudentProgressResponseSchema
 >;

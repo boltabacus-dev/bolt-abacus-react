@@ -1,5 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { isAxiosError } from 'axios';
 
 import SeoComponent from '@components/atoms/SeoComponent';
 import ErrorBox from '@components/organisms/ErrorBox';
@@ -7,6 +8,11 @@ import LoadingBox from '@components/organisms/LoadingBox';
 
 import { useAuthStore } from '@store/authStore';
 import { isValidId } from '@helpers/paramsValidator';
+import { getStudentProgressRequest } from '@services/teacher';
+import {
+  GetStudentProgressResponse,
+  LevelProgress,
+} from '@interfaces/apis/teacher';
 import { StudentProgressPageParams } from '@interfaces/RouteParams';
 
 import { ERRORS, MESSAGES } from '@constants/app';
@@ -18,6 +24,7 @@ export interface TeacherStudentProgressPageProps {}
 const TeacherStudentProgressPage: FC<TeacherStudentProgressPageProps> = () => {
   const params = useParams<StudentProgressPageParams>();
 
+  const authToken = useAuthStore((state) => state.authToken);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   const [loading, setLoading] = useState(true);
@@ -27,10 +34,12 @@ const TeacherStudentProgressPage: FC<TeacherStudentProgressPageProps> = () => {
     MESSAGES.TRY_AGAIN
   );
 
-  const [studentId, setStudentId] = useState<number>();
+  const [studentProgress, setStudentProgress] = useState<LevelProgress[]>();
+  const [studentName, setStudentName] = useState<string>();
+  const [batchName, setBatchName] = useState<string>();
 
   useEffect(() => {
-    const loadComponent = async () => {
+    const getStudentProgressData = async () => {
       if (isAuthenticated) {
         if (!isValidId(params.studentId!)) {
           setApiError(ERRORS.INVALID_STUDENT);
@@ -39,7 +48,30 @@ const TeacherStudentProgressPage: FC<TeacherStudentProgressPageProps> = () => {
           setLoading(false);
         } else {
           const id = parseInt(params.studentId!, 10);
-          setStudentId(id);
+          try {
+            const res = await getStudentProgressRequest(id, authToken!);
+            if (res.status === 200) {
+              const getStudentProgressResponse: GetStudentProgressResponse =
+                res.data;
+
+              setStudentProgress(getStudentProgressResponse.levels);
+              setStudentName(
+                `${getStudentProgressResponse.firstName} ${getStudentProgressResponse.lastName}`
+              );
+              setBatchName(getStudentProgressResponse.batchName);
+            }
+          } catch (error) {
+            if (isAxiosError(error)) {
+              const status = error.response?.status;
+              if (status === 401 || status === 403 || status === 404) {
+                setApiError(error.response?.data?.message);
+              } else {
+                setApiError(ERRORS.SERVER_ERROR);
+              }
+            } else {
+              setApiError(ERRORS.SERVER_ERROR);
+            }
+          }
         }
       } else {
         setApiError(ERRORS.AUTHENTICATION_ERROR);
@@ -48,8 +80,8 @@ const TeacherStudentProgressPage: FC<TeacherStudentProgressPageProps> = () => {
       }
       setLoading(false);
     };
-    loadComponent();
-  }, [isAuthenticated, params]);
+    getStudentProgressData();
+  }, [authToken, isAuthenticated, params]);
 
   return (
     <div>
@@ -72,7 +104,11 @@ const TeacherStudentProgressPage: FC<TeacherStudentProgressPageProps> = () => {
           ) : (
             <>
               <SeoComponent title="Student Report" />
-              <TeacherStudentProgressSection studentId={studentId!} />
+              <TeacherStudentProgressSection
+                studentName={studentName!}
+                batchName={batchName!}
+                progress={studentProgress!}
+              />
             </>
           )}
         </div>
