@@ -74,7 +74,7 @@ const ClassProgressAccordion: FC<ClassProgressAccordionProps> = ({
                         <span
                           className={`p-2 px-4 text-center border rounded text-xs tablet:text-md min-w-[75px] tablet:min-w-[86px]
 													${
-                            topicProgress.Classwork >= PASS_MARKS
+                            topicProgress.Homework >= PASS_MARKS
                               ? 'border-green bg-green/10 text-green'
                               : 'border-red bg-red/10 text-red'
                           }`}
