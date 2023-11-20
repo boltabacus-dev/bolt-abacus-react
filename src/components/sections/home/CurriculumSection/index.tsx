@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 
 import Level from '@components/molecules/Level';
 
@@ -7,14 +7,6 @@ import { levels } from '@constants/curriculumSectionDetails';
 export interface CurriculumSectionProps {}
 
 const CurriculumSection: FC<CurriculumSectionProps> = () => {
-  const targetRef = useRef<HTMLDivElement>(null);
-  // const { scrollYProgress } = useScroll({
-  //   target: targetRef,
-  //   offset: ['start end', 'end center'],
-  // });
-
-  // const solidHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
-
   return (
     <div
       id="curriculum"
@@ -26,16 +18,14 @@ const CurriculumSection: FC<CurriculumSectionProps> = () => {
       </h1>
       <div className="flex flex-col items-center justify-center text-left">
         <div className="pt-16">
-          <div ref={targetRef} className="relative">
-            {levels.map((level, index) => (
-              <Level
-                key={index}
-                title={level.title}
-                points={level.points}
-                lastLevel={levels.length - 1 === index}
-              />
-            ))}
-          </div>
+          {levels.map((level, index) => (
+            <Level
+              key={index}
+              title={level.title}
+              points={level.points}
+              lastLevel={levels.length - 1 === index}
+            />
+          ))}
         </div>
       </div>
     </div>

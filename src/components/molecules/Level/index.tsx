@@ -1,4 +1,5 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 export interface LevelProps {
   title: string;
@@ -7,9 +8,17 @@ export interface LevelProps {
 }
 
 const Level: FC<LevelProps> = ({ title, points, lastLevel }) => {
+  const targetRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    offset: ['start center', 'end center'],
+  });
+
+  const solidHeight = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
   return (
-    <div className="flex gap-6 desktop:gap-24">
-      <div className="relative shrink-0 desktop:ml-10">
+    <div className="relative flex gap-6 desktop:gap-24">
+      <div ref={targetRef} className="relative shrink-0 desktop:ml-10">
         <img
           src="/images/dot.png"
           alt=""
@@ -17,9 +26,19 @@ const Level: FC<LevelProps> = ({ title, points, lastLevel }) => {
           height={100}
           className="w-8 h-8"
         />
-        {lastLevel && (
-          <div className="absolute w-8 h-full p-1 -translate-x-1/2 bg-black left-1/2 top-3 -z-10" />
-        )}
+        <div className="absolute left-0 flex justify-center w-8 h-full top-2 bottom-2">
+          {!lastLevel && (
+            <div className="h-full border-l-2 border-dashed border-gold" />
+          )}
+        </div>
+        <div className="absolute left-0 flex justify-center w-8 h-full top-2 bottom-2">
+          {!lastLevel && (
+            <motion.div
+              style={{ height: solidHeight }}
+              className="border-l-2 border-gold"
+            />
+          )}
+        </div>
       </div>
       <div className="pt-1 pb-10 pl-4 desktop:pt-0">
         <h2 className="text-lg font-normal text-gold desktop:text-xl">
