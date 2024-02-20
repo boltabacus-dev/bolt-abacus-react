@@ -58,7 +58,11 @@ const StudentReportPage: FC<StudentReportPageProps> = () => {
             if (isAxiosError(error)) {
               const status = error.response?.status;
               if (status === 403) {
-                setApiError(error.response?.data?.message);
+                setApiError(
+                  error.response?.data?.error ||
+                    error.response?.data?.message ||
+                    ERRORS.SERVER_ERROR
+                );
                 setFallBackLink(STUDENT_DASHBOARD);
                 setFallBackAction(MESSAGES.GO_DASHBOARD);
               } else {
@@ -92,7 +96,7 @@ const StudentReportPage: FC<StudentReportPageProps> = () => {
         <div>
           {apiError ? (
             <>
-              <SeoComponent title="Invalid Level Report" />
+              <SeoComponent title="Error" />
               <ErrorBox
                 errorMessage={apiError}
                 link={fallBackLink}

@@ -64,7 +64,11 @@ const TeacherStudentProgressPage: FC<TeacherStudentProgressPageProps> = () => {
             if (isAxiosError(error)) {
               const status = error.response?.status;
               if (status === 401 || status === 403 || status === 404) {
-                setApiError(error.response?.data?.message);
+                setApiError(
+                  error.response?.data?.error ||
+                    error.response?.data?.message ||
+                    ERRORS.SERVER_ERROR
+                );
               } else {
                 setApiError(ERRORS.SERVER_ERROR);
               }

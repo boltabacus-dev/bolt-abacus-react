@@ -79,7 +79,11 @@ const ViewQuizSection: FC<ViewQuizSectionProps> = () => {
       if (isAxiosError(err)) {
         const status = err.response?.status;
         if (status === 401) {
-          setFormError(err.response?.data?.message);
+          setFormError(
+            err.response?.data?.error ||
+              err.response?.data?.message ||
+              ERRORS.SERVER_ERROR
+          );
         } else {
           setFormError(ERRORS.SERVER_ERROR);
         }
@@ -136,7 +140,11 @@ const ViewQuizSection: FC<ViewQuizSectionProps> = () => {
       if (isAxiosError(error)) {
         const status = error.response?.status;
         if (status === 401 || status === 403) {
-          setFormError(error.response?.data?.message);
+          setFormError(
+            error.response?.data?.error ||
+              error.response?.data?.message ||
+              ERRORS.SERVER_ERROR
+          );
         } else {
           setFormError(ERRORS.SERVER_ERROR);
         }

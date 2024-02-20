@@ -44,7 +44,11 @@ const TeacherDashboardPage: FC<TeacherDashboardPageProps> = () => {
           if (isAxiosError(error)) {
             const status = error.response?.status;
             if (status === 403) {
-              setApiError(error.response?.data?.message);
+              setApiError(
+                error.response?.data?.error ||
+                  error.response?.data?.message ||
+                  ERRORS.SERVER_ERROR
+              );
               setFallBackLink(TEACHER_DASHBOARD);
               setFallBackAction(MESSAGES.GO_DASHBOARD);
             } else {

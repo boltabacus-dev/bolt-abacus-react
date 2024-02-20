@@ -51,7 +51,11 @@ const AddTeacherSection: FC<AddTeacherSectionProps> = () => {
       if (isAxiosError(error)) {
         const status = error.response?.status;
         if (status === 401) {
-          setFormError(error.response?.data?.message);
+          setFormError(
+            error.response?.data?.error ||
+              error.response?.data?.message ||
+              ERRORS.SERVER_ERROR
+          );
         } else {
           setFormError(ERRORS.SERVER_ERROR);
         }

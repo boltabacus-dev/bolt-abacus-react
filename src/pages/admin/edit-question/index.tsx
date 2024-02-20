@@ -53,7 +53,11 @@ const AdminEditQuestionPage: FC<AdminEditQuestionPageProps> = () => {
           if (isAxiosError(error)) {
             const status = error.response?.status;
             if (status === 401) {
-              setApiError(error.response?.data?.message);
+              setApiError(
+                error.response?.data?.error ||
+                  error.response?.data?.message ||
+                  ERRORS.SERVER_ERROR
+              );
               setFallBackLink(LOGIN_PAGE);
               setFallBackAction(MESSAGES.GO_LOGIN);
             } else {

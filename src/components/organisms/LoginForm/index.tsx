@@ -69,7 +69,11 @@ const LoginForm: FC<LoginFormProps> = () => {
         const status = error.response?.status;
         if (status === 401) {
           setIsInvalidCred(true);
-          setFormError(error.response?.data?.message);
+          setFormError(
+            error.response?.data?.error ||
+              error.response?.data?.message ||
+              ERRORS.SERVER_ERROR
+          );
         } else {
           setIsInvalidCred(false);
           setFormError(ERRORS.SERVER_ERROR);
