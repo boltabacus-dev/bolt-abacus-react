@@ -29,7 +29,7 @@ const PricingCard: FC<PricingCardProps> = ({ plan }) => {
             {plan.title}
           </div>
           <p className="font-semibold text-md">{plan.description}</p>
-          <div className="">
+          {/* <div className="">
             <div className="flex items-start text-sm font-semibold">
               <span className="p-1.5 font-medium text-lg">{plan.symbol}</span>
               <div className="flex items-center">
@@ -37,7 +37,7 @@ const PricingCard: FC<PricingCardProps> = ({ plan }) => {
                 <span className="mt-3 ml-2 text-grey">{plan.frequency}</span>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <hr className="border-grey mt-7" />
         <ul className="flex-1 mt-6 space-y-4">
@@ -48,9 +48,9 @@ const PricingCard: FC<PricingCardProps> = ({ plan }) => {
             </li>
           ))}
         </ul>
-        <div className="flex justify-center mt-8 font-semibold text-center text-gold tablet:text-md desktop:text-lg">
+        {/* <div className="flex justify-center mt-8 font-semibold text-center text-gold tablet:text-md desktop:text-lg">
           Payable {plan.total} {plan.currency} <br /> EMI Available*
-        </div>
+        </div> */}
       </div>
     </div>
   );
