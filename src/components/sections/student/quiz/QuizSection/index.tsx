@@ -19,6 +19,7 @@ import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 
 export interface QuizSectionProps {
+  levelId: number;
   quizId: number;
   quizQuestions: Array<QuizQuestion>;
   quizAnswers: Array<QuizAnswer>;
@@ -26,6 +27,7 @@ export interface QuizSectionProps {
 }
 
 const QuizSection: FC<QuizSectionProps> = ({
+  levelId,
   quizId,
   quizQuestions,
   quizAnswers,
@@ -139,6 +141,7 @@ const QuizSection: FC<QuizSectionProps> = ({
                     />
                   ) : (
                     <ResultSection
+                      levelId={levelId}
                       result={result!}
                       verdict={quizVerdict!}
                       time={quizCompletionTime!}

@@ -8,16 +8,22 @@ import { QuizPageParams } from '@interfaces/RouteParams';
 import { QuestionResult } from '@interfaces/apis/student';
 import QuizActionButton from '@components/atoms/QuizActionButton';
 import { MESSAGES } from '@constants/app';
-import { STUDENT_DASHBOARD } from '@constants/routes';
+import { STUDENT_LEVEL } from '@constants/routes';
 import { secondsToMinutesSeconds } from '@helpers/timer';
 
 export interface ResultSectionProps {
+  levelId: number;
   result: Array<QuestionResult>;
   verdict: boolean;
   time: number;
 }
 
-const ResultSection: FC<ResultSectionProps> = ({ result, verdict, time }) => {
+const ResultSection: FC<ResultSectionProps> = ({
+  levelId,
+  result,
+  verdict,
+  time,
+}) => {
   const params = useParams<QuizPageParams>();
   const links =
     params.topicId === undefined
@@ -59,7 +65,7 @@ const ResultSection: FC<ResultSectionProps> = ({ result, verdict, time }) => {
               type="next"
             />
           </Link>
-          <Link to={STUDENT_DASHBOARD}>
+          <Link to={`${STUDENT_LEVEL}/${levelId}`}>
             <QuizActionButton text={MESSAGES.GO_DASHBOARD} type="next" />
           </Link>
         </div>

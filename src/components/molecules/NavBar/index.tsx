@@ -61,7 +61,9 @@ const NavBar: FC<NavBarProps> = () => {
                 </NavBarLink>
                 <NavBarLink type="desktop" href={PROFILE_PAGE}>
                   <ProfileIcon
-                    text={user.name.first.charAt(0) + user.name.last.charAt(0)}
+                    text={`${user?.name?.first?.charAt(
+                      0
+                    )}${user?.name?.last?.charAt(0)}`}
                   />
                 </NavBarLink>
               </>

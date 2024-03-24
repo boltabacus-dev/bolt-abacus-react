@@ -38,6 +38,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
   const [quizQuestions, setQuizQuestions] = useState<Array<QuizQuestion>>([]);
   const [quizId, setQuizId] = useState<number>();
   const [quizAnswers, setQuizAnswers] = useState<Array<QuizAnswer>>([]);
+  const [level, setLevel] = useState<number>();
 
   useEffect(() => {
     const getLevelData = async () => {
@@ -61,6 +62,8 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
             const topicId = parseInt(params.topicId!, 10);
             const quizType =
               params.quizType === 'classwork' ? 'Classwork' : 'Homework';
+
+            setLevel(levelId);
 
             const res = await quizRequest(
               levelId,
@@ -130,6 +133,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
             <>
               <SeoComponent title="Quiz" />
               <QuizSection
+                levelId={level!}
                 quizId={quizId!}
                 quizQuestions={quizQuestions!}
                 quizAnswers={quizAnswers}
