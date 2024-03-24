@@ -70,16 +70,18 @@ export const QuizResultSchema = z.object({
 export type QuizResult = z.infer<typeof QuizResultSchema>;
 
 // Report Page API Response
-
 export const QuizReportSchema = z.object({
   topicId: z.number(),
   Classwork: z.number(),
+  ClassworkTime: z.number(),
   Homework: z.number(),
+  HomeworkTime: z.number(),
 });
 export type QuizReport = z.infer<typeof QuizReportSchema>;
 
 export const TestReportSchema = z.object({
   Test: z.number(),
+  Time: z.number(),
 });
 export type TestReport = z.infer<typeof TestReportSchema>;
 

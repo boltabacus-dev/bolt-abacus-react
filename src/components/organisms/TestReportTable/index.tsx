@@ -3,6 +3,8 @@ import { FC } from 'react';
 import { getScoreInteger } from '@helpers/batch';
 import { TestReport } from '@interfaces/apis/student';
 
+import { secondsToMinutesSeconds } from '@helpers/timer';
+
 export interface TestReportTableProps {
   testReport: TestReport;
 }
@@ -13,7 +15,20 @@ const TestReportTable: FC<TestReportTableProps> = ({ testReport }) => {
       <div className="grid grid-cols-3 gap-2 text-sm font-bold tablet:text-[18px] desktop:min-w-[800px]">
         <div className="p-2 text-center tablet:p-6">Test</div>
         <div className="p-2 font-normal text-center tablet:p-6">
-          <span>{getScoreInteger(testReport.Test)}%</span>
+          <p>
+            Score:{' '}
+            <span className="font-bold">
+              {getScoreInteger(testReport.Test)}%
+            </span>
+          </p>
+        </div>
+        <div className="p-2 font-normal text-center tablet:p-6">
+          <p>
+            Time:{' '}
+            <span className="font-bold">
+              {secondsToMinutesSeconds(testReport.Time)}
+            </span>
+          </p>
         </div>
       </div>
     </div>

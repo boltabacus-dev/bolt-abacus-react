@@ -8,6 +8,9 @@ export const minutesToSeconds = (minutes: number) => {
 };
 
 export const secondsToMinutesSeconds = (time: number) => {
+  if (!time || Number.isNaN(time)) {
+    return '';
+  }
   const minutes = `${Math.floor(time / 60)}`.padStart(2, '0');
   const seconds = `${time - parseInt(minutes, 10) * 60}`.padStart(2, '0');
   return `${minutes}:${seconds}`;
