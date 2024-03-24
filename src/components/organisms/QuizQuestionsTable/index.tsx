@@ -59,7 +59,11 @@ const QuizQuestionsTable: FC<QuizQuestionsTableProps> = ({ questions }) => {
                   type="button"
                   className="px-3 py-2 font-semibold text-center rounded-lg text-md duration-150 ease-in-out bg-gold/80 text-black hover:bg-gold flex items-center justify-center"
                 >
-                  <Link to={`${ADMIN_EDIT_QUESTION}/${question.questionId}`}>
+                  <Link
+                    to={`${ADMIN_EDIT_QUESTION}/${question.questionId}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <BiSolidEdit />
                   </Link>
                 </button>
