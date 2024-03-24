@@ -41,6 +41,7 @@ const StudentTestPage: FC<StudentTestPageProps> = () => {
   const [quizAnswers, setQuizAnswers] = useState<Array<QuizAnswer>>([]);
   const [timeInSeconds, setTimeInSeconds] = useState<number>();
   const [expiryTimestamp, setExpiryTimestamp] = useState<Date>(new Date());
+  const [level, setLevel] = useState<number>();
 
   const setTimer = (minutes: number) => {
     const timestamp = new Date();
@@ -62,6 +63,8 @@ const StudentTestPage: FC<StudentTestPageProps> = () => {
             const levelId = parseInt(params.levelId!, 10);
             const classId = parseInt(params.classId!, 10);
             const quizType = 'Test';
+
+            setLevel(levelId);
 
             const res = await quizRequest(
               levelId,
@@ -133,6 +136,7 @@ const StudentTestPage: FC<StudentTestPageProps> = () => {
             <>
               <SeoComponent title="Test" />
               <TestSection
+                levelId={level!}
                 quizId={quizId!}
                 quizQuestions={quizQuestions!}
                 quizAnswers={quizAnswers}

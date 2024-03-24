@@ -19,6 +19,7 @@ import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { useTimer } from 'react-timer-hook';
 
 export interface TestSectionProps {
+  levelId: number;
   quizId: number;
   quizQuestions: Array<QuizQuestion>;
   quizAnswers: Array<QuizAnswer>;
@@ -28,6 +29,7 @@ export interface TestSectionProps {
 }
 
 const TestSection: FC<TestSectionProps> = ({
+  levelId,
   quizId,
   quizQuestions,
   quizAnswers,
@@ -152,6 +154,7 @@ const TestSection: FC<TestSectionProps> = ({
                     />
                   ) : (
                     <ResultSection
+                      levelId={levelId!}
                       result={result!}
                       verdict={quizVerdict!}
                       time={quizCompletionTime!}
