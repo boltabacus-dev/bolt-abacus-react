@@ -73,7 +73,7 @@ const QuizBox: FC<QuizBoxProps> = ({
         <div className="">
           <input
             className="w-28 px-4 py-3 bg-darkBlack outline-none border text-center border-[#A0A0A0] rounded-lg tablet:w-36"
-            type="text"
+            type="number"
             value={answer}
             ref={inputRef}
             onChange={(e) => handleChange(e)}
