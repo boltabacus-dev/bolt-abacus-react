@@ -12,6 +12,7 @@ export const STUDENT_ROUTE = '/student';
 export const STUDENT_DASHBOARD = `${STUDENT_ROUTE}/dashboard`;
 export const STUDENT_LEVEL = `${STUDENT_ROUTE}/level`;
 export const STUDENT_PRACTICE = `${STUDENT_ROUTE}/practice`;
+export const STUDENT_PROGRESS = `${STUDENT_ROUTE}/progress`;
 
 export const ADMIN_ROUTE = '/admin';
 export const ADMIN_DASHBOARD = `${ADMIN_ROUTE}/dashboard`;
@@ -37,6 +38,7 @@ export const STUDENT_LEVEL_ENDPOINT = '/classes/';
 export const STUDENT_QUIZ_ENDPOINT = '/quiz/';
 export const STUDENT_QUIZ_SUBMIT_ENDPOINT = '/quizCorrection/';
 export const STUDENT_REPORT_ENDPOINT = '/report/';
+export const STUDENT_PROGRESS_ENDPOINT = '/getStudentProgressStudent/';
 
 export const GET_ALL_BATCHES_ENDPOINT = '/getAllBatches/';
 export const GET_ALL_TEACHERS_ENDPOINT = '/getTeachers/';

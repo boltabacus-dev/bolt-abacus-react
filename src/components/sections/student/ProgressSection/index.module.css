@@ -1,0 +1,3 @@
+.progressSection {
+  min-height: calc(80vh - theme('spacing.24'));
+}
