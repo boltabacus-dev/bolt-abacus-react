@@ -20,6 +20,7 @@ lerna-debug.log*
 
 # Local & Env files
 .env
+.env.creds
 .env*.local
 *.local
 

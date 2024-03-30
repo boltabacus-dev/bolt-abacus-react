@@ -13,7 +13,7 @@ export interface ClassProgressAccordionProps {
 const ClassProgressAccordion: FC<ClassProgressAccordionProps> = ({
   classProgress,
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div className="relative w-full py-1 rounded-lg">
