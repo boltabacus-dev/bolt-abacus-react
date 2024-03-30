@@ -1,9 +1,8 @@
 import { FC } from 'react';
 
-import { getScoreInteger } from '@helpers/batch';
-import { QuizReport } from '@interfaces/apis/student';
+import ResultBox from '@components/atoms/ResultBox';
 
-import { secondsToMinutesSeconds } from '@helpers/timer';
+import { QuizReport } from '@interfaces/apis/student';
 
 export interface QuizReportTableProps {
   quizReport: Array<QuizReport>;
@@ -33,34 +32,12 @@ const QuizReportTable: FC<QuizReportTableProps> = ({ quizReport }) => {
             </div>
             <div className="flex items-center justify-center p-1 tablet:p-4 desktop:p-3">
               <div className="m-auto flex flex-col w-full tablet:w-auto tablet:min-w-[100px]">
-                <p>
-                  Score:{' '}
-                  <span className="font-bold">
-                    {getScoreInteger(topic.Classwork)}%
-                  </span>
-                </p>
-                <p>
-                  Time:{' '}
-                  <span className="font-bold">
-                    {secondsToMinutesSeconds(topic.ClassworkTime)}
-                  </span>
-                </p>
+                <ResultBox score={topic.Classwork} time={topic.ClassworkTime} />
               </div>
             </div>
             <div className="flex items-center justify-center p-1 tablet:p-4 desktop:p-3">
               <div className="m-auto flex flex-col w-full tablet:w-auto tablet:min-w-[100px]">
-                <p>
-                  Score:{' '}
-                  <span className="font-bold">
-                    {getScoreInteger(topic.Homework)}%
-                  </span>
-                </p>
-                <p>
-                  Time:{' '}
-                  <span className="font-bold">
-                    {secondsToMinutesSeconds(topic.HomeworkTime)}
-                  </span>
-                </p>
+                <ResultBox score={topic.Homework} time={topic.HomeworkTime} />
               </div>
             </div>
           </div>
