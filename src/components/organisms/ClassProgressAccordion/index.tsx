@@ -2,9 +2,9 @@ import { FC, useState } from 'react';
 import { Collapse } from 'react-collapse';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
 
+import ResultBox from '@components/atoms/ResultBox';
+
 import { ClassProgress } from '@interfaces/apis/teacher';
-import { getScoreInteger } from '@helpers/batch';
-import { PASS_MARKS } from '@constants/app';
 
 export interface ClassProgressAccordionProps {
   classProgress: ClassProgress;
@@ -59,28 +59,16 @@ const ClassProgressAccordion: FC<ClassProgressAccordionProps> = ({
                         Topic {topicProgress.topicId}
                       </div>
                       <div className="flex items-center justify-center font-semibold">
-                        <span
-                          className={`p-2 px-4 text-center border rounded text-xs tablet:text-md min-w-[75px] tablet:min-w-[86px]
-													${
-                            topicProgress.Classwork >= PASS_MARKS
-                              ? 'border-green bg-green/10 text-green'
-                              : 'border-red bg-red/10 text-red'
-                          }`}
-                        >
-                          {getScoreInteger(topicProgress.Classwork)}%
-                        </span>
+                        <ResultBox
+                          score={topicProgress.Classwork}
+                          time={topicProgress.ClassworkTime}
+                        />
                       </div>
                       <div className="flex items-center justify-center font-semibold">
-                        <span
-                          className={`p-2 px-4 text-center border rounded text-xs tablet:text-md min-w-[75px] tablet:min-w-[86px]
-													${
-                            topicProgress.Homework >= PASS_MARKS
-                              ? 'border-green bg-green/10 text-green'
-                              : 'border-red bg-red/10 text-red'
-                          }`}
-                        >
-                          {getScoreInteger(topicProgress.Homework)}%
-                        </span>
+                        <ResultBox
+                          score={topicProgress.Homework}
+                          time={topicProgress.HomeworkTime}
+                        />
                       </div>
                     </div>
                   );
@@ -91,16 +79,10 @@ const ClassProgressAccordion: FC<ClassProgressAccordionProps> = ({
                   Test
                 </div>
                 <div className="flex items-center justify-center font-semibold">
-                  <span
-                    className={`p-2 px-4 text-center border rounded text-xs tablet:text-md min-w-[75px] tablet:min-w-[86px]
-													${
-                            classProgress.Test >= PASS_MARKS
-                              ? 'border-green bg-green/10 text-green'
-                              : 'border-red bg-red/10 text-red'
-                          }`}
-                  >
-                    {getScoreInteger(classProgress.Test)}%
-                  </span>
+                  <ResultBox
+                    time={classProgress.Time}
+                    score={classProgress.Test}
+                  />
                 </div>
               </div>
             </div>

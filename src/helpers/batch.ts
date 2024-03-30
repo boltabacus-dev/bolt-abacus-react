@@ -49,5 +49,5 @@ export const getBatchCardBgColor = (): string => {
 
 export const getScoreInteger = (n: number) => {
   if (Math.floor(n) === n) return n;
-  return n.toFixed(2);
+  return n.toFixed(1);
 };

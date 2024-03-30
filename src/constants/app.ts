@@ -26,4 +26,5 @@ export const MESSAGES = {
 };
 
 export const NO_OF_CLASSES = 12;
-export const PASS_MARKS = 70;
+export const PASS_MARKS = 75;
+export const FULL_MARKS = 100;

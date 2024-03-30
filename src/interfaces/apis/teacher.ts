@@ -72,12 +72,15 @@ export type GetBatchReportResponse = z.infer<
 export const TopicProgressSchema = z.object({
   topicId: z.number(),
   Classwork: z.number(),
+  ClassworkTime: z.number(),
   Homework: z.number(),
+  HomeworkTime: z.number(),
 });
 
 export const ClassProgressSchema = z.object({
   classId: z.number(),
   Test: z.number(),
+  Time: z.number(),
   topics: z.array(TopicProgressSchema),
 });
 export type ClassProgress = z.infer<typeof ClassProgressSchema>;
