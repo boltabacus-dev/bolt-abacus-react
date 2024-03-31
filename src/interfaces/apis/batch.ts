@@ -5,6 +5,12 @@ import { z } from 'zod';
 export const BatchSchema = z.object({
   batchId: z.number(),
   batchName: z.string(),
+  timeDay: z.string(),
+  timeSchedule: z.string(),
+  numberOfStudents: z.number(),
+  active: z.boolean(),
+  latestLevelId: z.number(),
+  latestClassId: z.number(),
 });
 export type Batch = z.infer<typeof BatchSchema>;
 

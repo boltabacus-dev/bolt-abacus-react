@@ -20,6 +20,7 @@ export const MESSAGES = {
   STUDENT_CREATED: 'Student created successfully!',
   TEACHER_CREATED: 'Teacher created successfully!',
   BATCH_CREATED: 'Batch created successfully!',
+  BATCH_EDITED: 'Batch edited successfully!',
   QUESTION_ADDED: 'Question added successfully!',
   QUESTION_EDITED: 'Question edited successfully!',
   LINK_UPDATED: 'Zoom link updated successfully!',

@@ -20,6 +20,8 @@ import StudentProgressPage from '@pages/student/student-progress';
 import AdminDashboardPage from '@pages/admin/dashboard';
 import AdminAddTeacherPage from '@pages/admin/add-teacher';
 import AdminAddStudentPage from '@pages/admin/add-student';
+import AdminViewAllBatchesPage from '@pages/admin/all-batches';
+import AdminEditBatchPage from '@pages/admin/edit-batch';
 import AdminAddBatchPage from '@pages/admin/add-batch';
 import AdminAddQuestionPage from '@pages/admin/add-question';
 import AdminEditQuestionPage from '@pages/admin/edit-question';
@@ -146,6 +148,14 @@ export const router = createBrowserRouter([
           {
             path: 'add/batch',
             element: <AdminAddBatchPage />,
+          },
+          {
+            path: 'edit/batch/:batchId',
+            element: <AdminEditBatchPage />,
+          },
+          {
+            path: 'all/batch',
+            element: <AdminViewAllBatchesPage />,
           },
           {
             path: 'view/quiz',

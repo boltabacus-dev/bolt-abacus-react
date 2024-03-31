@@ -126,3 +126,27 @@ export const editQuestionSchema = z.object({
 });
 
 export type TEditQuestionSchema = z.infer<typeof editQuestionSchema>;
+
+/*
+ * Edit Batch Details Form Input Schema
+ */
+export const editBatchSchema = z.object({
+  batchName: z.string().min(1, 'Batch Name is required').trim(),
+  timeDay: z.enum(
+    [
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday',
+    ],
+    {
+      errorMap: () => ({ message: 'Invalid Day' }),
+    }
+  ),
+  timeSchedule: z.string().trim().min(1, 'Invalid Time'),
+});
+
+export type TEditBatchSchema = z.infer<typeof editBatchSchema>;

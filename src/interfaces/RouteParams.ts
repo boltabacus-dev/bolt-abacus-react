@@ -23,6 +23,10 @@ export type EditQuestionPageParams = {
   questionId: string;
 };
 
+export type EditBatchPageParams = {
+  batchId: string;
+};
+
 export type UpdateBatchLinkPageParams = {
   batchId: string;
 };
