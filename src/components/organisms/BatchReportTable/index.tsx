@@ -1,87 +1,218 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { GrScorecard } from 'react-icons/gr';
+import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
+import {
+  ColumnDef,
+  SortingState,
+  flexRender,
+  getCoreRowModel,
+  getSortedRowModel,
+  useReactTable,
+  getPaginationRowModel,
+} from '@tanstack/react-table';
+import { Tooltip } from 'react-tooltip';
 
-import { getScoreInteger } from '@helpers/batch';
 import { StudentReport } from '@interfaces/apis/teacher';
+import { getScoreInteger } from '@helpers/batch';
+import { getClassNamesForScore } from '@helpers/report';
 
-import { PASS_MARKS } from '@constants/app';
 import { TEACHER_STUDENT_PROGRESS } from '@constants/routes';
 
 export interface BatchReportTableProps {
   studentReports: StudentReport[];
 }
 
-const BatchReportTable: FC<BatchReportTableProps> = ({ studentReports }) => {
-  return (
-    <div className="flex flex-col py-1 rounded-xl bg-darkBlack border-2 border-[#636363]">
-      <div className="grid grid-cols-4 gap-2 text-sm font-bold border-b border-[#636363] tablet:text-[18px] desktop:min-w-[800px]">
-        <div className="p-2 text-center tablet:p-6">Name</div>
-        <div className="p-2 text-center tablet:p-6">Classwork</div>
-        <div className="p-2 text-center tablet:p-6">Homework</div>
-        <div className="p-2 text-center tablet:p-6">Test</div>
-      </div>
-
-      {studentReports.map((report, index) => {
-        const isLast = studentReports.length === index + 1;
-        return (
-          <div
-            key={index}
-            className={`grid grid-cols-4 gap-2 p-1 text-xs  ${
-              isLast ? '' : 'border-b border-[#636363]'
-            } tablet:text-md`}
+const columns: ColumnDef<StudentReport>[] = [
+  {
+    accessorKey: 'firstName',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          First Name
+        </button>
+      );
+    },
+    cell: ({ row }) => (
+      <p className="text-center capitalize">{row.getValue('firstName')}</p>
+    ),
+  },
+  {
+    accessorKey: 'lastName',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Last Name
+        </button>
+      );
+    },
+    cell: ({ row }) => (
+      <p className="text-center capitalize">{row.getValue('lastName')}</p>
+    ),
+  },
+  {
+    accessorKey: 'classwork',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Classwork
+        </button>
+      );
+    },
+    cell: ({ row }) => (
+      // TODO: Add time after API changes
+      <span
+        className={`p-2 px-4 text-center border rounded text-xs w-fit min-w-[60px] tablet:text-md tablet:min-w-[100px]
+          ${getClassNamesForScore(10, row.getValue('classwork'))}
+      `}
+      >
+        {getScoreInteger(row.getValue('classwork'))}%
+      </span>
+    ),
+  },
+  {
+    accessorKey: 'homework',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Homework
+        </button>
+      );
+    },
+    cell: ({ row }) => (
+      // TODO: Add time after API changes
+      <span
+        className={`p-2 px-4 text-center border rounded text-xs w-fit min-w-[60px] tablet:text-md tablet:min-w-[100px]
+          ${getClassNamesForScore(10, row.getValue('homework'))}
+      `}
+      >
+        {getScoreInteger(row.getValue('homework'))}%
+      </span>
+    ),
+  },
+  {
+    accessorKey: 'userId',
+    header: 'Actions',
+    cell: ({ row }) => (
+      <>
+        <button
+          type="button"
+          className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
+          data-tooltip-id="view-progress-tooltip"
+          data-tooltip-content="View Progress"
+          data-tooltip-place="right"
+        >
+          <Link
+            to={`${TEACHER_STUDENT_PROGRESS}/${row.getValue('userId')}`}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <div className="flex items-center justify-center p-1">
-              <div className="flex items-center justify-center gap-1">
-                <Link
-                  to={`${TEACHER_STUDENT_PROGRESS}/${report.userId}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <p className="text-center capitalize hover:text-gold">
-                    {report.firstName} {report.lastName}
-                  </p>
-                </Link>
-              </div>
-            </div>
-            <div className="flex items-center justify-center p-2 text-center">
-              <span
-                className={`p-2 border min-w-[55px] rounded text-xs tablet:text-md tablet:min-w-[75px]  
-								${
-                  report.classwork >= PASS_MARKS
-                    ? 'border-green bg-green/10 text-green'
-                    : 'border-red bg-red/10 text-red'
-                }`}
-              >
-                {getScoreInteger(report.classwork)}%
-              </span>
-            </div>
-            <div className="flex items-center justify-center p-2 text-center">
-              <span
-                className={`p-2 border min-w-[55px] rounded text-xs tablet:text-md tablet:min-w-[75px]  
-								${
-                  report.homework >= PASS_MARKS
-                    ? 'border-green bg-green/10 text-green'
-                    : 'border-red bg-red/10 text-red'
-                }`}
-              >
-                {getScoreInteger(report.homework)}%
-              </span>
-            </div>
-            <div className="flex items-center justify-center p-2 text-center">
-              <span
-                className={`p-2 border min-w-[55px] rounded text-xs tablet:text-md tablet:min-w-[75px]  
-								${
-                  report.test >= PASS_MARKS
-                    ? 'border-green bg-green/10 text-green'
-                    : 'border-red bg-red/10 text-red'
-                }`}
-              >
-                {getScoreInteger(report.test)}%
-              </span>
-            </div>
-          </div>
-        );
-      })}
+            <GrScorecard />
+          </Link>
+        </button>
+        <Tooltip id="view-progress-tooltip" />
+      </>
+    ),
+  },
+];
+
+const BatchReportTable: FC<BatchReportTableProps> = ({ studentReports }) => {
+  const [reports, setReports] = useState<StudentReport[]>([]);
+
+  const [sorting, setSorting] = useState<SortingState>([]);
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
+  const table = useReactTable({
+    data: reports,
+    columns,
+    debugTable: true,
+    state: {
+      sorting,
+      pagination,
+    },
+    onSortingChange: setSorting,
+    onPaginationChange: setPagination,
+    getSortedRowModel: getSortedRowModel(),
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+  });
+
+  useEffect(() => {
+    setReports(studentReports);
+  }, [studentReports]);
+
+  return (
+    <div className="flex flex-col w-full gap-10">
+      <div className="rounded-xl bg-darkBlack border-2 border-[#636363]">
+        <table className="w-full">
+          <thead>
+            {table.getHeaderGroups().map((headerGroup) => (
+              <tr key={headerGroup.id} className="border-b border-[#636363]">
+                {headerGroup.headers.map((header) => (
+                  <th key={header.id}>
+                    <div className="p-1 text-xs text-center text-white tablet:p-3 tablet:text-lg">
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody>
+            {table.getRowModel().rows.map((row) => (
+              <tr key={row.id} className="">
+                {row.getVisibleCells().map((cell) => (
+                  <td key={cell.id}>
+                    <div className="flex items-center justify-center p-1 text-xs text-center tablet:p-2 tablet:text-md">
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className="flex items-center justify-center gap-5 p-2 mt-3">
+          <button
+            type="button"
+            className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-white/80 hover:bg-white disabled:bg-white/30"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            <MdNavigateBefore />
+          </button>
+          <p>{table.getState().pagination.pageIndex + 1}</p>
+          <button
+            type="button"
+            className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-white/80 hover:bg-white disabled:bg-white/30"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            <MdNavigateNext />
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

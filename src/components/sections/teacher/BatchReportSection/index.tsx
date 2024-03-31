@@ -6,6 +6,7 @@ import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 import FormButton from '@components/atoms/FormButton';
 import FormSelect, { LabelValuePair } from '@components/atoms/FormSelect';
 import ErrorMessage from '@components/atoms/ErrorMessage';
+import BatchReportTable from '@components/organisms/BatchReportTable';
 
 import { useAuthStore } from '@store/authStore';
 import { getBatchReportSchema } from '@validations/teacher';
@@ -19,7 +20,6 @@ import { getBatchReportRequest } from '@services/teacher';
 
 import { ERRORS } from '@constants/app';
 import { levelOptions } from '@constants/levelOptions';
-import BatchReportTable from '@components/organisms/BatchReportTable';
 
 export interface BatchReportSectionProps {
   batchId: number;
