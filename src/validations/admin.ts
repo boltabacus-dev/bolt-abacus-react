@@ -1,6 +1,8 @@
 import { z } from 'zod';
 import validator from 'validator';
 
+const MAX_FILE_SIZE = 1024 * 1024 * 5; // 5MB
+
 /*
  * Add Student Form Input Schema
  */
@@ -107,6 +109,23 @@ export const addQuestionSchema = z.object({
 });
 
 export type TAddQuestionSchema = z.infer<typeof addQuestionSchema>;
+
+/*
+ * Bulk Add Quiz Question Form Input Schema
+ */
+export const bulkAddQuestionSchema = z.object({
+  levelId: z.coerce.number().min(1, 'Invalid Level Id'),
+  classId: z.coerce.number().min(1, 'Invalid Class Id'),
+  topicId: z.coerce.number().min(1, 'Invalid Topic Id'),
+  quizType: z.enum(['Classwork', 'Homework', 'Test'], {
+    errorMap: () => ({ message: 'Invalid Quiz Type' }),
+  }),
+  questions: z.any().refine((files) => {
+    return files?.[0]?.size <= MAX_FILE_SIZE;
+  }, `CSV file less than 5MB is required.`),
+});
+
+export type TBulkAddQuestionSchema = z.infer<typeof bulkAddQuestionSchema>;
 
 /*
  * Edit Quiz Question Form Input Schema

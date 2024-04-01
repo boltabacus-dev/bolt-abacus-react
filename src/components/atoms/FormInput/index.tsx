@@ -4,13 +4,14 @@ import { useFormContext } from 'react-hook-form';
 import ErrorMessage from '@components/atoms/ErrorMessage';
 
 export interface FormInputProps {
-  type: 'text' | 'email' | 'password' | 'number' | 'time';
+  type: 'text' | 'email' | 'password' | 'number' | 'time' | 'file';
   name: string;
   placeholder: string;
   label: string;
   hasError?: boolean;
   disabled?: boolean;
   showPassword?: boolean;
+  accept?: string;
 }
 
 const FormInput: FC<FormInputProps> = ({

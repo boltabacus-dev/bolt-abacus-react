@@ -1,15 +1,18 @@
+import { FC } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+
 import AdminLinkButton from '@components/atoms/AdminLinkButton';
+
 import {
   ADMIN_ADD_BATCH,
   ADMIN_ADD_QUESTION,
   ADMIN_ADD_STUDENT,
   ADMIN_ADD_TEACHER,
   ADMIN_ALL_BATCH,
+  ADMIN_BULK_ADD_QUESTION,
   ADMIN_VIEW_QUIZ,
   RESET_PASSWORD_PAGE,
 } from '@constants/routes';
-import { FC } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 
 export interface AdminLinkBarProps {}
 
@@ -52,6 +55,12 @@ const AdminLinkBar: FC<AdminLinkBarProps> = () => {
           <AdminLinkButton
             text="Add Question"
             active={location.pathname === ADMIN_ADD_QUESTION}
+          />
+        </Link>
+        <Link to={ADMIN_BULK_ADD_QUESTION}>
+          <AdminLinkButton
+            text="Bulk Add Questions"
+            active={location.pathname === ADMIN_BULK_ADD_QUESTION}
           />
         </Link>
         <Link to={RESET_PASSWORD_PAGE}>

@@ -22,6 +22,7 @@ export const ADMIN_ADD_BATCH = `${ADMIN_ROUTE}/add/batch`;
 export const ADMIN_EDIT_BATCH = `${ADMIN_ROUTE}/edit/batch`;
 export const ADMIN_ALL_BATCH = `${ADMIN_ROUTE}/all/batch`;
 export const ADMIN_ADD_QUESTION = `${ADMIN_ROUTE}/add/question`;
+export const ADMIN_BULK_ADD_QUESTION = `${ADMIN_ROUTE}/add/question/bulk`;
 export const ADMIN_EDIT_QUESTION = `${ADMIN_ROUTE}/edit/question`;
 export const ADMIN_VIEW_QUIZ = `${ADMIN_ROUTE}/view/quiz`;
 

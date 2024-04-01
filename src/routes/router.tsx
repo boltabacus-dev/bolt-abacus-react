@@ -24,6 +24,7 @@ import AdminViewAllBatchesPage from '@pages/admin/all-batches';
 import AdminEditBatchPage from '@pages/admin/edit-batch';
 import AdminAddBatchPage from '@pages/admin/add-batch';
 import AdminAddQuestionPage from '@pages/admin/add-question';
+import AdminBulkAddQuestionsPage from '@pages/admin/bulk-add-questions';
 import AdminEditQuestionPage from '@pages/admin/edit-question';
 import AdminViewQuizPage from '@pages/admin/view-quiz';
 import TeacherDashboardPage from '@pages/teacher/dashboard';
@@ -164,6 +165,10 @@ export const router = createBrowserRouter([
           {
             path: 'add/question',
             element: <AdminAddQuestionPage />,
+          },
+          {
+            path: 'add/question/bulk',
+            element: <AdminBulkAddQuestionsPage />,
           },
           {
             path: 'edit/question/:questionId',
