@@ -22,6 +22,7 @@ export const MESSAGES = {
   BATCH_CREATED: 'Batch created successfully!',
   BATCH_EDITED: 'Batch edited successfully!',
   QUESTION_ADDED: 'Question added successfully!',
+  QUESTIONS_ADDED: 'Questions added successfully!',
   QUESTION_EDITED: 'Question edited successfully!',
   LINK_UPDATED: 'Zoom link updated successfully!',
 };

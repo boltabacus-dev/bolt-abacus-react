@@ -1,4 +1,8 @@
-import { Question, QuestionsFileRowType } from '@interfaces/QuestionsFile';
+import {
+  Question,
+  QuestionAPI,
+  QuestionsFileRowType,
+} from '@interfaces/QuestionsFile';
 
 export const parseQuestions = (
   fileQuestions: QuestionsFileRowType[]
@@ -80,4 +84,22 @@ export const createTable = (questions: Question[]) => {
   });
 
   return table;
+};
+
+export const questionsToQuestionsAPI = (
+  questions: Question[]
+): QuestionAPI[] => {
+  let result: QuestionAPI[] = [];
+
+  result = questions.map((question) => {
+    return {
+      question: {
+        numbers: question.numbers,
+        operator: question.operation,
+      },
+      correctAnswer: question.correctAnswer,
+    };
+  });
+
+  return result;
 };

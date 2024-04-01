@@ -48,6 +48,7 @@ export const GET_ALL_QUIZ_QUESTIONS_ENDPOINT = '/getAllQuestions/';
 
 export const GET_QUESTION_ENDPOINT = '/getQuestion/';
 export const ADD_QUESTION_ENDPOINT = '/addQuestion/';
+export const BULK_ADD_QUESTION_ENDPOINT = '/bulkAddQuestions/';
 export const EDIT_QUESTION_ENDPOINT = '/editQuestion/';
 
 export const ADD_STUDENT_ENDPOINT = '/addStudent/';

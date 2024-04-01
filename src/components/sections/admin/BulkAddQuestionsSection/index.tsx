@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { parse } from 'papaparse';
 import { isAxiosError } from 'axios';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
@@ -17,15 +18,22 @@ import { getLevelSchemaRequest } from '@services/admin';
 import { Question, QuestionsFileRowType } from '@interfaces/QuestionsFile';
 import { ClassSchema, GetLevelSchemaResponse } from '@interfaces/apis/admin';
 
-import { ERRORS } from '@constants/app';
+import { ERRORS, MESSAGES } from '@constants/app';
 import { levelOptions } from '@constants/levelOptions';
-import { createTable, parseQuestions } from '@helpers/bulkUpload';
+import {
+  createTable,
+  parseQuestions,
+  questionsToQuestionsAPI,
+} from '@helpers/bulkUpload';
+import { bulkAddQuestionsRequest } from '@services/question';
+import { ADMIN_VIEW_QUIZ } from '@constants/routes';
 
 export interface BulkAddQuestionsSectionProps {}
 
 type QuizType = 'Homework' | 'Classwork' | 'Test';
 
 const BulkAddQuestionsSection: FC<BulkAddQuestionsSectionProps> = () => {
+  const navigate = useNavigate();
   const authToken = useAuthStore((state) => state.authToken);
 
   const [loading, setLoading] = useState(false);
@@ -138,7 +146,42 @@ const BulkAddQuestionsSection: FC<BulkAddQuestionsSectionProps> = () => {
       topicId,
       quizType
     );
-    setFormSuccess('');
+
+    try {
+      const res = await bulkAddQuestionsRequest(
+        levelId!,
+        classId!,
+        topicId!,
+        quizType!,
+        questionsToQuestionsAPI(questions),
+        authToken!
+      );
+
+      if (res.status === 200) {
+        setFormError('');
+        setFormSuccess(MESSAGES.QUESTIONS_ADDED);
+        swal(MESSAGES.QUESTIONS_ADDED, {
+          icon: 'success',
+        });
+
+        navigate(ADMIN_VIEW_QUIZ);
+      }
+    } catch (error) {
+      if (isAxiosError(error)) {
+        const status = error.response?.status;
+        if (status === 401 || status === 403) {
+          setFormError(
+            error.response?.data?.error ||
+              error.response?.data?.message ||
+              ERRORS.SERVER_ERROR
+          );
+        } else {
+          setFormError(ERRORS.SERVER_ERROR);
+        }
+      } else {
+        setFormError(ERRORS.SERVER_ERROR);
+      }
+    }
   };
 
   const onSubmit = async (data: FieldValues) => {

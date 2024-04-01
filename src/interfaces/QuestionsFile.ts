@@ -9,3 +9,11 @@ export type Question = {
   operation: string;
   correctAnswer: number;
 };
+
+export type QuestionAPI = {
+  question: {
+    operator: string;
+    numbers: number[];
+  };
+  correctAnswer: number;
+};
