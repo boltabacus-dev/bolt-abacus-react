@@ -12,20 +12,20 @@ import ErrorMessage from '@components/atoms/ErrorMessage';
 import SuccessMessage from '@components/atoms/SuccessMessage';
 import FormSelect, { LabelValuePair } from '@components/atoms/FormSelect';
 
-import { useAuthStore } from '@store/authStore';
-import { bulkAddQuestionSchema } from '@validations/admin';
-import { getLevelSchemaRequest } from '@services/admin';
-import { Question, QuestionsFileRowType } from '@interfaces/QuestionsFile';
-import { ClassSchema, GetLevelSchemaResponse } from '@interfaces/apis/admin';
-
-import { ERRORS, MESSAGES } from '@constants/app';
-import { levelOptions } from '@constants/levelOptions';
 import {
   createTable,
   parseQuestions,
   questionsToQuestionsAPI,
 } from '@helpers/bulkUpload';
+import { useAuthStore } from '@store/authStore';
+import { bulkAddQuestionSchema } from '@validations/admin';
+import { getLevelSchemaRequest } from '@services/admin';
 import { bulkAddQuestionsRequest } from '@services/question';
+import { Question, QuestionsFileRowType } from '@interfaces/QuestionsFile';
+import { ClassSchema, GetLevelSchemaResponse } from '@interfaces/apis/admin';
+
+import { ERRORS, MESSAGES } from '@constants/app';
+import { levelOptions } from '@constants/levelOptions';
 import { ADMIN_VIEW_QUIZ } from '@constants/routes';
 
 export interface BulkAddQuestionsSectionProps {}
@@ -129,30 +129,19 @@ const BulkAddQuestionsSection: FC<BulkAddQuestionsSectionProps> = () => {
     }
   };
 
-  const [levelId, setLevelId] = useState<number>();
-  const [classId, setClassId] = useState<number>();
-  const [topicId, setTopicId] = useState<number>();
-  const [quizType, setQuizType] = useState<QuizType>();
-  const [questionsFromFile, setQuestionsFromFile] =
-    useState<QuestionsFileRowType[]>();
-
-  const submitApi = async (questions: Question[]) => {
-    // eslint-disable-next-line no-console
-    console.log(
-      'sending questions to backend',
-      questions,
-      levelId,
-      classId,
-      topicId,
-      quizType
-    );
-
+  const submitApi = async (
+    questions: Question[],
+    levelId: number,
+    classId: number,
+    topicId: number,
+    quizType: QuizType
+  ) => {
     try {
       const res = await bulkAddQuestionsRequest(
-        levelId!,
-        classId!,
-        topicId!,
-        quizType!,
+        levelId,
+        classId,
+        topicId,
+        quizType,
         questionsToQuestionsAPI(questions),
         authToken!
       );
@@ -185,51 +174,50 @@ const BulkAddQuestionsSection: FC<BulkAddQuestionsSectionProps> = () => {
   };
 
   const onSubmit = async (data: FieldValues) => {
-    setLevelId(data?.levelId);
-    setClassId(data?.classId);
-    setTopicId(data?.topicId);
-    setQuizType(data?.quizType);
-
     await parse(data?.questions[0], {
       header: true,
       skipEmptyLines: true,
       complete(results: { data: QuestionsFileRowType[] }) {
-        setQuestionsFromFile(results.data);
+        let questions: Question[] = [];
+
+        try {
+          questions = parseQuestions(results.data!);
+        } catch (error) {
+          let message = ERRORS.SERVER_ERROR;
+          if (error instanceof Error) message = error.message;
+
+          swal({
+            title: ERRORS.CSV_FILE_ERROR,
+            text: message,
+            icon: 'error',
+          });
+          return;
+        }
+
+        const tableContainer = document.createElement('div');
+        tableContainer.className =
+          'w-full flex justify-center items-center text-sm';
+        tableContainer.append(createTable(questions));
+
+        swal({
+          title: 'Do you want to proceed further ?',
+          text: 'Check the questions below',
+          content: { element: tableContainer },
+          icon: 'warning',
+          closeOnEsc: true,
+          buttons: ['No, cancel it!', 'Yes, I am sure!'],
+        }).then(async (isConfirm) => {
+          if (isConfirm) {
+            await submitApi(
+              questions,
+              data?.levelId,
+              data?.classId,
+              data?.topicId,
+              data?.quizType
+            );
+          }
+        });
       },
-    });
-
-    let questions: Question[] = [];
-
-    try {
-      questions = parseQuestions(questionsFromFile!);
-    } catch (error) {
-      let message = 'File Error';
-      if (error instanceof Error) message = error.message;
-
-      swal({
-        title: 'File Error',
-        text: message,
-        icon: 'error',
-      });
-      return;
-    }
-
-    const tableContainer = document.createElement('div');
-    tableContainer.className =
-      'w-full flex justify-center items-center text-sm';
-    tableContainer.append(createTable(questions));
-
-    swal({
-      title: 'Do you want to proceed further ?',
-      text: 'Check the questions below',
-      content: { element: tableContainer },
-      icon: 'warning',
-      closeOnEsc: true,
-      buttons: ['No, cancel it!', 'Yes, I am sure!'],
-    }).then(async (isConfirm) => {
-      if (isConfirm) {
-        await submitApi(questions);
-      }
     });
   };
 
