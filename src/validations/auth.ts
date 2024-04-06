@@ -35,3 +35,12 @@ export const resetPasswordSchema = z
   });
 
 export type TResetPasswordSchema = z.infer<typeof resetPasswordSchema>;
+
+/*
+ * Forgot Password Form Input Schema
+ */
+export const forgotPasswordSchema = z.object({
+  email: z.string().min(1, 'Email is required').email('Invalid email').trim(),
+});
+
+export type TForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>;

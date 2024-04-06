@@ -3,7 +3,7 @@ import { FC, useState } from 'react';
 import { isAxiosError } from 'axios';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import ErrorMessage from '@components/atoms/ErrorMessage';
 import FormButton from '@components/atoms/FormButton';
@@ -16,6 +16,7 @@ import { loginSchema } from '@validations/auth';
 import { ERRORS } from '@constants/app';
 import {
   ADMIN_DASHBOARD,
+  FORGOT_PASSWORD_PAGE,
   STUDENT_DASHBOARD,
   TEACHER_DASHBOARD,
 } from '@constants/routes';
@@ -108,6 +109,11 @@ const LoginForm: FC<LoginFormProps> = () => {
             disabled={isLoading}
             hasError={isInvalidCred}
           />
+          <Link to={FORGOT_PASSWORD_PAGE}>
+            <p className="text-sm cursor-pointer hover:underline">
+              Forgot Password?
+            </p>
+          </Link>
           <FormButton text="Sign In" isLoading={isLoading} />
           {formError !== '' && (
             <div className="flex justify-center text-xs text-center">

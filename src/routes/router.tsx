@@ -11,6 +11,7 @@ import Custom404Page from '@pages/not-found';
 import ProfilePage from '@pages/profile';
 import LoginPage from '@pages/login';
 import ResetPasswordPage from '@pages/reset-password';
+import ForgotPasswordPage from '@pages/forgot-password';
 import StudentDashboardPage from '@pages/student/dashboard';
 import StudentLevelPage from '@pages/student/level';
 import StudentQuizPage from '@pages/student/quiz';
@@ -71,6 +72,17 @@ export const router = createBrowserRouter([
           {
             path: '',
             element: <ResetPasswordPage />,
+          },
+        ],
+      },
+      // Route: 'boltabacus.com/forgot-password' -> With Navbar only
+      {
+        path: 'forgot-password',
+        element: <RootLayout withNavBar withFooter={false} />,
+        children: [
+          {
+            path: '',
+            element: <ForgotPasswordPage />,
           },
         ],
       },

@@ -6,6 +6,7 @@ export const CONTACT_SECTION = '/#footer';
 
 export const PROFILE_PAGE = '/profile';
 export const RESET_PASSWORD_PAGE = '/reset-password';
+export const FORGOT_PASSWORD_PAGE = '/forgot-password';
 export const LOGIN_PAGE = '/login';
 
 export const STUDENT_ROUTE = '/student';
@@ -35,6 +36,7 @@ export const TEACHER_STUDENT_PROGRESS = `${TEACHER_ROUTE}/student-progress`;
 // Backend Endpoints
 export const LOGIN_ENDPOINT = '/login/';
 export const RESET_PASSWORD_ENDPOINT = '/resetPassword/';
+export const FORGOT_PASSWORD_ENDPOINT = '/forgotPassword/';
 
 export const STUDENT_DASHBOARD_ENDPOINT = '/levels/';
 export const STUDENT_LEVEL_ENDPOINT = '/classes/';
