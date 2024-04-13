@@ -29,6 +29,7 @@
     "react-tooltip": "^5.22.0",
     "sweetalert": "^2.1.2",
     "validator": "^13.11.0",
+    "vite-plugin-rewrite-all": "^1.0.2",
     "vite-plugin-svgr": "^4.1.0",
     "zod": "^3.22.4",
     "zustand": "^4.4.3"

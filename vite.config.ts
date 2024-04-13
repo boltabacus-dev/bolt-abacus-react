@@ -2,6 +2,7 @@ import { defineConfig, loadEnv } from 'vite';
 
 import svgr from 'vite-plugin-svgr';
 import react from '@vitejs/plugin-react';
+import pluginRewriteAll from 'vite-plugin-rewrite-all';
 import path from 'node:path';
 
 export default ({ mode }) => {
@@ -36,6 +37,6 @@ export default ({ mode }) => {
         '@validations': path.resolve(__dirname, './src/validations'),
       },
     },
-    plugins: [react(), svgr()],
+    plugins: [react(), svgr(), pluginRewriteAll()],
   });
 };

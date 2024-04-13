@@ -38,3 +38,7 @@ export type BatchReportPageParams = {
 export type StudentProgressPageParams = {
   studentId: string;
 };
+
+export type ResetPasswordPageParams = {
+  authToken: string;
+};

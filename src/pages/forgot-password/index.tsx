@@ -3,6 +3,7 @@ import { isAxiosError } from 'axios';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import swal from 'sweetalert';
 
 import FormInput from '@components/atoms/FormInput';
 import FormButton from '@components/atoms/FormButton';
@@ -14,7 +15,7 @@ import { forgotPasswordSchema } from '@validations/auth';
 import { forgotPasswordRequest } from '@services/auth';
 
 import { LOGIN_PAGE, RESET_PASSWORD_PAGE } from '@constants/routes';
-import { ERRORS } from '@constants/app';
+import { ERRORS, MESSAGES } from '@constants/app';
 
 import styles from './index.module.css';
 
@@ -38,6 +39,10 @@ const ForgotPasswordPage: FC<ForgotPasswordPageProps> = () => {
       const res = await forgotPasswordRequest(data?.email);
       if (res.status === 200) {
         setFormError('');
+        swal(MESSAGES.RESET_LINK_SENT, {
+          icon: 'success',
+        });
+
         navigate(LOGIN_PAGE);
       }
     } catch (error) {
@@ -50,7 +55,7 @@ const ForgotPasswordPage: FC<ForgotPasswordPageProps> = () => {
               ERRORS.SERVER_ERROR
           );
         } else {
-          setFormError(ERRORS.SERVER_ERROR);
+          setFormError(error.response?.data?.message || ERRORS.SERVER_ERROR);
         }
       } else {
         setFormError(ERRORS.SERVER_ERROR);

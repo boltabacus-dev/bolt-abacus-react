@@ -26,6 +26,8 @@ export const MESSAGES = {
   QUESTIONS_ADDED: 'Questions added successfully!',
   QUESTION_EDITED: 'Question edited successfully!',
   LINK_UPDATED: 'Zoom link updated successfully!',
+  RESET_LINK_SENT: 'Reset password link sent to you email!',
+  PASSWORD_RESET: 'Password reset successfully!',
 };
 
 export const NO_OF_CLASSES = 12;

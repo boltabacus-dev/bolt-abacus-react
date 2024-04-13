@@ -11,6 +11,7 @@ import Custom404Page from '@pages/not-found';
 import ProfilePage from '@pages/profile';
 import LoginPage from '@pages/login';
 import ResetPasswordPage from '@pages/reset-password';
+import ResetPasswordPageV2 from '@pages/reset-password-v2';
 import ForgotPasswordPage from '@pages/forgot-password';
 import StudentDashboardPage from '@pages/student/dashboard';
 import StudentLevelPage from '@pages/student/level';
@@ -72,6 +73,17 @@ export const router = createBrowserRouter([
           {
             path: '',
             element: <ResetPasswordPage />,
+          },
+        ],
+      },
+      // Route: 'boltabacus.com/reset-password/v2' -> With Navbar only
+      {
+        path: 'resetPassword/v2/:authToken',
+        element: <RootLayout withNavBar withFooter={false} />,
+        children: [
+          {
+            path: '',
+            element: <ResetPasswordPageV2 />,
           },
         ],
       },
