@@ -4,6 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import StudentFooter from '@components/molecules/student/Footer';
 import StudentNavBar from '@components/molecules/student/NavBar';
 
+import { validAuthToken } from '@helpers/auth';
 import { useAuthStore } from '@store/authStore';
 import { LOGIN_PAGE } from '@constants/routes';
 
@@ -19,7 +20,10 @@ const StudentLayout: FC<StudentLayoutProps> = ({ withNavBar, withFooter }) => {
 
   return (
     <>
-      {(!authToken || !user || (user && user.role !== 'Student')) && (
+      {(!authToken ||
+        !user ||
+        (user && user.role !== 'Student') ||
+        !validAuthToken(authToken!)) && (
         <>
           {logout()}
           <Navigate to={LOGIN_PAGE} />
