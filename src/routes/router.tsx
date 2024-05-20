@@ -4,6 +4,7 @@ import DefaultLayout from '@layouts/DefaultLayout';
 import RootLayout from '@layouts/RootLayout';
 import StudentLayout from '@layouts/StudentLayout';
 import AdminLayout from '@layouts/AdminLayout';
+import SubAdminLayout from '@layouts/SubAdminLayout';
 import TeacherLayout from '@layouts/TeacherLayout';
 
 import HomePage from '@pages/home';
@@ -29,6 +30,7 @@ import AdminAddQuestionPage from '@pages/admin/add-question';
 import AdminBulkAddQuestionsPage from '@pages/admin/bulk-add-questions';
 import AdminEditQuestionPage from '@pages/admin/edit-question';
 import AdminViewQuizPage from '@pages/admin/view-quiz';
+import SubAdminDashboardPage from '@pages/sub-admin/dashboard';
 import TeacherDashboardPage from '@pages/teacher/dashboard';
 import TeacherUpdateLinkPage from '@pages/teacher/update-link';
 import TeacherBatchReportPage from '@pages/teacher/report';
@@ -203,6 +205,30 @@ export const router = createBrowserRouter([
             element: (
               <Custom404Page
                 link="/admin/dashboard"
+                buttonText="Go to Dashboard"
+              />
+            ),
+          },
+        ],
+      },
+      // Route: 'boltabacus.com/sub-admin'
+      {
+        path: 'sub-admin',
+        element: <SubAdminLayout />,
+        children: [
+          {
+            path: '',
+            element: <SubAdminDashboardPage />,
+          },
+          {
+            path: 'dashboard',
+            element: <SubAdminDashboardPage />,
+          },
+          {
+            path: '*',
+            element: (
+              <Custom404Page
+                link="/sub-admin/dashboard"
                 buttonText="Go to Dashboard"
               />
             ),

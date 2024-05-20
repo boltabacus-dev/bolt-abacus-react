@@ -9,6 +9,7 @@ import { useAuthStore } from '@store/authStore';
 import {
   ADMIN_DASHBOARD,
   STUDENT_DASHBOARD,
+  SUB_ADMIN_DASHBOARD,
   TEACHER_DASHBOARD,
 } from '@constants/routes';
 
@@ -29,6 +30,8 @@ const LoginPage: FC<LoginPageProps> = () => {
               ? STUDENT_DASHBOARD
               : user.role === 'Teacher'
               ? TEACHER_DASHBOARD
+              : user.role === 'SubAdmin'
+              ? SUB_ADMIN_DASHBOARD
               : ADMIN_DASHBOARD
           }
         />

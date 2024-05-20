@@ -5,5 +5,5 @@ export interface User {
   };
   email: string;
   phone: string;
-  role: 'Student' | 'Teacher' | 'Admin';
+  role: 'Student' | 'Teacher' | 'Admin' | 'SubAdmin';
 }

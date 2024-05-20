@@ -5,7 +5,7 @@ export const LoginResponseSchema = z.object({
   phone: z.string(),
   firstName: z.string(),
   lastName: z.string(),
-  role: z.enum(['Student', 'Teacher', 'Admin']),
+  role: z.enum(['Student', 'Teacher', 'Admin', 'SubAdmin']),
   token: z.string(),
 });
 
