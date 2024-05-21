@@ -4,7 +4,6 @@ import { Navigate, Outlet } from 'react-router-dom';
 import SubAdminNavBar from '@components/molecules/sub-admin/NavBar';
 import SubAdminFooter from '@components/molecules/sub-admin/Footer';
 
-import { validAuthToken } from '@helpers/auth';
 import { useAuthStore } from '@store/authStore';
 import { LOGIN_PAGE } from '@constants/routes';
 
@@ -17,10 +16,7 @@ const SubAdminLayout: FC<SubAdminLayoutProps> = () => {
 
   return (
     <>
-      {(!authToken ||
-        !user ||
-        (user && user.role !== 'SubAdmin') ||
-        !validAuthToken(authToken!)) && (
+      {(!authToken || !user || (user && user.role !== 'SubAdmin')) && (
         <>
           {logout()}
           <Navigate to={LOGIN_PAGE} />

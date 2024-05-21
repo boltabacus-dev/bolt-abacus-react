@@ -4,7 +4,6 @@ import { Navigate, Outlet } from 'react-router-dom';
 import TeacherFooter from '@components/molecules/teacher/Footer';
 import TeacherNavBar from '@components/molecules/teacher/NavBar';
 
-import { validAuthToken } from '@helpers/auth';
 import { useAuthStore } from '@store/authStore';
 import { LOGIN_PAGE } from '@constants/routes';
 
@@ -17,10 +16,7 @@ const TeacherLayout: FC<TeacherLayoutProps> = () => {
 
   return (
     <>
-      {(!authToken ||
-        !user ||
-        (user && user.role !== 'Teacher') ||
-        !validAuthToken(authToken!)) && (
+      {(!authToken || !user || (user && user.role !== 'Teacher')) && (
         <>
           {logout()}
           <Navigate to={LOGIN_PAGE} />
