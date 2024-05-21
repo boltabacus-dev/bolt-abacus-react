@@ -5,22 +5,11 @@ import { AuthToken } from '@interfaces/AuthToken';
 // TODO: Add refresh token after backend implementation
 export const validAuthToken = (token: string): boolean => {
   const decodedToken: AuthToken = jwtDecode(token);
-  const timestamp = decodedToken.expiryTime;
+  const { creationTime } = decodedToken;
 
-  const date = new Date();
-  const nowUTC = Date.UTC(
-    date.getUTCFullYear(),
-    date.getUTCMonth(),
-    date.getUTCDate(),
-    date.getUTCHours(),
-    date.getUTCMinutes(),
-    date.getUTCSeconds()
-  );
+  const createdDate = new Date(`${creationTime.replace(' ', 'T')}Z`);
+  const expiryDate = new Date(createdDate.getTime() + 24 * 60 * 60 * 1000); // EXPIRY TIME TO 24HRS
+  const now = new Date();
 
-  const expiryDate = new Date(timestamp).setHours(0, 0, 0, 0);
-  const todayDate = new Date(nowUTC).setHours(0, 0, 0, 0);
-
-  const isNotExpired = todayDate <= expiryDate;
-
-  return isNotExpired;
+  return now < expiryDate;
 };

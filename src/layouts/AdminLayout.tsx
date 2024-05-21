@@ -5,6 +5,7 @@ import AdminNavBar from '@components/molecules/admin/NavBar';
 import AdminFooter from '@components/molecules/admin/Footer';
 import AdminLinkBar from '@components/molecules/admin/LinkBar';
 
+import { validAuthToken } from '@helpers/auth';
 import { useAuthStore } from '@store/authStore';
 import { LOGIN_PAGE } from '@constants/routes';
 
@@ -17,7 +18,10 @@ const AdminLayout: FC<AdminLayoutProps> = () => {
 
   return (
     <>
-      {(!authToken || !user || (user && user.role !== 'Admin')) && (
+      {(!authToken ||
+        !user ||
+        (user && user.role !== 'Admin') ||
+        !validAuthToken(authToken!)) && (
         <>
           {logout()}
           <Navigate to={LOGIN_PAGE} />
