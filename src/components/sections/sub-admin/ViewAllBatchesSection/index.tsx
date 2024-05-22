@@ -15,7 +15,7 @@ import {
 } from '@tanstack/react-table';
 
 import { Batch } from '@interfaces/apis/batch';
-import { ADMIN_EDIT_BATCH } from '@constants/routes';
+import { SUB_ADMIN_EDIT_BATCH } from '@constants/routes';
 
 export interface ViewAllBatchesSectionProps {
   batches: Batch[];
@@ -96,7 +96,7 @@ const columns: ColumnDef<Batch>[] = [
         className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
       >
         <Link
-          to={`${ADMIN_EDIT_BATCH}/${row.getValue('batchId')}`}
+          to={`${SUB_ADMIN_EDIT_BATCH}/${row.getValue('batchId')}`}
           target="_blank"
           rel="noopener noreferrer"
         >
