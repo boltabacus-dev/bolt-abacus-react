@@ -15,7 +15,7 @@ const OrganizationCard: FC<OrganizationCardProps> = ({ tagDetails }) => {
   return (
     <div className="flex items-center gap-4 py-2 justify-evenly">
       <div className="flex flex-col gap-8 px-6 py-10 bg-darkBlack tablet:px-16 rounded-xl shadow-boxWhite">
-        <div className="flex flex-col gap-6 tablet:text-lg">
+        <div className="flex flex-col gap-6">
           <div className="flex items-center gap-2">
             <div className="font-semibold text-gold/75">Tag Name: </div>
             <div className="">{tagDetails.tagName}</div>

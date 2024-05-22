@@ -35,6 +35,8 @@ export const SUB_ADMIN_ROUTE = '/sub-admin';
 export const SUB_ADMIN_DASHBOARD = `${SUB_ADMIN_ROUTE}/dashboard`;
 export const SUB_ADMIN_ADD_STUDENT = `${SUB_ADMIN_ROUTE}/add/student`;
 export const SUB_ADMIN_ADD_TEACHER = `${SUB_ADMIN_ROUTE}/add/teacher`;
+export const SUB_ADMIN_ADD_BATCH = `${SUB_ADMIN_ROUTE}/add/batch`;
+export const SUB_ADMIN_ALL_BATCH = `${SUB_ADMIN_ROUTE}/all/batch`;
 
 export const TEACHER_ROUTE = '/teacher';
 export const TEACHER_DASHBOARD = `${TEACHER_ROUTE}/dashboard`;

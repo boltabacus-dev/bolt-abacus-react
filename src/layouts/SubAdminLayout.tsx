@@ -3,6 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import SubAdminNavBar from '@components/molecules/sub-admin/NavBar';
 import SubAdminFooter from '@components/molecules/sub-admin/Footer';
+import SubAdminLinkBar from '@components/molecules/sub-admin/LinkBar';
 
 import { validAuthToken } from '@helpers/auth';
 import { useAuthStore } from '@store/authStore';
@@ -29,6 +30,7 @@ const SubAdminLayout: FC<SubAdminLayoutProps> = () => {
       <div className="flex flex-col min-h-screen">
         <SubAdminNavBar />
         <div className="flex justify-center flex-1">
+          <SubAdminLinkBar />
           <div className="flex-1">
             <Outlet />
           </div>

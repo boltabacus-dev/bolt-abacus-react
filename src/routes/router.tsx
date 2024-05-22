@@ -34,6 +34,10 @@ import AdminEditQuestionPage from '@pages/admin/edit-question';
 import AdminViewQuizPage from '@pages/admin/view-quiz';
 import AdminViewOrganizationPage from '@pages/admin/view-organization';
 import SubAdminDashboardPage from '@pages/sub-admin/dashboard';
+import SubAdminAddBatchPage from '@pages/sub-admin/add-batch';
+import SubAdminAddStudentPage from '@pages/sub-admin/add-student';
+import SubAdminAddTeacherPage from '@pages/sub-admin/add-teacher';
+import SubAdminViewAllBatchesPage from '@pages/sub-admin/all-batches';
 import TeacherDashboardPage from '@pages/teacher/dashboard';
 import TeacherUpdateLinkPage from '@pages/teacher/update-link';
 import TeacherBatchReportPage from '@pages/teacher/report';
@@ -238,6 +242,22 @@ export const router = createBrowserRouter([
           {
             path: 'dashboard',
             element: <SubAdminDashboardPage />,
+          },
+          {
+            path: 'add/batch',
+            element: <SubAdminAddBatchPage />,
+          },
+          {
+            path: 'add/student',
+            element: <SubAdminAddStudentPage />,
+          },
+          {
+            path: 'add/teacher',
+            element: <SubAdminAddTeacherPage />,
+          },
+          {
+            path: 'all/batch',
+            element: <SubAdminViewAllBatchesPage />,
           },
           {
             path: '*',
