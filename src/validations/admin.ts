@@ -237,3 +237,18 @@ export const addOrganizationFormSchema = z.object({
 export type TAddOrganizationFormSchema = z.infer<
   typeof addOrganizationFormSchema
 >;
+
+/*
+ * View Quiz Details Form Input Schema
+ */
+export const viewOrganizationFormSchema = z.object({
+  tagName: z
+    .string()
+    .min(2, 'Invalid tag name')
+    .trim()
+    .refine((val) => val !== '-1', { message: 'Invalid Tag Name Answer' }),
+});
+
+export type TViewOrganizationFormSchema = z.infer<
+  typeof viewOrganizationFormSchema
+>;

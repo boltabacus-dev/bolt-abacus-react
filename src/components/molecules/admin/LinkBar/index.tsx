@@ -12,6 +12,7 @@ import {
   ADMIN_ALL_BATCH,
   ADMIN_BULK_ADD_QUESTION,
   ADMIN_SUB_ADMIN_TEACHER,
+  ADMIN_VIEW_ORGANIZATION,
   ADMIN_VIEW_QUIZ,
   RESET_PASSWORD_PAGE,
 } from '@constants/routes';
@@ -33,6 +34,12 @@ const AdminLinkBar: FC<AdminLinkBarProps> = () => {
           <AdminLinkButton
             text="Add Teacher"
             active={location.pathname === ADMIN_ADD_TEACHER}
+          />
+        </Link>
+        <Link to={ADMIN_VIEW_ORGANIZATION}>
+          <AdminLinkButton
+            text="View Organization"
+            active={location.pathname === ADMIN_VIEW_ORGANIZATION}
           />
         </Link>
         <Link to={ADMIN_ADD_ORGANIZATION}>

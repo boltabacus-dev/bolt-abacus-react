@@ -25,6 +25,8 @@ export const ADMIN_EDIT_BATCH = `${ADMIN_ROUTE}/edit/batch`;
 export const ADMIN_ALL_BATCH = `${ADMIN_ROUTE}/all/batch`;
 export const ADMIN_ADD_QUESTION = `${ADMIN_ROUTE}/add/question`;
 export const ADMIN_ADD_ORGANIZATION = `${ADMIN_ROUTE}/add/organization`;
+export const ADMIN_VIEW_ORGANIZATION = `${ADMIN_ROUTE}/view/organization`;
+export const ADMIN_EDIT_ORGANIZATION = `${ADMIN_ROUTE}/edit/organization`;
 export const ADMIN_BULK_ADD_QUESTION = `${ADMIN_ROUTE}/add/question/bulk`;
 export const ADMIN_EDIT_QUESTION = `${ADMIN_ROUTE}/edit/question`;
 export const ADMIN_VIEW_QUIZ = `${ADMIN_ROUTE}/view/quiz`;
@@ -78,4 +80,5 @@ export const GET_STUDENT_PROGRESS_ENDPOINT = '/getStudentProgress/';
 export const ADD_SUB_ADMIN_ENDPOINT = '/addSubAdmin/';
 
 export const GET_ALL_TAG_NAMES_ENDPOINT = '/getAllTags/';
+export const GET_TAG_DETAILS_ENDPOINT = '/getTagDetails/';
 export const ADD_TAG_ENDPOINT = '/addTag/';
