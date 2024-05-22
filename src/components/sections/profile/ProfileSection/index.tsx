@@ -1,10 +1,11 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
+
+import Button from '@components/atoms/Button';
+import ProfileIcon from '@components/atoms/ProfileIcon';
 
 import { User } from '@interfaces/User';
-import Button from '@components/atoms/Button';
-import { Link } from 'react-router-dom';
 import { RESET_PASSWORD_PAGE } from '@constants/routes';
-import ProfileIcon from '@components/atoms/ProfileIcon';
 
 export interface ProfileSectionProps {
   user: User;
@@ -38,6 +39,10 @@ const ProfileSection: FC<ProfileSectionProps> = ({ user }) => {
           <div className="flex items-center gap-2">
             <div className="font-semibold text-gold/75">Role: </div>
             <div className="">{user.role}</div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="font-semibold text-gold/75">Organization: </div>
+            <div className="">{user.organizationName}</div>
           </div>
           <div className="w-full pt-4">
             <Link to={RESET_PASSWORD_PAGE}>

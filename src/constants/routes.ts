@@ -19,10 +19,12 @@ export const ADMIN_ROUTE = '/admin';
 export const ADMIN_DASHBOARD = `${ADMIN_ROUTE}/dashboard`;
 export const ADMIN_ADD_STUDENT = `${ADMIN_ROUTE}/add/student`;
 export const ADMIN_ADD_TEACHER = `${ADMIN_ROUTE}/add/teacher`;
+export const ADMIN_SUB_ADMIN_TEACHER = `${ADMIN_ROUTE}/add/sub-admin`;
 export const ADMIN_ADD_BATCH = `${ADMIN_ROUTE}/add/batch`;
 export const ADMIN_EDIT_BATCH = `${ADMIN_ROUTE}/edit/batch`;
 export const ADMIN_ALL_BATCH = `${ADMIN_ROUTE}/all/batch`;
 export const ADMIN_ADD_QUESTION = `${ADMIN_ROUTE}/add/question`;
+export const ADMIN_ADD_ORGANIZATION = `${ADMIN_ROUTE}/add/organization`;
 export const ADMIN_BULK_ADD_QUESTION = `${ADMIN_ROUTE}/add/question/bulk`;
 export const ADMIN_EDIT_QUESTION = `${ADMIN_ROUTE}/edit/question`;
 export const ADMIN_VIEW_QUIZ = `${ADMIN_ROUTE}/view/quiz`;
@@ -43,6 +45,7 @@ export const LOGIN_ENDPOINT = '/login/';
 export const RESET_PASSWORD_ENDPOINT = '/resetPassword/';
 export const FORGOT_PASSWORD_ENDPOINT = '/forgotPassword/';
 
+export const ADD_STUDENT_ENDPOINT = '/addStudent/';
 export const STUDENT_DASHBOARD_ENDPOINT = '/levels/';
 export const STUDENT_LEVEL_ENDPOINT = '/classes/';
 export const STUDENT_QUIZ_ENDPOINT = '/quiz/';
@@ -58,8 +61,6 @@ export const ADD_QUESTION_ENDPOINT = '/addQuestion/';
 export const BULK_ADD_QUESTION_ENDPOINT = '/bulkAddQuestions/';
 export const EDIT_QUESTION_ENDPOINT = '/editQuestion/';
 
-export const ADD_STUDENT_ENDPOINT = '/addStudent/';
-
 export const GET_ALL_TEACHERS_ENDPOINT = '/getTeachers/';
 export const ADD_TEACHER_ENDPOINT = '/addTeacher/';
 
@@ -73,3 +74,8 @@ export const UPDATE_BATCH_LINK_ENDPOINT = '/updateBatchLink/';
 export const UPDATE_CLASS_ENDPOINT = '/updateClass/';
 export const GET_BATCH_REPORT_ENDPOINT = '/getClassReport/';
 export const GET_STUDENT_PROGRESS_ENDPOINT = '/getStudentProgress/';
+
+export const ADD_SUB_ADMIN_ENDPOINT = '/addSubAdmin/';
+
+export const GET_ALL_TAG_NAMES_ENDPOINT = '/getAllTags/';
+export const ADD_TAG_ENDPOINT = '/addTag/';

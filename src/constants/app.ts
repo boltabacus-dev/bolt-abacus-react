@@ -20,6 +20,8 @@ export const MESSAGES = {
   QUIZ_FAIL: 'You haven’t passed. You can always try again',
   STUDENT_CREATED: 'Student created successfully!',
   TEACHER_CREATED: 'Teacher created successfully!',
+  SUB_ADMIN_CREATED: 'Sub Admin created successfully!',
+  ORGANIZATION_CREATED: 'Organization created successfully!',
   BATCH_CREATED: 'Batch created successfully!',
   BATCH_EDITED: 'Batch edited successfully!',
   QUESTION_ADDED: 'Question added successfully!',

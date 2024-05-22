@@ -54,6 +54,7 @@ const LoginForm: FC<LoginFormProps> = () => {
           },
           email: loginResponse.email,
           phone: loginResponse.phone,
+          organizationName: loginResponse.organizationName,
           role: loginResponse.role,
         });
 
@@ -68,7 +69,7 @@ const LoginForm: FC<LoginFormProps> = () => {
     } catch (error) {
       if (isAxiosError(error)) {
         const status = error.response?.status;
-        if (status === 401) {
+        if (status === 401 || status === 403) {
           setIsInvalidCred(true);
           setFormError(
             error.response?.data?.error ||

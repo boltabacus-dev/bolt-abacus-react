@@ -5,5 +5,6 @@ export interface User {
   };
   email: string;
   phone: string;
+  organizationName: string;
   role: 'Student' | 'Teacher' | 'Admin' | 'SubAdmin';
 }

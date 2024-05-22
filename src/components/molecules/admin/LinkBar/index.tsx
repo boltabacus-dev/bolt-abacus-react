@@ -5,11 +5,13 @@ import AdminLinkButton from '@components/atoms/AdminLinkButton';
 
 import {
   ADMIN_ADD_BATCH,
+  ADMIN_ADD_ORGANIZATION,
   ADMIN_ADD_QUESTION,
   ADMIN_ADD_STUDENT,
   ADMIN_ADD_TEACHER,
   ADMIN_ALL_BATCH,
   ADMIN_BULK_ADD_QUESTION,
+  ADMIN_SUB_ADMIN_TEACHER,
   ADMIN_VIEW_QUIZ,
   RESET_PASSWORD_PAGE,
 } from '@constants/routes';
@@ -33,16 +35,28 @@ const AdminLinkBar: FC<AdminLinkBarProps> = () => {
             active={location.pathname === ADMIN_ADD_TEACHER}
           />
         </Link>
-        <Link to={ADMIN_ADD_BATCH}>
+        <Link to={ADMIN_ADD_ORGANIZATION}>
           <AdminLinkButton
-            text="Add Batch"
-            active={location.pathname === ADMIN_ADD_BATCH}
+            text="Add Organization"
+            active={location.pathname === ADMIN_ADD_ORGANIZATION}
+          />
+        </Link>
+        <Link to={ADMIN_SUB_ADMIN_TEACHER}>
+          <AdminLinkButton
+            text="Add Sub Admin"
+            active={location.pathname === ADMIN_SUB_ADMIN_TEACHER}
           />
         </Link>
         <Link to={ADMIN_ALL_BATCH}>
           <AdminLinkButton
             text="View Batches"
             active={location.pathname === ADMIN_ALL_BATCH}
+          />
+        </Link>
+        <Link to={ADMIN_ADD_BATCH}>
+          <AdminLinkButton
+            text="Add Batch"
+            active={location.pathname === ADMIN_ADD_BATCH}
           />
         </Link>
         <Link to={ADMIN_VIEW_QUIZ}>

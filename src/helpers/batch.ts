@@ -35,6 +35,32 @@ export const getDayOptions = () => {
   return options;
 };
 
+export const getLevelOptions = () => {
+  const options: LabelValuePair[] = [];
+
+  for (let i = 1; i <= 10; i += 1) {
+    options.push({
+      label: i.toString(),
+      value: i,
+    });
+  }
+
+  return options;
+};
+
+export const getClassOptions = () => {
+  const options: LabelValuePair[] = [];
+
+  for (let i = 1; i <= 12; i += 1) {
+    options.push({
+      label: i.toString(),
+      value: i,
+    });
+  }
+
+  return options;
+};
+
 const colorsArray = [
   'bg-cardPink',
   'bg-cardRed',

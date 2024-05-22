@@ -3,10 +3,15 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
 
 import BrandLogo from '@components/atoms/BrandLogo';
 import NavBarLink from '@components/atoms/NavBarLink';
-import Button from '@components/atoms/Button';
+import ProfileIcon from '@components/atoms/ProfileIcon';
 
 import { useAuthStore } from '@store/authStore';
-import { HOME_PAGE, LOGIN_PAGE, SUB_ADMIN_DASHBOARD } from '@constants/routes';
+import {
+  HOME_PAGE,
+  LOGIN_PAGE,
+  PROFILE_PAGE,
+  SUB_ADMIN_DASHBOARD,
+} from '@constants/routes';
 
 export interface SubAdminNavBarProps {}
 
@@ -32,7 +37,12 @@ const SubAdminNavBar: FC<SubAdminNavBarProps> = () => {
                   Dashboard
                 </NavBarLink>
                 <NavBarLink type="desktop" href={LOGIN_PAGE} onclick={logout}>
-                  <Button type="secondary" text="Logout" />
+                  Log out
+                </NavBarLink>
+                <NavBarLink type="desktop" href={PROFILE_PAGE}>
+                  <ProfileIcon
+                    text={user.name.first.charAt(0) + user.name.last.charAt(0)}
+                  />
                 </NavBarLink>
               </>
             )}

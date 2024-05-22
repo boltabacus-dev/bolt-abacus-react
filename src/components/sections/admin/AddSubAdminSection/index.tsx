@@ -8,39 +8,42 @@ import FormButton from '@components/atoms/FormButton';
 import FormInput from '@components/atoms/FormInput';
 import ErrorMessage from '@components/atoms/ErrorMessage';
 import SuccessMessage from '@components/atoms/SuccessMessage';
+import FormSelect, { LabelValuePair } from '@components/atoms/FormSelect';
 
-import { addTeacherFormSchema } from '@validations/admin';
-import { addTeacherRequest } from '@services/teacher';
+import { addSubAdminFormSchema } from '@validations/admin';
+import { addSubAdminRequest } from '@services/sub-admin';
 import { useAuthStore } from '@store/authStore';
-
 import { ERRORS, MESSAGES } from '@constants/app';
 
-export interface AddTeacherSectionProps {}
+export interface AddSubAdminSectionProps {
+  tagNames: Array<string>;
+}
 
-const AddTeacherSection: FC<AddTeacherSectionProps> = () => {
+const AddSubAdminSection: FC<AddSubAdminSectionProps> = ({ tagNames }) => {
   const authToken = useAuthStore((state) => state.authToken);
 
   const [formError, setFormError] = useState('');
   const [formSuccess, setFormSuccess] = useState('');
 
   const formMethods = useForm({
-    resolver: zodResolver(addTeacherFormSchema),
+    resolver: zodResolver(addSubAdminFormSchema),
   });
   const isLoading = formMethods.formState.isSubmitting;
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      const res = await addTeacherRequest(
+      const res = await addSubAdminRequest(
         data?.firstName,
         data?.lastName,
         data?.phone,
+        data?.tagName,
         data?.email,
         authToken!
       );
       if (res.status === 200) {
         setFormError('');
-        setFormSuccess(MESSAGES.TEACHER_CREATED);
-        swal(MESSAGES.TEACHER_CREATED, {
+        setFormSuccess(MESSAGES.SUB_ADMIN_CREATED);
+        swal(MESSAGES.SUB_ADMIN_CREATED, {
           icon: 'success',
         });
 
@@ -50,7 +53,7 @@ const AddTeacherSection: FC<AddTeacherSectionProps> = () => {
       setFormSuccess('');
       if (isAxiosError(error)) {
         const status = error.response?.status;
-        if (status === 401 || status === 400) {
+        if (status === 400 || status === 401) {
           setFormError(
             error.response?.data?.error ||
               error.response?.data?.message ||
@@ -65,10 +68,21 @@ const AddTeacherSection: FC<AddTeacherSectionProps> = () => {
     }
   };
 
+  const getOptions = (arr: Array<string>) => {
+    const options: LabelValuePair[] = [];
+    arr.map((item) => {
+      return options.push({
+        label: item,
+        value: item,
+      });
+    });
+    return options;
+  };
+
   return (
     <div className="flex flex-col gap-3 px-6 py-2 justify-evenly tablet:flex-row tablet:justify-between tablet:items-center tablet:p-10 desktop:px-36">
       <div className="flex flex-col w-full gap-10">
-        <p className="text-xl font-bold text-gold">Add Teacher</p>
+        <p className="text-xl font-bold text-gold">Add Sub Admin</p>
         <FormProvider {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(onSubmit)}>
             <div className="grid w-full grid-cols-1 pb-4 justify-items-center desktop:justify-items-start desktop:grid-cols-2">
@@ -100,9 +114,15 @@ const AddTeacherSection: FC<AddTeacherSectionProps> = () => {
                 label="Phone Number *"
                 disabled={isLoading}
               />
+              <FormSelect
+                name="tagName"
+                placeholder="Select Tag Name"
+                label="Tag Name *"
+                options={getOptions(tagNames)}
+              />
             </div>
             <div className="flex justify-center desktop:justify-start">
-              <FormButton text="Add Teacher" isLoading={isLoading} />
+              <FormButton text="Add Sub Admin" isLoading={isLoading} />
             </div>
             {formError !== '' ? (
               <div className="flex justify-center text-xl text-center">
@@ -121,4 +141,4 @@ const AddTeacherSection: FC<AddTeacherSectionProps> = () => {
   );
 };
 
-export default AddTeacherSection;
+export default AddSubAdminSection;

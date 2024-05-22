@@ -22,6 +22,8 @@ import StudentReportPage from '@pages/student/report';
 import StudentProgressPage from '@pages/student/student-progress';
 import AdminDashboardPage from '@pages/admin/dashboard';
 import AdminAddTeacherPage from '@pages/admin/add-teacher';
+import AdminAddSubAdminPage from '@pages/admin/add-sub-admin';
+import AdminAddOrganizationPage from '@pages/admin/add-organization';
 import AdminAddStudentPage from '@pages/admin/add-student';
 import AdminViewAllBatchesPage from '@pages/admin/all-batches';
 import AdminEditBatchPage from '@pages/admin/edit-batch';
@@ -173,6 +175,10 @@ export const router = createBrowserRouter([
             element: <AdminAddTeacherPage />,
           },
           {
+            path: 'add/sub-admin',
+            element: <AdminAddSubAdminPage />,
+          },
+          {
             path: 'add/batch',
             element: <AdminAddBatchPage />,
           },
@@ -195,6 +201,10 @@ export const router = createBrowserRouter([
           {
             path: 'add/question/bulk',
             element: <AdminBulkAddQuestionsPage />,
+          },
+          {
+            path: 'add/organization',
+            element: <AdminAddOrganizationPage />,
           },
           {
             path: 'edit/question/:questionId',

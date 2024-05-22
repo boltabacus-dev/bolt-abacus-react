@@ -4,18 +4,18 @@ import { isAxiosError } from 'axios';
 import SeoComponent from '@components/atoms/SeoComponent';
 import LoadingBox from '@components/organisms/LoadingBox';
 import ErrorBox from '@components/organisms/ErrorBox';
-import AddBatchSection from '@components/sections/admin/AddBatchSection';
+import AddSubAdminSection from '@components/sections/admin/AddSubAdminSection';
 
-import { getAllTeachersRequest } from '@services/teacher';
+import { getAllTagNamesRequest } from '@services/organization';
+import { GetAllTagNamesResponse } from '@interfaces/apis/organization';
 import { useAuthStore } from '@store/authStore';
 
-import { GetAllTeachersResponse, Teacher } from '@interfaces/apis/teacher';
 import { ERRORS, MESSAGES } from '@constants/app';
 import { ADMIN_DASHBOARD, LOGIN_PAGE } from '@constants/routes';
 
-export interface AdminAddBatchPageProps {}
+export interface AdminAddSubAdminPageProps {}
 
-const AdminAddBatchPage: FC<AdminAddBatchPageProps> = () => {
+const AdminAddSubAdminPage: FC<AdminAddSubAdminPageProps> = () => {
   const authToken = useAuthStore((state) => state.authToken);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
@@ -26,16 +26,16 @@ const AdminAddBatchPage: FC<AdminAddBatchPageProps> = () => {
     MESSAGES.TRY_AGAIN
   );
 
-  const [teachers, setTeachers] = useState<Array<Teacher>>();
+  const [tagNames, setTagNames] = useState<Array<string>>();
 
   useEffect(() => {
-    const getAllBatchesData = async () => {
+    const getAllTagsData = async () => {
       if (isAuthenticated) {
         try {
-          const res = await getAllTeachersRequest(authToken!);
+          const res = await getAllTagNamesRequest(authToken!);
           if (res.status === 200) {
-            const allTeachersResponse: GetAllTeachersResponse = res.data;
-            setTeachers(allTeachersResponse.teachers);
+            const allTagNamesResponse: GetAllTagNamesResponse = res.data;
+            setTagNames(allTagNamesResponse.tagNames!);
             setApiError(null);
           }
         } catch (error) {
@@ -65,7 +65,7 @@ const AdminAddBatchPage: FC<AdminAddBatchPageProps> = () => {
         setFallBackAction(MESSAGES.GO_LOGIN);
       }
     };
-    getAllBatchesData();
+    getAllTagsData();
   }, [authToken, isAuthenticated]);
 
   return (
@@ -88,8 +88,8 @@ const AdminAddBatchPage: FC<AdminAddBatchPageProps> = () => {
             </>
           ) : (
             <>
-              <SeoComponent title="Add Batch" />
-              <AddBatchSection teachers={teachers!} />
+              <SeoComponent title="Add Sub Admin" />
+              <AddSubAdminSection tagNames={tagNames!} />
             </>
           )}
         </div>
@@ -98,4 +98,4 @@ const AdminAddBatchPage: FC<AdminAddBatchPageProps> = () => {
   );
 };
 
-export default AdminAddBatchPage;
+export default AdminAddSubAdminPage;

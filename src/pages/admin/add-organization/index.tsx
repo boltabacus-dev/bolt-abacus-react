@@ -1,21 +1,18 @@
 import { FC, useEffect, useState } from 'react';
-import { isAxiosError } from 'axios';
 
 import SeoComponent from '@components/atoms/SeoComponent';
 import LoadingBox from '@components/organisms/LoadingBox';
 import ErrorBox from '@components/organisms/ErrorBox';
-import AddBatchSection from '@components/sections/admin/AddBatchSection';
+import AddOrganizationSection from '@components/sections/admin/AddOrganization';
 
-import { getAllTeachersRequest } from '@services/teacher';
 import { useAuthStore } from '@store/authStore';
 
-import { GetAllTeachersResponse, Teacher } from '@interfaces/apis/teacher';
 import { ERRORS, MESSAGES } from '@constants/app';
 import { ADMIN_DASHBOARD, LOGIN_PAGE } from '@constants/routes';
 
-export interface AdminAddBatchPageProps {}
+export interface AdminAddOrganizationPageProps {}
 
-const AdminAddBatchPage: FC<AdminAddBatchPageProps> = () => {
+const AdminAddOrganizationPage: FC<AdminAddOrganizationPageProps> = () => {
   const authToken = useAuthStore((state) => state.authToken);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
@@ -26,38 +23,11 @@ const AdminAddBatchPage: FC<AdminAddBatchPageProps> = () => {
     MESSAGES.TRY_AGAIN
   );
 
-  const [teachers, setTeachers] = useState<Array<Teacher>>();
-
   useEffect(() => {
     const getAllBatchesData = async () => {
       if (isAuthenticated) {
-        try {
-          const res = await getAllTeachersRequest(authToken!);
-          if (res.status === 200) {
-            const allTeachersResponse: GetAllTeachersResponse = res.data;
-            setTeachers(allTeachersResponse.teachers);
-            setApiError(null);
-          }
-        } catch (error) {
-          if (isAxiosError(error)) {
-            const status = error.response?.status;
-            if (status === 401) {
-              setApiError(
-                error.response?.data?.error ||
-                  error.response?.data?.message ||
-                  ERRORS.SERVER_ERROR
-              );
-              setFallBackLink(LOGIN_PAGE);
-              setFallBackAction(MESSAGES.GO_LOGIN);
-            } else {
-              setApiError(ERRORS.SERVER_ERROR);
-            }
-          } else {
-            setApiError(ERRORS.SERVER_ERROR);
-          }
-        } finally {
-          setLoading(false);
-        }
+        //  TODO: Implement stuff after Backend API
+        setLoading(false);
       } else {
         setLoading(false);
         setApiError(ERRORS.AUTHENTICATION_ERROR);
@@ -88,8 +58,8 @@ const AdminAddBatchPage: FC<AdminAddBatchPageProps> = () => {
             </>
           ) : (
             <>
-              <SeoComponent title="Add Batch" />
-              <AddBatchSection teachers={teachers!} />
+              <SeoComponent title="Add Organization" />
+              <AddOrganizationSection />
             </>
           )}
         </div>
@@ -98,4 +68,4 @@ const AdminAddBatchPage: FC<AdminAddBatchPageProps> = () => {
   );
 };
 
-export default AdminAddBatchPage;
+export default AdminAddOrganizationPage;

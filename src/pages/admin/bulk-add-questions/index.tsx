@@ -56,7 +56,7 @@ const AdminBulkAddQuestionsPage: FC<AdminBulkAddQuestionsPageProps> = () => {
             </>
           ) : (
             <>
-              <SeoComponent title="Add Question" />
+              <SeoComponent title="Bulk Add Question" />
               <BulkAddQuestionsSection />
             </>
           )}
