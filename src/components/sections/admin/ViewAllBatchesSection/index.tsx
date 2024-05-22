@@ -23,19 +23,6 @@ export interface ViewAllBatchesSectionProps {
 
 const columns: ColumnDef<Batch>[] = [
   {
-    accessorKey: 'batchId',
-    header: ({ column }) => {
-      return (
-        <button
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Id
-        </button>
-      );
-    },
-  },
-  {
     accessorKey: 'batchName',
     header: ({ column }) => {
       return (
@@ -48,9 +35,60 @@ const columns: ColumnDef<Batch>[] = [
       );
     },
   },
-
   {
-    accessorKey: 'actions',
+    accessorKey: 'timeDay',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Day
+        </button>
+      );
+    },
+  },
+  {
+    accessorKey: 'timeSchedule',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Time
+        </button>
+      );
+    },
+  },
+  {
+    accessorKey: 'latestLevelId',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Level
+        </button>
+      );
+    },
+  },
+  {
+    accessorKey: 'latestClassId',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Class
+        </button>
+      );
+    },
+  },
+  {
+    accessorKey: 'batchId',
     header: 'Actions',
     cell: ({ row }) => (
       <button
@@ -76,7 +114,7 @@ const ViewAllBatchesSection: FC<ViewAllBatchesSectionProps> = ({ batches }) => {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 7,
+    pageSize: 8,
   });
 
   const table = useReactTable({
