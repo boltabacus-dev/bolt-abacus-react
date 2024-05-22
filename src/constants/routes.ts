@@ -85,3 +85,4 @@ export const ADD_SUB_ADMIN_ENDPOINT = '/addSubAdmin/';
 export const GET_ALL_TAG_NAMES_ENDPOINT = '/getAllTags/';
 export const GET_TAG_DETAILS_ENDPOINT = '/getTagDetails/';
 export const ADD_TAG_ENDPOINT = '/addTag/';
+export const EDIT_TAG_ENDPOINT = '/updateTagDetails/';

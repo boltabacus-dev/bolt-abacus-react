@@ -23,7 +23,6 @@ import StudentProgressPage from '@pages/student/student-progress';
 import AdminDashboardPage from '@pages/admin/dashboard';
 import AdminAddTeacherPage from '@pages/admin/add-teacher';
 import AdminAddSubAdminPage from '@pages/admin/add-sub-admin';
-import AdminAddOrganizationPage from '@pages/admin/add-organization';
 import AdminAddStudentPage from '@pages/admin/add-student';
 import AdminViewAllBatchesPage from '@pages/admin/all-batches';
 import AdminEditBatchPage from '@pages/admin/edit-batch';
@@ -32,7 +31,9 @@ import AdminAddQuestionPage from '@pages/admin/add-question';
 import AdminBulkAddQuestionsPage from '@pages/admin/bulk-add-questions';
 import AdminEditQuestionPage from '@pages/admin/edit-question';
 import AdminViewQuizPage from '@pages/admin/view-quiz';
+import AdminAddOrganizationPage from '@pages/admin/add-organization';
 import AdminViewOrganizationPage from '@pages/admin/view-organization';
+import AdminEditOrganizationPage from '@pages/admin/edit-organization';
 import SubAdminDashboardPage from '@pages/sub-admin/dashboard';
 import SubAdminAddBatchPage from '@pages/sub-admin/add-batch';
 import SubAdminAddStudentPage from '@pages/sub-admin/add-student';
@@ -197,10 +198,6 @@ export const router = createBrowserRouter([
             element: <AdminViewAllBatchesPage />,
           },
           {
-            path: 'view/organization',
-            element: <AdminViewOrganizationPage />,
-          },
-          {
             path: 'view/quiz',
             element: <AdminViewQuizPage />,
           },
@@ -215,6 +212,14 @@ export const router = createBrowserRouter([
           {
             path: 'add/organization',
             element: <AdminAddOrganizationPage />,
+          },
+          {
+            path: 'view/organization',
+            element: <AdminViewOrganizationPage />,
+          },
+          {
+            path: 'edit/organization/:tagName',
+            element: <AdminEditOrganizationPage />,
           },
           {
             path: 'edit/question/:questionId',

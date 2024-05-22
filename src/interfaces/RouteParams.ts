@@ -27,6 +27,10 @@ export type EditBatchPageParams = {
   batchId: string;
 };
 
+export type EditOrganizationPageParams = {
+  tagName: string;
+};
+
 export type UpdateBatchLinkPageParams = {
   batchId: string;
 };
