@@ -31,6 +31,8 @@ export const MESSAGES = {
   LINK_UPDATED: 'Zoom link updated successfully!',
   RESET_LINK_SENT: 'Reset password link sent to you email!',
   PASSWORD_RESET: 'Password reset successfully!',
+  LIMIT_REACHED:
+    'Maximum student limit reached. Please contact the administration to increase the limit.',
 };
 
 export const NO_OF_CLASSES = 12;

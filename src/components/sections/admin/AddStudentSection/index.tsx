@@ -61,6 +61,11 @@ const AddStudentSection: FC<AddStudentSectionProps> = ({ batches }) => {
               error.response?.data?.message ||
               ERRORS.SERVER_ERROR
           );
+        } else if (status === 403) {
+          swal(error.response?.data?.message || MESSAGES.LIMIT_REACHED, {
+            icon: 'error',
+          });
+          setFormError(MESSAGES.LIMIT_REACHED);
         } else {
           setFormError(ERRORS.SERVER_ERROR);
         }
