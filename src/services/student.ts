@@ -8,8 +8,10 @@ import {
   STUDENT_QUIZ_ENDPOINT,
   STUDENT_QUIZ_SUBMIT_ENDPOINT,
   STUDENT_REPORT_ENDPOINT,
+  BULK_ADD_STUDENT_ENDPOINT,
 } from '@constants/routes';
 import { QuizAnswer } from '@interfaces/apis/student';
+import { Student } from '@interfaces/StudentsFile';
 
 export const dashboardRequest = async (token: string) => {
   return axios.get(STUDENT_DASHBOARD_ENDPOINT, {
@@ -115,6 +117,24 @@ export const addStudentRequest = async (
     },
     {
       headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const bulkAddStudentRequest = async (
+  students: Student[],
+  batchId: number,
+  token: string
+) => {
+  return axios.post(
+    BULK_ADD_STUDENT_ENDPOINT,
+    {
+      students,
+      batchId,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+      timeout: 600000,
     }
   );
 };

@@ -9,6 +9,7 @@ import {
   SUB_ADMIN_ADD_TEACHER,
   SUB_ADMIN_ALL_BATCH,
   RESET_PASSWORD_PAGE,
+  SUB_ADMIN_BULK_ADD_STUDENT,
 } from '@constants/routes';
 
 export interface SubAdminLinkBarProps {}
@@ -22,6 +23,12 @@ const SubAdminLinkBar: FC<SubAdminLinkBarProps> = () => {
           <AdminLinkButton
             text="Add Student"
             active={location.pathname === SUB_ADMIN_ADD_STUDENT}
+          />
+        </Link>
+        <Link to={SUB_ADMIN_BULK_ADD_STUDENT}>
+          <AdminLinkButton
+            text="Bulk Add Student"
+            active={location.pathname === SUB_ADMIN_BULK_ADD_STUDENT}
           />
         </Link>
         <Link to={SUB_ADMIN_ADD_TEACHER}>

@@ -19,6 +19,7 @@ export const MESSAGES = {
   QUIZ_PASS: 'You passed. We are proud of you!',
   QUIZ_FAIL: 'You haven’t passed. You can always try again',
   STUDENT_CREATED: 'Student created successfully!',
+  All_STUDENT_CREATED: 'All students created successfully!',
   TEACHER_CREATED: 'Teacher created successfully!',
   SUB_ADMIN_CREATED: 'Sub Admin created successfully!',
   ORGANIZATION_CREATED: 'Organization created successfully!',
@@ -33,6 +34,8 @@ export const MESSAGES = {
   PASSWORD_RESET: 'Password reset successfully!',
   LIMIT_REACHED:
     'Maximum student limit reached. Please contact the administration to increase the limit.',
+  WAIT_BULK_STUDENTS:
+    'Please wait while we upload your students. This process may take a few moments....',
 };
 
 export const NO_OF_CLASSES = 12;

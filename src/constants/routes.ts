@@ -34,6 +34,7 @@ export const ADMIN_VIEW_QUIZ = `${ADMIN_ROUTE}/view/quiz`;
 export const SUB_ADMIN_ROUTE = '/sub-admin';
 export const SUB_ADMIN_DASHBOARD = `${SUB_ADMIN_ROUTE}/dashboard`;
 export const SUB_ADMIN_ADD_STUDENT = `${SUB_ADMIN_ROUTE}/add/student`;
+export const SUB_ADMIN_BULK_ADD_STUDENT = `${SUB_ADMIN_ROUTE}/add/student/bulk`;
 export const SUB_ADMIN_ADD_TEACHER = `${SUB_ADMIN_ROUTE}/add/teacher`;
 export const SUB_ADMIN_ADD_BATCH = `${SUB_ADMIN_ROUTE}/add/batch`;
 export const SUB_ADMIN_ALL_BATCH = `${SUB_ADMIN_ROUTE}/all/batch`;
@@ -51,6 +52,7 @@ export const RESET_PASSWORD_ENDPOINT = '/resetPassword/';
 export const FORGOT_PASSWORD_ENDPOINT = '/forgotPassword/';
 
 export const ADD_STUDENT_ENDPOINT = '/addStudent/';
+export const BULK_ADD_STUDENT_ENDPOINT = '/bulkAddStudents/';
 export const STUDENT_DASHBOARD_ENDPOINT = '/levels/';
 export const STUDENT_LEVEL_ENDPOINT = '/classes/';
 export const STUDENT_QUIZ_ENDPOINT = '/quiz/';

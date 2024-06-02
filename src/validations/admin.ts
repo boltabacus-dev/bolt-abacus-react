@@ -47,6 +47,36 @@ export const addStudentFormSchema = z.object({
 export type TAddStudentFormSchema = z.infer<typeof addStudentFormSchema>;
 
 /*
+ * Bulk Add Student Form Input Schema
+ */
+export const studentSchema = z.object({
+  firstName: z.string().min(1, 'First Name is required').trim(),
+  lastName: z.string().min(1, 'Last Name is required').trim(),
+  email: z.string().min(1, 'Email is required').email('Invalid email').trim(),
+  phone: z
+    .string()
+    .trim()
+    .refine(
+      (val) =>
+        validator.isMobilePhone(val, validator.isMobilePhoneLocales, {
+          strictMode: true,
+        }),
+      'Enter valid phone number with country code'
+    ),
+});
+
+export const bulkAddStudentFormSchema = z.object({
+  batchId: z.coerce.number().min(1, 'Invalid batch'),
+  students: z.any().refine((files) => {
+    return files?.[0]?.size <= MAX_FILE_SIZE * 3;
+  }, `CSV file less than 15MB is required.`),
+});
+
+export type TBulkAddStudentFormSchema = z.infer<
+  typeof bulkAddStudentFormSchema
+>;
+
+/*
  * Add Sub Admin Form Input Schema
  */
 export const addSubAdminFormSchema = z.object({
