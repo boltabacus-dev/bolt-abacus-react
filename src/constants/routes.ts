@@ -19,6 +19,7 @@ export const ADMIN_ROUTE = '/admin';
 export const ADMIN_DASHBOARD = `${ADMIN_ROUTE}/dashboard`;
 export const ADMIN_ADD_STUDENT = `${ADMIN_ROUTE}/add/student`;
 export const ADMIN_BULK_ADD_STUDENT = `${ADMIN_ROUTE}/add/student/bulk`;
+export const ADMIN_ALL_TEACHER = `${ADMIN_ROUTE}/all/teacher`;
 export const ADMIN_ADD_TEACHER = `${ADMIN_ROUTE}/add/teacher`;
 export const ADMIN_SUB_ADMIN_TEACHER = `${ADMIN_ROUTE}/add/sub-admin`;
 export const ADMIN_ADD_BATCH = `${ADMIN_ROUTE}/add/batch`;
@@ -71,6 +72,7 @@ export const BULK_ADD_QUESTION_ENDPOINT = '/bulkAddQuestions/';
 export const EDIT_QUESTION_ENDPOINT = '/editQuestion/';
 
 export const GET_ALL_TEACHERS_ENDPOINT = '/getTeachers/';
+export const GET_ALL_TEACHERS_V2_ENDPOINT = '/getTeachersV2/';
 export const ADD_TEACHER_ENDPOINT = '/addTeacher/';
 
 export const GET_ALL_BATCHES_ENDPOINT = '/getAllBatches/';

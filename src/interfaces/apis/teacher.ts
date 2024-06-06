@@ -16,6 +16,23 @@ export type GetAllTeachersResponse = z.infer<
   typeof GetAllTeachersResponseSchema
 >;
 
+// Get All Teaches API V2 Response
+export const TeacherSchemaV2 = z.object({
+  userId: z.number(),
+  firstName: z.string(),
+  lastName: z.string(),
+  tag: z.string(),
+});
+export type TeacherV2 = z.infer<typeof TeacherSchemaV2>;
+
+export const GetAllTeachersResponseSchemaV2 = z.object({
+  teachers: z.array(TeacherSchemaV2),
+});
+
+export type GetAllTeachersResponseV2 = z.infer<
+  typeof GetAllTeachersResponseSchemaV2
+>;
+
 // Get Teacher Batches API Response
 export const BatchSchema = z.object({
   batchId: z.number(),

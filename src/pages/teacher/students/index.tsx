@@ -100,7 +100,7 @@ const TeacherViewStudentsPage: FC<TeacherViewStudentsPageProps> = () => {
             </>
           ) : (
             <>
-              <SeoComponent title="All Batches" />
+              <SeoComponent title="All Students" />
               <ViewAllStudentsSection students={students} />
             </>
           )}

@@ -1,21 +1,21 @@
-import { FC, useEffect, useState } from 'react';
 import { isAxiosError } from 'axios';
+import { FC, useEffect, useState } from 'react';
 
 import SeoComponent from '@components/atoms/SeoComponent';
 import LoadingBox from '@components/organisms/LoadingBox';
 import ErrorBox from '@components/organisms/ErrorBox';
-import ViewAllBatchesSection from '@components/sections/admin/ViewAllBatchesSection';
+import ViewAllTeachersSection from '@components/sections/admin/ViewAllTeachersSection';
 
 import { useAuthStore } from '@store/authStore';
 
 import { ERRORS, MESSAGES } from '@constants/app';
 import { ADMIN_DASHBOARD, LOGIN_PAGE } from '@constants/routes';
-import { allBatchesRequest } from '@services/admin';
-import { Batch, GetAllBatchesResponse } from '@interfaces/apis/batch';
+import { getAllTeachersRequestV2 } from '@services/teacher';
+import { GetAllTeachersResponseV2, TeacherV2 } from '@interfaces/apis/teacher';
 
-export interface AdminViewAllBatchesPageProps {}
+export interface AdminViewAllTeachersPageProps {}
 
-const AdminViewAllBatchesPage: FC<AdminViewAllBatchesPageProps> = () => {
+const AdminViewAllTeachersPage: FC<AdminViewAllTeachersPageProps> = () => {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
   const authToken = useAuthStore((state) => state.authToken);
 
@@ -26,15 +26,15 @@ const AdminViewAllBatchesPage: FC<AdminViewAllBatchesPageProps> = () => {
     MESSAGES.TRY_AGAIN
   );
 
-  const [batches, setBatches] = useState<Batch[]>([]);
+  const [teachers, setTeachers] = useState<TeacherV2[]>([]);
 
   useEffect(() => {
     const getAllBatchesData = async () => {
       if (isAuthenticated) {
         try {
-          const res = await allBatchesRequest(authToken!);
-          const getAllBatchesResponse: GetAllBatchesResponse = res.data;
-          setBatches(getAllBatchesResponse.batches);
+          const res = await getAllTeachersRequestV2(authToken!);
+          const getAllTeachersResponseV2: GetAllTeachersResponseV2 = res.data;
+          setTeachers(getAllTeachersResponseV2.teachers);
           setApiError(null);
         } catch (error) {
           if (isAxiosError(error)) {
@@ -85,8 +85,8 @@ const AdminViewAllBatchesPage: FC<AdminViewAllBatchesPageProps> = () => {
             </>
           ) : (
             <>
-              <SeoComponent title="All Batches" />
-              <ViewAllBatchesSection batches={batches} />
+              <SeoComponent title="All Teachers" />
+              <ViewAllTeachersSection teachers={teachers} />
             </>
           )}
         </div>
@@ -95,4 +95,4 @@ const AdminViewAllBatchesPage: FC<AdminViewAllBatchesPageProps> = () => {
   );
 };
 
-export default AdminViewAllBatchesPage;
+export default AdminViewAllTeachersPage;

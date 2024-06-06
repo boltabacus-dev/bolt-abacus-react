@@ -8,7 +8,7 @@ export interface AdminLinkButtonProps {
 const AdminLinkButton: FC<AdminLinkButtonProps> = ({ text, active }) => {
   return (
     <div
-      className={`p-2 rounded-md ${
+      className={`p-1 rounded-md ${
         active ? 'bg-gold font-bold text-black px-4 ' : ''
       }`}
     >

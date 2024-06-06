@@ -21,6 +21,7 @@ import StudentTestPage from '@pages/student/test';
 import StudentReportPage from '@pages/student/report';
 import StudentProgressPage from '@pages/student/student-progress';
 import AdminDashboardPage from '@pages/admin/dashboard';
+import AdminViewAllTeachersPage from '@pages/admin/all-teachers';
 import AdminAddTeacherPage from '@pages/admin/add-teacher';
 import AdminAddSubAdminPage from '@pages/admin/add-sub-admin';
 import AdminAddStudentPage from '@pages/admin/add-student';
@@ -183,6 +184,10 @@ export const router = createBrowserRouter([
           {
             path: 'add/student/bulk',
             element: <AdminBulkAddStudentPage />,
+          },
+          {
+            path: 'all/teacher',
+            element: <AdminViewAllTeachersPage />,
           },
           {
             path: 'add/teacher',

@@ -3,6 +3,7 @@ import axios from '@helpers/axios';
 import {
   ADD_TEACHER_ENDPOINT,
   GET_ALL_TEACHERS_ENDPOINT,
+  GET_ALL_TEACHERS_V2_ENDPOINT,
   GET_ALL_TEACHER_BATCHES_ENDPOINT,
   GET_BATCH_REPORT_ENDPOINT,
   GET_BATCH_STUDENTS_ENDPOINT,
@@ -34,6 +35,12 @@ export const addTeacherRequest = async (
 
 export const getAllTeachersRequest = async (token: string) => {
   return axios.get(GET_ALL_TEACHERS_ENDPOINT, {
+    headers: { 'AUTH-TOKEN': token },
+  });
+};
+
+export const getAllTeachersRequestV2 = async (token: string) => {
+  return axios.get(GET_ALL_TEACHERS_V2_ENDPOINT, {
     headers: { 'AUTH-TOKEN': token },
   });
 };
