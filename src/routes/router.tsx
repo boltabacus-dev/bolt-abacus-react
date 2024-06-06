@@ -40,6 +40,7 @@ import SubAdminDashboardPage from '@pages/sub-admin/dashboard';
 import SubAdminAddBatchPage from '@pages/sub-admin/add-batch';
 import SubAdminAddStudentPage from '@pages/sub-admin/add-student';
 import SubAdminBulkAddStudentPage from '@pages/sub-admin/bulk-add-student';
+import SubAdminViewAllTeachersPage from '@pages/sub-admin/all-teachers';
 import SubAdminAddTeacherPage from '@pages/sub-admin/add-teacher';
 import SubAdminViewAllBatchesPage from '@pages/sub-admin/all-batches';
 import SubAdminEditBatchPage from '@pages/sub-admin/edit-batch';
@@ -272,6 +273,10 @@ export const router = createBrowserRouter([
           {
             path: 'add/student/bulk',
             element: <SubAdminBulkAddStudentPage />,
+          },
+          {
+            path: 'all/teacher',
+            element: <SubAdminViewAllTeachersPage />,
           },
           {
             path: 'add/teacher',
