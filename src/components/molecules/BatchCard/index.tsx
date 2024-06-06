@@ -10,8 +10,13 @@ import { useAuthStore } from '@store/authStore';
 import { updateClassRequest } from '@services/teacher';
 import { UpdateClassResponse } from '@interfaces/apis/teacher';
 
-import { TEACHER_BATCH_REPORT, TEACHER_UPDATE_LINK } from '@constants/routes';
+import {
+  TEACHER_BATCH_REPORT,
+  TEACHER_STUDENTS,
+  TEACHER_UPDATE_LINK,
+} from '@constants/routes';
 import { ERRORS } from '@constants/app';
+import { BiSolidReport } from 'react-icons/bi';
 
 export interface BatchCardProps {
   batchName: string;
@@ -75,7 +80,7 @@ const BatchCard: FC<BatchCardProps> = ({
       className={`min-h-[180px] flex flex-col justify-center gap-4 p-3 rounded-xl w-fit tablet:min-w-[150px] ${bgColor}`}
     >
       <p className="font-semibold text-left text-white">{batchName}</p>
-      <div className="flex gap-2">
+      <div className="grid grid-cols-3 gap-2">
         <Link
           to={`${TEACHER_UPDATE_LINK}/${batchId}`}
           data-tooltip-id="update-link-tooltip"
@@ -89,20 +94,32 @@ const BatchCard: FC<BatchCardProps> = ({
         <Tooltip id="update-link-tooltip" />
 
         <Link
-          to={`${TEACHER_BATCH_REPORT}/${batchId}`}
-          data-tooltip-id="batch-report-tooltip"
-          data-tooltip-content="View Batch"
+          to={`${TEACHER_STUDENTS}/${batchId}`}
+          data-tooltip-id="batch-students-tooltip"
+          data-tooltip-content="View Students"
           data-tooltip-place="bottom"
         >
           <button type="button" className="p-2 text-black bg-white rounded">
             <MdPeople />
           </button>
         </Link>
+        <Tooltip id="batch-students-tooltip" />
+
+        <Link
+          to={`${TEACHER_BATCH_REPORT}/${batchId}`}
+          data-tooltip-id="batch-report-tooltip"
+          data-tooltip-content="View Batch Report"
+          data-tooltip-place="bottom"
+        >
+          <button type="button" className="p-2 text-black bg-white rounded">
+            <BiSolidReport />
+          </button>
+        </Link>
         <Tooltip id="batch-report-tooltip" />
 
         <button
           type="button"
-          className="p-2 text-black bg-white rounded"
+          className="p-2 text-white bg-black rounded col-span-3 flex items-center justify-center"
           onClick={() => updateClass()}
           data-tooltip-id="unlock-class-tooltip"
           data-tooltip-content="Unlock Class"

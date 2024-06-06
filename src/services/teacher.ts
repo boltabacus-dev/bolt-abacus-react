@@ -5,6 +5,7 @@ import {
   GET_ALL_TEACHERS_ENDPOINT,
   GET_ALL_TEACHER_BATCHES_ENDPOINT,
   GET_BATCH_REPORT_ENDPOINT,
+  GET_BATCH_STUDENTS_ENDPOINT,
   GET_STUDENT_PROGRESS_ENDPOINT,
   UPDATE_BATCH_LINK_ENDPOINT,
   UPDATE_CLASS_ENDPOINT,
@@ -101,6 +102,18 @@ export const getStudentProgressRequest = async (
     GET_STUDENT_PROGRESS_ENDPOINT,
     {
       userId,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const getStudentsRequest = async (batchId: number, token: string) => {
+  return axios.post(
+    GET_BATCH_STUDENTS_ENDPOINT,
+    {
+      batchId,
     },
     {
       headers: { 'AUTH-TOKEN': token },

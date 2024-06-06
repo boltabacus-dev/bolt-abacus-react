@@ -101,3 +101,15 @@ export const GetStudentProgressResponseSchema = z.object({
 export type GetStudentProgressResponse = z.infer<
   typeof GetStudentProgressResponseSchema
 >;
+
+export const GetStudentsResponseSchema = z.object({
+  students: z.array(
+    z.object({
+      userId: z.number(),
+      firstName: z.string(),
+      lastName: z.string(),
+    })
+  ),
+});
+
+export type GetStudentsResponse = z.infer<typeof GetStudentsResponseSchema>;

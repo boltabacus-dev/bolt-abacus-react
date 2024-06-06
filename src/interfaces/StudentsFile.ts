@@ -11,3 +11,9 @@ export type StudentsFileRowType = {
   email: string;
   phoneNumber: string;
 };
+
+export type TeacherStudent = {
+  userId: number;
+  firstName: string;
+  lastName: string;
+};

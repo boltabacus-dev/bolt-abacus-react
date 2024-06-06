@@ -46,6 +46,7 @@ export const TEACHER_DASHBOARD = `${TEACHER_ROUTE}/dashboard`;
 export const TEACHER_UPDATE_LINK = `${TEACHER_ROUTE}/update-link`;
 export const TEACHER_BATCH_REPORT = `${TEACHER_ROUTE}/report`;
 export const TEACHER_STUDENT_PROGRESS = `${TEACHER_ROUTE}/student-progress`;
+export const TEACHER_STUDENTS = `${TEACHER_ROUTE}/students`;
 
 // Backend Endpoints
 export const LOGIN_ENDPOINT = '/login/';
@@ -82,6 +83,7 @@ export const UPDATE_BATCH_LINK_ENDPOINT = '/updateBatchLink/';
 export const UPDATE_CLASS_ENDPOINT = '/updateClass/';
 export const GET_BATCH_REPORT_ENDPOINT = '/getClassReport/';
 export const GET_STUDENT_PROGRESS_ENDPOINT = '/getStudentProgress/';
+export const GET_BATCH_STUDENTS_ENDPOINT = '/getStudents/';
 
 export const ADD_SUB_ADMIN_ENDPOINT = '/addSubAdmin/';
 

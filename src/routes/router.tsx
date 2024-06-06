@@ -46,6 +46,7 @@ import TeacherDashboardPage from '@pages/teacher/dashboard';
 import TeacherUpdateLinkPage from '@pages/teacher/update-link';
 import TeacherBatchReportPage from '@pages/teacher/report';
 import TeacherStudentProgressPage from '@pages/teacher/student-progress';
+import TeacherViewStudentsPage from '@pages/teacher/students';
 
 export const router = createBrowserRouter([
   {
@@ -314,6 +315,10 @@ export const router = createBrowserRouter([
           {
             path: 'student-progress/:studentId',
             element: <TeacherStudentProgressPage />,
+          },
+          {
+            path: 'students/:batchId',
+            element: <TeacherViewStudentsPage />,
           },
         ],
       },

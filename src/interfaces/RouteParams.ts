@@ -39,6 +39,10 @@ export type BatchReportPageParams = {
   batchId: string;
 };
 
+export type BatchStudentsPageParams = {
+  batchId: string;
+};
+
 export type StudentProgressPageParams = {
   studentId: string;
 };
