@@ -69,19 +69,6 @@ const columns: ColumnDef<SearchStudent>[] = [
       );
     },
   },
-  {
-    accessorKey: 'tag',
-    header: ({ column }) => {
-      return (
-        <button
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Tag Name
-        </button>
-      );
-    },
-  },
 ];
 
 const SearchStudentSection: FC<SearchStudentSectionProps> = () => {

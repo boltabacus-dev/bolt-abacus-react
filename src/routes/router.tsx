@@ -27,6 +27,7 @@ import AdminAddSubAdminPage from '@pages/admin/add-sub-admin';
 import AdminAddStudentPage from '@pages/admin/add-student';
 import AdminBatchViewStudentsPage from '@pages/admin/batch-all-students';
 import AdminBulkAddStudentPage from '@pages/admin/bulk-add-student';
+import AdminSearchStudentsPage from '@pages/admin/search-students';
 import AdminViewAllBatchesPage from '@pages/admin/all-batches';
 import AdminEditBatchPage from '@pages/admin/edit-batch';
 import AdminAddBatchPage from '@pages/admin/add-batch';
@@ -41,6 +42,7 @@ import SubAdminDashboardPage from '@pages/sub-admin/dashboard';
 import SubAdminAddBatchPage from '@pages/sub-admin/add-batch';
 import SubAdminAddStudentPage from '@pages/sub-admin/add-student';
 import SubAdminBulkAddStudentPage from '@pages/sub-admin/bulk-add-student';
+import SubAdminSearchStudentsPage from '@pages/sub-admin/search-students';
 import SubAdminViewAllTeachersPage from '@pages/sub-admin/all-teachers';
 import SubAdminAddTeacherPage from '@pages/sub-admin/add-teacher';
 import SubAdminViewAllBatchesPage from '@pages/sub-admin/all-batches';
@@ -51,7 +53,6 @@ import TeacherUpdateLinkPage from '@pages/teacher/update-link';
 import TeacherBatchReportPage from '@pages/teacher/report';
 import TeacherStudentProgressPage from '@pages/teacher/student-progress';
 import TeacherViewStudentsPage from '@pages/teacher/students';
-import AdminSearchStudentsPage from '@pages/admin/search-students';
 
 export const router = createBrowserRouter([
   {
@@ -288,6 +289,10 @@ export const router = createBrowserRouter([
           {
             path: 'add/student/bulk',
             element: <SubAdminBulkAddStudentPage />,
+          },
+          {
+            path: 'search/student/',
+            element: <SubAdminSearchStudentsPage />,
           },
           {
             path: 'all/teacher',
