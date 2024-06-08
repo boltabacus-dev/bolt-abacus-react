@@ -1,8 +1,10 @@
-import { isAxiosError } from 'axios';
 import { FC, useEffect, useState } from 'react';
+import { isAxiosError } from 'axios';
+import { Link } from 'react-router-dom';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
+import { BiSolidReport } from 'react-icons/bi';
 import {
   ColumnDef,
   SortingState,
@@ -17,15 +19,17 @@ import {
 
 import FormButton from '@components/atoms/FormButton';
 import ErrorMessage from '@components/atoms/ErrorMessage';
+import FormInput from '@components/atoms/FormInput';
 
 import { useAuthStore } from '@store/authStore';
 import { searchStudentSchema } from '@validations/admin';
 import { searchStudentsRequest } from '@services/admin';
+
+import { SearchStudentsResponse } from '@interfaces/apis/admin';
 import { SearchStudent } from '@interfaces/StudentsFile';
 
 import { ERRORS } from '@constants/app';
-import { SearchStudentsResponse } from '@interfaces/apis/admin';
-import FormInput from '@components/atoms/FormInput';
+import { ADMIN_STUDENT_PROGRESS } from '@constants/routes';
 
 export interface SearchStudentSectionProps {}
 
@@ -81,6 +85,24 @@ const columns: ColumnDef<SearchStudent>[] = [
         </button>
       );
     },
+  },
+  {
+    accessorKey: 'userId',
+    header: 'Actions',
+    cell: ({ row }) => (
+      <button
+        type="button"
+        className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
+      >
+        <Link
+          to={`${ADMIN_STUDENT_PROGRESS}/${row.getValue('userId')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <BiSolidReport />
+        </Link>
+      </button>
+    ),
   },
 ];
 

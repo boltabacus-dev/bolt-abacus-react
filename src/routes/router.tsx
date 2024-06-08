@@ -28,6 +28,7 @@ import AdminAddStudentPage from '@pages/admin/add-student';
 import AdminBatchViewStudentsPage from '@pages/admin/batch-all-students';
 import AdminBulkAddStudentPage from '@pages/admin/bulk-add-student';
 import AdminSearchStudentsPage from '@pages/admin/search-students';
+import AdminStudentProgressPage from '@pages/admin/student-progress';
 import AdminViewAllBatchesPage from '@pages/admin/all-batches';
 import AdminEditBatchPage from '@pages/admin/edit-batch';
 import AdminAddBatchPage from '@pages/admin/add-batch';
@@ -43,6 +44,7 @@ import SubAdminAddBatchPage from '@pages/sub-admin/add-batch';
 import SubAdminAddStudentPage from '@pages/sub-admin/add-student';
 import SubAdminBulkAddStudentPage from '@pages/sub-admin/bulk-add-student';
 import SubAdminSearchStudentsPage from '@pages/sub-admin/search-students';
+import SubAdminStudentProgressPage from '@pages/sub-admin/student-progress';
 import SubAdminViewAllTeachersPage from '@pages/sub-admin/all-teachers';
 import SubAdminAddTeacherPage from '@pages/sub-admin/add-teacher';
 import SubAdminViewAllBatchesPage from '@pages/sub-admin/all-batches';
@@ -172,7 +174,7 @@ export const router = createBrowserRouter([
       // Route: 'boltabacus.com/admin'
       {
         path: 'admin',
-        element: <AdminLayout />,
+        element: <AdminLayout withLinkBar />,
         children: [
           {
             path: '',
@@ -261,10 +263,21 @@ export const router = createBrowserRouter([
           },
         ],
       },
+      // Route: 'boltabacus.com/admin' without link bar
+      {
+        path: 'admin',
+        element: <AdminLayout withLinkBar={false} />,
+        children: [
+          {
+            path: 'student-progress/:studentId',
+            element: <AdminStudentProgressPage />,
+          },
+        ],
+      },
       // Route: 'boltabacus.com/sub-admin'
       {
         path: 'sub-admin',
-        element: <SubAdminLayout />,
+        element: <SubAdminLayout withLinkBar />,
         children: [
           {
             path: '',
@@ -318,6 +331,17 @@ export const router = createBrowserRouter([
                 buttonText="Go to Dashboard"
               />
             ),
+          },
+        ],
+      },
+      // Route: 'boltabacus.com/sub-admin' without link bar
+      {
+        path: 'sub-admin',
+        element: <SubAdminLayout withLinkBar={false} />,
+        children: [
+          {
+            path: 'student-progress/:studentId',
+            element: <SubAdminStudentProgressPage />,
           },
         ],
       },

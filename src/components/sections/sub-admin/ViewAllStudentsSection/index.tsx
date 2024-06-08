@@ -1,5 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { BiSolidReport } from 'react-icons/bi';
 import {
   ColumnDef,
   SortingState,
@@ -14,6 +16,7 @@ import {
 } from '@tanstack/react-table';
 
 import { SubAdminStudent } from '@interfaces/StudentsFile';
+import { SUB_ADMIN_STUDENT_PROGRESS } from '@constants/routes';
 
 export interface ViewAllStudentsSectionProps {
   students: SubAdminStudent[];
@@ -45,6 +48,24 @@ const columns: ColumnDef<SubAdminStudent>[] = [
         </button>
       );
     },
+  },
+  {
+    accessorKey: 'userId',
+    header: 'Actions',
+    cell: ({ row }) => (
+      <button
+        type="button"
+        className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
+      >
+        <Link
+          to={`${SUB_ADMIN_STUDENT_PROGRESS}/${row.getValue('userId')}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <BiSolidReport />
+        </Link>
+      </button>
+    ),
   },
 ];
 
