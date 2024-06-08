@@ -25,6 +25,7 @@ import AdminViewAllTeachersPage from '@pages/admin/all-teachers';
 import AdminAddTeacherPage from '@pages/admin/add-teacher';
 import AdminAddSubAdminPage from '@pages/admin/add-sub-admin';
 import AdminAddStudentPage from '@pages/admin/add-student';
+import AdminBatchViewStudentsPage from '@pages/admin/batch-all-students';
 import AdminBulkAddStudentPage from '@pages/admin/bulk-add-student';
 import AdminViewAllBatchesPage from '@pages/admin/all-batches';
 import AdminEditBatchPage from '@pages/admin/edit-batch';
@@ -43,6 +44,7 @@ import SubAdminBulkAddStudentPage from '@pages/sub-admin/bulk-add-student';
 import SubAdminViewAllTeachersPage from '@pages/sub-admin/all-teachers';
 import SubAdminAddTeacherPage from '@pages/sub-admin/add-teacher';
 import SubAdminViewAllBatchesPage from '@pages/sub-admin/all-batches';
+import SubAdminBatchViewStudentsPage from '@pages/sub-admin/batch-all-students';
 import SubAdminEditBatchPage from '@pages/sub-admin/edit-batch';
 import TeacherDashboardPage from '@pages/teacher/dashboard';
 import TeacherUpdateLinkPage from '@pages/teacher/update-link';
@@ -211,6 +213,10 @@ export const router = createBrowserRouter([
             element: <AdminViewAllBatchesPage />,
           },
           {
+            path: 'batch/students/:batchId',
+            element: <AdminBatchViewStudentsPage />,
+          },
+          {
             path: 'view/quiz',
             element: <AdminViewQuizPage />,
           },
@@ -265,6 +271,10 @@ export const router = createBrowserRouter([
           {
             path: 'add/batch',
             element: <SubAdminAddBatchPage />,
+          },
+          {
+            path: 'batch/students/:batchId',
+            element: <SubAdminBatchViewStudentsPage />,
           },
           {
             path: 'add/student',

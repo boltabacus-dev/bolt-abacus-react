@@ -1,6 +1,9 @@
 import axios from '@helpers/axios';
 
-import { ADD_SUB_ADMIN_ENDPOINT } from '@constants/routes';
+import {
+  ADD_SUB_ADMIN_ENDPOINT,
+  GET_BATCH_STUDENTS_ENDPOINT,
+} from '@constants/routes';
 
 export const addSubAdminRequest = async (
   firstName: string,
@@ -18,6 +21,18 @@ export const addSubAdminRequest = async (
       phoneNumber,
       tagName,
       email,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const getStudentsRequest = async (batchId: number, token: string) => {
+  return axios.post(
+    GET_BATCH_STUDENTS_ENDPOINT,
+    {
+      batchId,
     },
     {
       headers: { 'AUTH-TOKEN': token },

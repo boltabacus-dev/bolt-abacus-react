@@ -33,3 +33,17 @@ const GetLevelSchemaResponseSchema = z.object({
 export type GetLevelSchemaResponse = z.infer<
   typeof GetLevelSchemaResponseSchema
 >;
+
+// Get Students API
+
+export const GetStudentsResponseSchema = z.object({
+  students: z.array(
+    z.object({
+      userId: z.number(),
+      firstName: z.string(),
+      lastName: z.string(),
+    })
+  ),
+});
+
+export type GetStudentsResponse = z.infer<typeof GetStudentsResponseSchema>;

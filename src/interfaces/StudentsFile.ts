@@ -17,3 +17,15 @@ export type TeacherStudent = {
   firstName: string;
   lastName: string;
 };
+
+export type AdminStudent = {
+  userId: number;
+  firstName: string;
+  lastName: string;
+};
+
+export type SubAdminStudent = {
+  userId: number;
+  firstName: string;
+  lastName: string;
+};

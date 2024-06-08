@@ -1,6 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { BiSolidEdit } from 'react-icons/bi';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 import {
   ColumnDef,
@@ -12,135 +10,81 @@ import {
   useReactTable,
   ColumnFiltersState,
   getPaginationRowModel,
+  FilterFn,
 } from '@tanstack/react-table';
 
-import { Batch } from '@interfaces/apis/batch';
-import { ADMIN_BATCH_STUDENTS, ADMIN_EDIT_BATCH } from '@constants/routes';
-import { BsPeopleFill } from 'react-icons/bs';
+import { AdminStudent } from '@interfaces/StudentsFile';
 
-export interface ViewAllBatchesSectionProps {
-  batches: Batch[];
+export interface ViewAllStudentsSectionProps {
+  students: AdminStudent[];
 }
 
-const columns: ColumnDef<Batch>[] = [
+const columns: ColumnDef<AdminStudent>[] = [
   {
-    accessorKey: 'batchName',
+    accessorKey: 'firstName',
     header: ({ column }) => {
       return (
         <button
           type="button"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Name
+          First Name
         </button>
       );
     },
   },
   {
-    accessorKey: 'timeDay',
+    accessorKey: 'lastName',
     header: ({ column }) => {
       return (
         <button
           type="button"
           onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
         >
-          Day
+          Last Name
         </button>
       );
     },
-  },
-  {
-    accessorKey: 'timeSchedule',
-    header: ({ column }) => {
-      return (
-        <button
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Time
-        </button>
-      );
-    },
-  },
-  {
-    accessorKey: 'latestLevelId',
-    header: ({ column }) => {
-      return (
-        <button
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Level
-        </button>
-      );
-    },
-  },
-  {
-    accessorKey: 'latestClassId',
-    header: ({ column }) => {
-      return (
-        <button
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Class
-        </button>
-      );
-    },
-  },
-  {
-    accessorKey: 'batchId',
-    header: 'Actions',
-    cell: ({ row }) => (
-      <div className="flex w-full justify-center items-center gap-2">
-        <button
-          type="button"
-          className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
-        >
-          <Link
-            to={`${ADMIN_BATCH_STUDENTS}/${row.getValue('batchId')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <BsPeopleFill />
-          </Link>
-        </button>
-        <button
-          type="button"
-          className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
-        >
-          <Link
-            to={`${ADMIN_EDIT_BATCH}/${row.getValue('batchId')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <BiSolidEdit />
-          </Link>
-        </button>
-      </div>
-    ),
   },
 ];
 
-const ViewAllBatchesSection: FC<ViewAllBatchesSectionProps> = ({ batches }) => {
-  const [batchDetails, setBatchDetails] = useState<Batch[]>([]);
+const ViewAllStudentsSection: FC<ViewAllStudentsSectionProps> = ({
+  students,
+}) => {
+  const [studentDetails, setStudentDetails] = useState<AdminStudent[]>([]);
 
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+  const [globalFilter, setGlobalFilter] = useState('');
   const [pagination, setPagination] = useState({
     pageIndex: 0,
     pageSize: 8,
   });
 
+  const customGlobalFilterFn: FilterFn<AdminStudent> = (
+    row,
+    _columnId,
+    filterValue
+  ) => {
+    const firstName = row.getValue('firstName') as string;
+    const lastName = row.getValue('lastName') as string;
+    return (
+      firstName.toLowerCase().includes(filterValue.toLowerCase()) ||
+      lastName.toLowerCase().includes(filterValue.toLowerCase())
+    );
+  };
+
   const table = useReactTable({
-    data: batchDetails,
+    data: studentDetails,
     columns,
     debugTable: true,
     state: {
       sorting,
       columnFilters,
       pagination,
+      globalFilter,
     },
+    onGlobalFilterChange: setGlobalFilter,
     onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
     onPaginationChange: setPagination,
@@ -148,26 +92,23 @@ const ViewAllBatchesSection: FC<ViewAllBatchesSectionProps> = ({ batches }) => {
     getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    globalFilterFn: customGlobalFilterFn,
   });
 
   useEffect(() => {
-    setBatchDetails(batches);
-  }, [batches]);
+    setStudentDetails(students);
+  }, [students]);
 
   return (
     <div className="flex flex-col gap-10 px-6 py-2 justify-evenly tablet:justify-between tablet:items-center tablet:p-10 desktop:px-36">
       <div className="flex flex-col w-full gap-10">
-        <p className="text-xl font-bold text-gold">All Batches</p>
+        <p className="text-xl font-bold text-gold">All Students</p>
         <input
           type="text"
           className="p-2 text-black rounded-lg focus:outline-none placeholder:text-grey"
-          placeholder="Search batch..."
-          value={
-            (table.getColumn('batchName')?.getFilterValue() as string) ?? ''
-          }
-          onChange={(e) =>
-            table.getColumn('batchName')?.setFilterValue(e.target.value)
-          }
+          placeholder="Search student..."
+          value={globalFilter}
+          onChange={(e) => setGlobalFilter(e.target.value)}
         />
         <div className="text-sm border bg-darkBlack border-gold rounded-xl">
           <table className="w-full">
@@ -229,4 +170,4 @@ const ViewAllBatchesSection: FC<ViewAllBatchesSectionProps> = ({ batches }) => {
   );
 };
 
-export default ViewAllBatchesSection;
+export default ViewAllStudentsSection;

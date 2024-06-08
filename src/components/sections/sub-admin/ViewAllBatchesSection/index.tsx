@@ -15,7 +15,11 @@ import {
 } from '@tanstack/react-table';
 
 import { Batch } from '@interfaces/apis/batch';
-import { SUB_ADMIN_EDIT_BATCH } from '@constants/routes';
+import {
+  SUB_ADMIN_BATCH_STUDENTS,
+  SUB_ADMIN_EDIT_BATCH,
+} from '@constants/routes';
+import { BsPeopleFill } from 'react-icons/bs';
 
 export interface ViewAllBatchesSectionProps {
   batches: Batch[];
@@ -91,18 +95,32 @@ const columns: ColumnDef<Batch>[] = [
     accessorKey: 'batchId',
     header: 'Actions',
     cell: ({ row }) => (
-      <button
-        type="button"
-        className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
-      >
-        <Link
-          to={`${SUB_ADMIN_EDIT_BATCH}/${row.getValue('batchId')}`}
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="flex w-full justify-center items-center gap-2">
+        <button
+          type="button"
+          className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
         >
-          <BiSolidEdit />
-        </Link>
-      </button>
+          <Link
+            to={`${SUB_ADMIN_BATCH_STUDENTS}/${row.getValue('batchId')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <BsPeopleFill />
+          </Link>
+        </button>
+        <button
+          type="button"
+          className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
+        >
+          <Link
+            to={`${SUB_ADMIN_EDIT_BATCH}/${row.getValue('batchId')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <BiSolidEdit />
+          </Link>
+        </button>
+      </div>
     ),
   },
 ];

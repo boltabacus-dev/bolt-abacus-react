@@ -24,6 +24,7 @@ export const ADMIN_ADD_TEACHER = `${ADMIN_ROUTE}/add/teacher`;
 export const ADMIN_SUB_ADMIN_TEACHER = `${ADMIN_ROUTE}/add/sub-admin`;
 export const ADMIN_ADD_BATCH = `${ADMIN_ROUTE}/add/batch`;
 export const ADMIN_EDIT_BATCH = `${ADMIN_ROUTE}/edit/batch`;
+export const ADMIN_BATCH_STUDENTS = `${ADMIN_ROUTE}/batch/students`;
 export const ADMIN_ALL_BATCH = `${ADMIN_ROUTE}/all/batch`;
 export const ADMIN_ADD_QUESTION = `${ADMIN_ROUTE}/add/question`;
 export const ADMIN_ADD_ORGANIZATION = `${ADMIN_ROUTE}/add/organization`;
@@ -42,6 +43,7 @@ export const SUB_ADMIN_ADD_TEACHER = `${SUB_ADMIN_ROUTE}/add/teacher`;
 export const SUB_ADMIN_ADD_BATCH = `${SUB_ADMIN_ROUTE}/add/batch`;
 export const SUB_ADMIN_ALL_BATCH = `${SUB_ADMIN_ROUTE}/all/batch`;
 export const SUB_ADMIN_EDIT_BATCH = `${SUB_ADMIN_ROUTE}/edit/batch`;
+export const SUB_ADMIN_BATCH_STUDENTS = `${SUB_ADMIN_ROUTE}/batch/students`;
 
 export const TEACHER_ROUTE = '/teacher';
 export const TEACHER_DASHBOARD = `${TEACHER_ROUTE}/dashboard`;

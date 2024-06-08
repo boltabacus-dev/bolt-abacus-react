@@ -5,22 +5,24 @@ import { isAxiosError } from 'axios';
 import SeoComponent from '@components/atoms/SeoComponent';
 import LoadingBox from '@components/organisms/LoadingBox';
 import ErrorBox from '@components/organisms/ErrorBox';
-import ViewAllStudentsSection from '@components/sections/teacher/ViewAllStudentsSection';
+import ViewAllStudentsSection from '@components/sections/sub-admin/ViewAllStudentsSection';
 
 import { useAuthStore } from '@store/authStore';
-import { getStudentsRequest } from '@services/teacher';
+import { getStudentsRequest } from '@services/sub-admin';
 import { isValidId } from '@helpers/paramsValidator';
 
-import { TeacherStudent } from '@interfaces/StudentsFile';
+import { SubAdminStudent } from '@interfaces/StudentsFile';
 import { BatchStudentsPageParams } from '@interfaces/RouteParams';
+import { GetStudentsResponse } from '@interfaces/apis/sub-admin';
 
 import { ERRORS, MESSAGES } from '@constants/app';
-import { LOGIN_PAGE, TEACHER_DASHBOARD } from '@constants/routes';
-import { GetStudentsResponse } from '@interfaces/apis/teacher';
+import { SUB_ADMIN_DASHBOARD, LOGIN_PAGE } from '@constants/routes';
 
-export interface TeacherViewStudentsPageProps {}
+export interface SubAdminBatchViewStudentsPageProps {}
 
-const TeacherViewStudentsPage: FC<TeacherViewStudentsPageProps> = () => {
+const SubAdminBatchViewStudentsPage: FC<
+  SubAdminBatchViewStudentsPageProps
+> = () => {
   const params = useParams<BatchStudentsPageParams>();
 
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -28,12 +30,12 @@ const TeacherViewStudentsPage: FC<TeacherViewStudentsPageProps> = () => {
 
   const [loading, setLoading] = useState(true);
   const [apiError, setApiError] = useState<string | null>(null);
-  const [fallBackLink, setFallBackLink] = useState<string>(TEACHER_DASHBOARD);
+  const [fallBackLink, setFallBackLink] = useState<string>(SUB_ADMIN_DASHBOARD);
   const [fallBackAction, setFallBackAction] = useState<string>(
     MESSAGES.TRY_AGAIN
   );
 
-  const [students, setStudents] = useState<TeacherStudent[]>([]);
+  const [students, setStudents] = useState<SubAdminStudent[]>([]);
 
   useEffect(() => {
     const getAllBatchStudentsData = async () => {
@@ -41,7 +43,7 @@ const TeacherViewStudentsPage: FC<TeacherViewStudentsPageProps> = () => {
         try {
           if (!isValidId(params.batchId!)) {
             setApiError(ERRORS.INVALID_BATCH);
-            setFallBackLink(TEACHER_DASHBOARD);
+            setFallBackLink(SUB_ADMIN_DASHBOARD);
             setFallBackAction(MESSAGES.GO_DASHBOARD);
             setLoading(false);
           } else {
@@ -110,4 +112,4 @@ const TeacherViewStudentsPage: FC<TeacherViewStudentsPageProps> = () => {
   );
 };
 
-export default TeacherViewStudentsPage;
+export default SubAdminBatchViewStudentsPage;

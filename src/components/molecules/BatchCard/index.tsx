@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { isAxiosError } from 'axios';
 import { Link } from 'react-router-dom';
-import { AiFillLock, AiOutlineLink } from 'react-icons/ai';
+import { AiFillUnlock, AiOutlineLink } from 'react-icons/ai';
 import { MdPeople } from 'react-icons/md';
 import { Tooltip } from 'react-tooltip';
 import swal from 'sweetalert';
@@ -125,7 +125,7 @@ const BatchCard: FC<BatchCardProps> = ({
           data-tooltip-content="Unlock Class"
           data-tooltip-place="bottom"
         >
-          <AiFillLock />
+          <AiFillUnlock />
         </button>
         <Tooltip id="unlock-class-tooltip" />
       </div>
