@@ -38,6 +38,8 @@ export const BatchSchema = z.object({
   batchId: z.number(),
   batchName: z.string(),
   timings: z.string(),
+  latestLevelId: z.number(),
+  latestClassId: z.number(),
 });
 export type Batch = z.infer<typeof BatchSchema>;
 

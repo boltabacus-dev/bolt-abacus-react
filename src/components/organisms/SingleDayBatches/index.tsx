@@ -25,6 +25,8 @@ const SingleDayBatches: FC<SingleDayBatchesProps> = ({ day, batches }) => {
                 batchName={batch.batchName}
                 batchId={batch.batchId}
                 timings={batch.timings}
+                latestLevel={batch.latestLevelId}
+                latestClass={batch.latestClassId}
                 bgColor={color}
               />
             );

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { AiFillUnlock, AiOutlineLink } from 'react-icons/ai';
 import { MdPeople } from 'react-icons/md';
 import { Tooltip } from 'react-tooltip';
+import { BiSolidReport } from 'react-icons/bi';
 import swal from 'sweetalert';
 
 import { useAuthStore } from '@store/authStore';
@@ -16,12 +17,13 @@ import {
   TEACHER_UPDATE_LINK,
 } from '@constants/routes';
 import { ERRORS } from '@constants/app';
-import { BiSolidReport } from 'react-icons/bi';
 
 export interface BatchCardProps {
   batchName: string;
   batchId: number;
   timings: string;
+  latestLevel: number;
+  latestClass: number;
   bgColor: string;
 }
 
@@ -30,13 +32,15 @@ const BatchCard: FC<BatchCardProps> = ({
   batchName,
   timings,
   bgColor,
+  latestLevel,
+  latestClass,
 }) => {
   const authToken = useAuthStore((state) => state.authToken);
 
   const updateClass = async () => {
     swal({
       title: 'Are you certain you want to update the class ?',
-      text: 'After moving to the next class, you will not be able to return to the previous class.',
+      text: `Currently on Level: ${latestLevel} Class: ${latestClass}. After moving to the next class, you will not be able to return to the previous class.`,
       icon: 'warning',
       buttons: ['Cancel', 'Ok'],
       dangerMode: true,
