@@ -61,6 +61,32 @@ const columns: ColumnDef<SearchStudent>[] = [
     },
   },
   {
+    accessorKey: 'phoneNumber',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Phone
+        </button>
+      );
+    },
+  },
+  {
+    accessorKey: 'batchName',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Batch
+        </button>
+      );
+    },
+  },
+  {
     accessorKey: 'email',
     header: ({ column }) => {
       return (
@@ -197,14 +223,14 @@ const SearchStudentSection: FC<SearchStudentSectionProps> = () => {
             </p>
           </div>
         ) : (
-          <div className="text-sm border bg-darkBlack border-gold rounded-xl">
+          <div className="text-xs border bg-darkBlack border-gold rounded-xl">
             <table className="w-full">
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <tr key={headerGroup.id} className="border-b border-gold">
                     {headerGroup.headers.map((header) => (
                       <th key={header.id}>
-                        <div className="p-1 text-center text-gold/80 tablet:p-3 tablet:text-lg">
+                        <div className="p-1 text-center text-gold/80 tablet:p-3 tablet:text-md">
                           {flexRender(
                             header.column.columnDef.header,
                             header.getContext()
@@ -217,7 +243,7 @@ const SearchStudentSection: FC<SearchStudentSectionProps> = () => {
               </thead>
               <tbody>
                 {table.getRowModel().rows.map((row) => (
-                  <tr key={row.id} className="text-xs tablet:text-md">
+                  <tr key={row.id} className="text-xxs tablet:text-md">
                     {row.getVisibleCells().map((cell) => (
                       <td key={cell.id}>
                         <div className="flex items-center justify-center p-1 text-center tablet:p-2">

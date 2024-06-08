@@ -42,6 +42,8 @@ export const GetStudentsResponseSchema = z.object({
       userId: z.number(),
       firstName: z.string(),
       lastName: z.string(),
+      phoneNumber: z.string(),
+      email: z.string(),
     })
   ),
 });
@@ -59,6 +61,7 @@ export const SearchStudentsResponseSchema = z.object({
       phoneNumber: z.string(),
       email: z.string(),
       tag: z.string(),
+      batchName: z.string(),
     })
   ),
 });

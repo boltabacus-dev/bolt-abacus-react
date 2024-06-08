@@ -40,6 +40,7 @@ const config: Config = {
       boxWhite: '0px 0px 4px 2px rgba(74, 74, 74, 0.15)',
     },
     fontSize: {
+      xxs: ['10px', { lineHeight: '20px', letterSpacing: '-0.03em' }],
       xs: ['12px', { lineHeight: '20px', letterSpacing: '-0.03em' }],
       sm: ['14px', { lineHeight: '24px', letterSpacing: '-0.03em' }],
       md: ['16px', { lineHeight: '28px', letterSpacing: '-0.03em' }],

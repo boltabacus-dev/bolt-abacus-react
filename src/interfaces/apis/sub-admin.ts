@@ -8,6 +8,8 @@ export const GetStudentsResponseSchema = z.object({
       userId: z.number(),
       firstName: z.string(),
       lastName: z.string(),
+      phoneNumber: z.string(),
+      email: z.string(),
     })
   ),
 });

@@ -22,12 +22,16 @@ export type AdminStudent = {
   userId: number;
   firstName: string;
   lastName: string;
+  phoneNumber: string;
+  email: string;
 };
 
 export type SubAdminStudent = {
   userId: number;
   firstName: string;
   lastName: string;
+  phoneNumber: string;
+  email: string;
 };
 
 export type SearchStudent = {
@@ -36,5 +40,6 @@ export type SearchStudent = {
   lastName: string;
   phoneNumber: string;
   email: string;
+  batchName: string;
   tag: string;
 };

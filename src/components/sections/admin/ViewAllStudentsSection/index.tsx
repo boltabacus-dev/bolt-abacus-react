@@ -50,6 +50,32 @@ const columns: ColumnDef<AdminStudent>[] = [
     },
   },
   {
+    accessorKey: 'email',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Email
+        </button>
+      );
+    },
+  },
+  {
+    accessorKey: 'phoneNumber',
+    header: ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Phone
+        </button>
+      );
+    },
+  },
+  {
     accessorKey: 'userId',
     header: 'Actions',
     cell: ({ row }) => (
