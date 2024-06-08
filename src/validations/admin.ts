@@ -44,7 +44,14 @@ export const addStudentFormSchema = z.object({
     ),
 });
 
-export type TAddStudentFormSchema = z.infer<typeof addStudentFormSchema>;
+/*
+ * Search Student Form Input Schema
+ */
+export const searchStudentSchema = z.object({
+  name: z.string().min(1, 'Student name is required').trim(),
+});
+
+export type TSearchStudentSchema = z.infer<typeof searchStudentSchema>;
 
 /*
  * Bulk Add Student Form Input Schema

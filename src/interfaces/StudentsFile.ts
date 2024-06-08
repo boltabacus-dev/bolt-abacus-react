@@ -29,3 +29,12 @@ export type SubAdminStudent = {
   firstName: string;
   lastName: string;
 };
+
+export type SearchStudent = {
+  userId: number;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  tag: string;
+};

@@ -51,6 +51,7 @@ import TeacherUpdateLinkPage from '@pages/teacher/update-link';
 import TeacherBatchReportPage from '@pages/teacher/report';
 import TeacherStudentProgressPage from '@pages/teacher/student-progress';
 import TeacherViewStudentsPage from '@pages/teacher/students';
+import AdminSearchStudentsPage from '@pages/admin/search-students';
 
 export const router = createBrowserRouter([
   {
@@ -187,6 +188,10 @@ export const router = createBrowserRouter([
           {
             path: 'add/student/bulk',
             element: <AdminBulkAddStudentPage />,
+          },
+          {
+            path: 'search/student/',
+            element: <AdminSearchStudentsPage />,
           },
           {
             path: 'all/teacher',

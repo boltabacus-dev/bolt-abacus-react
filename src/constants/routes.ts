@@ -18,6 +18,7 @@ export const STUDENT_PROGRESS = `${STUDENT_ROUTE}/progress`;
 export const ADMIN_ROUTE = '/admin';
 export const ADMIN_DASHBOARD = `${ADMIN_ROUTE}/dashboard`;
 export const ADMIN_ADD_STUDENT = `${ADMIN_ROUTE}/add/student`;
+export const ADMIN_SEARCH_STUDENT = `${ADMIN_ROUTE}/search/student`;
 export const ADMIN_BULK_ADD_STUDENT = `${ADMIN_ROUTE}/add/student/bulk`;
 export const ADMIN_ALL_TEACHER = `${ADMIN_ROUTE}/all/teacher`;
 export const ADMIN_ADD_TEACHER = `${ADMIN_ROUTE}/add/teacher`;
@@ -36,6 +37,7 @@ export const ADMIN_VIEW_QUIZ = `${ADMIN_ROUTE}/view/quiz`;
 
 export const SUB_ADMIN_ROUTE = '/sub-admin';
 export const SUB_ADMIN_DASHBOARD = `${SUB_ADMIN_ROUTE}/dashboard`;
+export const SUM_ADMIN_SEARCH_STUDENT = `${SUB_ADMIN_ROUTE}/search/student`;
 export const SUB_ADMIN_ADD_STUDENT = `${SUB_ADMIN_ROUTE}/add/student`;
 export const SUB_ADMIN_BULK_ADD_STUDENT = `${SUB_ADMIN_ROUTE}/add/student/bulk`;
 export const SUB_ADMIN_ALL_TEACHER = `${SUB_ADMIN_ROUTE}/all/teacher`;
@@ -65,6 +67,7 @@ export const STUDENT_QUIZ_ENDPOINT = '/quiz/';
 export const STUDENT_QUIZ_SUBMIT_ENDPOINT = '/quizCorrection/';
 export const STUDENT_REPORT_ENDPOINT = '/report/';
 export const STUDENT_PROGRESS_ENDPOINT = '/getStudentProgressStudent/';
+export const SEARCH_STUDENT_BY_NAME_ENDPOINT = '/getStudentsByName/';
 
 export const GET_LEVEL_SCHEMA_ENDPOINT = '/getTopicsData/';
 export const GET_ALL_QUIZ_QUESTIONS_ENDPOINT = '/getAllQuestions/';
