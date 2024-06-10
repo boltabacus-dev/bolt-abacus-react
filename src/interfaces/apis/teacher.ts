@@ -132,3 +132,23 @@ export const GetStudentsResponseSchema = z.object({
 });
 
 export type GetStudentsResponse = z.infer<typeof GetStudentsResponseSchema>;
+
+// Search Students by Name API
+
+export const SearchStudentsResponseSchema = z.object({
+  students: z.array(
+    z.object({
+      userId: z.number(),
+      firstName: z.string(),
+      lastName: z.string(),
+      phoneNumber: z.string(),
+      email: z.string(),
+      tag: z.string(),
+      batchName: z.string(),
+    })
+  ),
+});
+
+export type SearchStudentsResponse = z.infer<
+  typeof SearchStudentsResponseSchema
+>;

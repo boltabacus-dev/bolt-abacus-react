@@ -11,6 +11,7 @@ import {
   LOGIN_PAGE,
   PROFILE_PAGE,
   TEACHER_DASHBOARD,
+  TEACHER_SEARCH_STUDENTS,
 } from '@constants/routes';
 
 export interface TeacherNavBarProps {}
@@ -35,6 +36,9 @@ const TeacherNavBar: FC<TeacherNavBarProps> = () => {
               <>
                 <NavBarLink type="desktop" href={TEACHER_DASHBOARD}>
                   Dashboard
+                </NavBarLink>
+                <NavBarLink type="desktop" href={TEACHER_SEARCH_STUDENTS}>
+                  Search Students
                 </NavBarLink>
                 <NavBarLink type="desktop" href={LOGIN_PAGE} onclick={logout}>
                   Log out
@@ -84,10 +88,12 @@ const TeacherNavBar: FC<TeacherNavBarProps> = () => {
                   <NavBarLink type="mobile" href={TEACHER_DASHBOARD}>
                     Dashboard
                   </NavBarLink>
+                  <NavBarLink type="mobile" href={TEACHER_SEARCH_STUDENTS}>
+                    Search Students
+                  </NavBarLink>
                   <NavBarLink type="mobile" href={LOGIN_PAGE} onclick={logout}>
                     Log out
                   </NavBarLink>
-
                   <NavBarLink type="mobile" href={PROFILE_PAGE}>
                     <ProfileIcon
                       text={

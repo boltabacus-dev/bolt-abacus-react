@@ -55,6 +55,7 @@ export const TEACHER_DASHBOARD = `${TEACHER_ROUTE}/dashboard`;
 export const TEACHER_UPDATE_LINK = `${TEACHER_ROUTE}/update-link`;
 export const TEACHER_BATCH_REPORT = `${TEACHER_ROUTE}/report`;
 export const TEACHER_STUDENT_PROGRESS = `${TEACHER_ROUTE}/student-progress`;
+export const TEACHER_SEARCH_STUDENTS = `${TEACHER_ROUTE}/search/student`;
 export const TEACHER_STUDENTS = `${TEACHER_ROUTE}/students`;
 
 // Backend Endpoints
@@ -71,6 +72,7 @@ export const STUDENT_QUIZ_SUBMIT_ENDPOINT = '/quizCorrection/';
 export const STUDENT_REPORT_ENDPOINT = '/report/';
 export const STUDENT_PROGRESS_ENDPOINT = '/getStudentProgressStudent/';
 export const SEARCH_STUDENT_BY_NAME_ENDPOINT = '/getStudentsByName/';
+export const SEARCH_STUDENT_BY_NAME_V2_ENDPOINT = '/getStudentByNameV2/';
 
 export const GET_LEVEL_SCHEMA_ENDPOINT = '/getTopicsData/';
 export const GET_ALL_QUIZ_QUESTIONS_ENDPOINT = '/getAllQuestions/';

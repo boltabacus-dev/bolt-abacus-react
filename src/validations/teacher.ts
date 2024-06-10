@@ -23,3 +23,12 @@ export const getBatchReportSchema = z.object({
 });
 
 export type TGetBatchReportSchema = z.infer<typeof getBatchReportSchema>;
+
+/*
+ * Search Student Form Input Schema
+ */
+export const searchStudentSchema = z.object({
+  name: z.string().min(1, 'Student name is required').trim(),
+});
+
+export type TSearchStudentSchema = z.infer<typeof searchStudentSchema>;
