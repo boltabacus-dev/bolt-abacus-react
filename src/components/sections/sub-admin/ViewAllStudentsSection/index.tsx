@@ -1,7 +1,8 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, memo, useEffect, useState } from 'react';
+import { isAxiosError } from 'axios';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
-import { Link } from 'react-router-dom';
-import { BiSolidReport } from 'react-icons/bi';
+import { Link, useNavigate } from 'react-router-dom';
+import { BiSolidLock, BiSolidReport } from 'react-icons/bi';
 import {
   ColumnDef,
   SortingState,
@@ -13,19 +14,70 @@ import {
   ColumnFiltersState,
   getPaginationRowModel,
   FilterFn,
+  Column,
+  Row,
 } from '@tanstack/react-table';
+import swal from 'sweetalert';
 
+import { useAuthStore } from '@store/authStore';
 import { SubAdminStudent } from '@interfaces/StudentsFile';
+import { accountDeactivationRequest } from '@services/student';
+
+import { ERRORS } from '@constants/app';
 import { SUB_ADMIN_STUDENT_PROGRESS } from '@constants/routes';
 
 export interface ViewAllStudentsSectionProps {
   students: SubAdminStudent[];
 }
 
-const columns: ColumnDef<SubAdminStudent>[] = [
-  {
-    accessorKey: 'firstName',
-    header: ({ column }) => {
+const ViewAllStudentsSection: FC<ViewAllStudentsSectionProps> = ({
+  students,
+}) => {
+  const navigate = useNavigate();
+  const authToken = useAuthStore((state) => state.authToken);
+
+  const deactivateAccount = async (userId: number) => {
+    swal({
+      title: 'Are you certain you want to deactivate the account ?',
+      text: `Once deactivated the student can't access the account anymore.`,
+      icon: 'warning',
+      buttons: ['Cancel', 'Ok'],
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          const res = await accountDeactivationRequest(userId, authToken!);
+          if (res.status === 200) {
+            swal('Account deactivated successfully', {
+              icon: 'success',
+            }).then(() => {
+              navigate(0);
+            });
+          }
+        } catch (error) {
+          if (isAxiosError(error)) {
+            const status = error.response?.status;
+            if (status === 401 || status === 403 || status === 409) {
+              swal(error.response?.data?.message || ERRORS.SERVER_ERROR, {
+                icon: 'error',
+              });
+            } else {
+              swal(ERRORS.SERVER_ERROR, {
+                icon: 'error',
+              });
+            }
+          } else {
+            swal(ERRORS.SERVER_ERROR, {
+              icon: 'error',
+            });
+          }
+        }
+      }
+    });
+  };
+
+  const firstNameCmp = memo<{ column: Column<SubAdminStudent, unknown> }>(
+    ({ column }) => {
       return (
         <button
           type="button"
@@ -34,11 +86,12 @@ const columns: ColumnDef<SubAdminStudent>[] = [
           First Name
         </button>
       );
-    },
-  },
-  {
-    accessorKey: 'lastName',
-    header: ({ column }) => {
+    }
+  );
+  firstNameCmp.displayName = '';
+
+  const lastNameCmp = memo<{ column: Column<SubAdminStudent, unknown> }>(
+    ({ column }) => {
       return (
         <button
           type="button"
@@ -47,11 +100,12 @@ const columns: ColumnDef<SubAdminStudent>[] = [
           Last Name
         </button>
       );
-    },
-  },
-  {
-    accessorKey: 'email',
-    header: ({ column }) => {
+    }
+  );
+  lastNameCmp.displayName = '';
+
+  const emailCmp = memo<{ column: Column<SubAdminStudent, unknown> }>(
+    ({ column }) => {
       return (
         <button
           type="button"
@@ -60,11 +114,12 @@ const columns: ColumnDef<SubAdminStudent>[] = [
           Email
         </button>
       );
-    },
-  },
-  {
-    accessorKey: 'phoneNumber',
-    header: ({ column }) => {
+    }
+  );
+  emailCmp.displayName = '';
+
+  const phoneCmp = memo<{ column: Column<SubAdminStudent, unknown> }>(
+    ({ column }) => {
       return (
         <button
           type="button"
@@ -73,31 +128,60 @@ const columns: ColumnDef<SubAdminStudent>[] = [
           Phone
         </button>
       );
-    },
-  },
-  {
-    accessorKey: 'userId',
-    header: 'Actions',
-    cell: ({ row }) => (
+    }
+  );
+  phoneCmp.displayName = '';
+
+  const actionButtons = memo<{ row: Row<SubAdminStudent> }>(({ row }) => (
+    <div className="flex gap-2">
+      <button
+        type="button"
+        className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold disabled:bg-gold/50"
+        onClick={() => deactivateAccount(row.original.userId)}
+        disabled={row.original.blocked}
+      >
+        <BiSolidLock />
+      </button>
       <button
         type="button"
         className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
       >
         <Link
-          to={`${SUB_ADMIN_STUDENT_PROGRESS}/${row.getValue('userId')}`}
+          to={`${SUB_ADMIN_STUDENT_PROGRESS}/${row.original.userId}`}
           target="_blank"
           rel="noopener noreferrer"
         >
           <BiSolidReport />
         </Link>
       </button>
-    ),
-  },
-];
+    </div>
+  ));
+  actionButtons.displayName = '';
 
-const ViewAllStudentsSection: FC<ViewAllStudentsSectionProps> = ({
-  students,
-}) => {
+  const columns: ColumnDef<SubAdminStudent>[] = [
+    {
+      accessorKey: 'firstName',
+      header: firstNameCmp,
+    },
+    {
+      accessorKey: 'lastName',
+      header: lastNameCmp,
+    },
+    {
+      accessorKey: 'email',
+      header: emailCmp,
+    },
+    {
+      accessorKey: 'phoneNumber',
+      header: phoneCmp,
+    },
+    {
+      id: 'userId',
+      header: 'Actions',
+      cell: actionButtons,
+    },
+  ];
+
   const [studentDetails, setStudentDetails] = useState<SubAdminStudent[]>([]);
 
   const [sorting, setSorting] = useState<SortingState>([]);

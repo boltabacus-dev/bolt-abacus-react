@@ -10,6 +10,7 @@ export const GetStudentsResponseSchema = z.object({
       lastName: z.string(),
       phoneNumber: z.string(),
       email: z.string(),
+      blocked: z.boolean(),
     })
   ),
 });

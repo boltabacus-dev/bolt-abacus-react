@@ -11,6 +11,7 @@ import {
   BULK_ADD_STUDENT_ENDPOINT,
   STUDENT_DASHBOARD_V2_ENDPOINT,
   ACCOUNT_DELETION_ENDPOINT,
+  ACCOUNT_DEACTIVATION_ENDPOINT,
 } from '@constants/routes';
 import { QuizAnswer } from '@interfaces/apis/student';
 import { Student } from '@interfaces/StudentsFile';
@@ -44,6 +45,21 @@ export const accountDeletionRequest = async (userId: number, token: string) => {
     ACCOUNT_DELETION_ENDPOINT,
     {
       userId: userId ?? 0,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const accountDeactivationRequest = async (
+  userId: number,
+  token: string
+) => {
+  return axios.post(
+    ACCOUNT_DEACTIVATION_ENDPOINT,
+    {
+      userId,
     },
     {
       headers: { 'AUTH-TOKEN': token },

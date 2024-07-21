@@ -24,6 +24,7 @@ export type AdminStudent = {
   lastName: string;
   phoneNumber: string;
   email: string;
+  blocked: boolean;
 };
 
 export type SubAdminStudent = {
@@ -32,6 +33,7 @@ export type SubAdminStudent = {
   lastName: string;
   phoneNumber: string;
   email: string;
+  blocked: boolean;
 };
 
 export type SearchStudent = {

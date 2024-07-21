@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useEffect, useState } from 'react';
 import swal from 'sweetalert';
 import { isAxiosError } from 'axios';
@@ -16,6 +15,8 @@ import {
   ColumnFiltersState,
   getPaginationRowModel,
   FilterFn,
+  Column,
+  Row,
 } from '@tanstack/react-table';
 
 import { TeacherV2 } from '@interfaces/apis/teacher';
@@ -37,7 +38,7 @@ const ViewAllTeachersSection: FC<ViewAllTeachersSectionProps> = ({
   const deleteAccount = async (userId: number) => {
     swal({
       title: 'Are you certain you want to delete the account ?',
-      text: `Once deleted you can't access the account anymore.`,
+      text: `Once deleted teacher can't access the account anymore.`,
       icon: 'warning',
       buttons: ['Cancel', 'Ok'],
       dangerMode: true,
@@ -55,7 +56,7 @@ const ViewAllTeachersSection: FC<ViewAllTeachersSectionProps> = ({
         } catch (error) {
           if (isAxiosError(error)) {
             const status = error.response?.status;
-            if (status === 401 || status === 403) {
+            if (status === 400 || status === 401 || status === 403) {
               swal(error.response?.data?.message || ERRORS.SERVER_ERROR, {
                 icon: 'error',
               });
@@ -74,43 +75,49 @@ const ViewAllTeachersSection: FC<ViewAllTeachersSectionProps> = ({
     });
   };
 
-  const firstNameCmp = memo<{ column: any }>(({ column }) => {
-    return (
-      <button
-        type="button"
-        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-      >
-        First Name
-      </button>
-    );
-  });
+  const firstNameCmp = memo<{ column: Column<TeacherV2, unknown> }>(
+    ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          First Name
+        </button>
+      );
+    }
+  );
   firstNameCmp.displayName = '';
 
-  const lastNameCmp = memo<{ column: any }>(({ column }) => {
-    return (
-      <button
-        type="button"
-        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-      >
-        Last Name
-      </button>
-    );
-  });
+  const lastNameCmp = memo<{ column: Column<TeacherV2, unknown> }>(
+    ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Last Name
+        </button>
+      );
+    }
+  );
   lastNameCmp.displayName = '';
 
-  const tagNameCmp = memo<{ column: any }>(({ column }) => {
-    return (
-      <button
-        type="button"
-        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-      >
-        Tag Name
-      </button>
-    );
-  });
+  const tagNameCmp = memo<{ column: Column<TeacherV2, unknown> }>(
+    ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Tag Name
+        </button>
+      );
+    }
+  );
   tagNameCmp.displayName = '';
 
-  const actionButtons = memo<{ row: any }>(({ row }) => (
+  const actionButtons = memo<{ row: Row<TeacherV2> }>(({ row }) => (
     <button
       type="button"
       className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
