@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, memo, useEffect, useState } from 'react';
+import swal from 'sweetalert';
 import { isAxiosError } from 'axios';
 import { BiSolidTrash } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
@@ -72,7 +74,7 @@ const ViewAllTeachersSection: FC<ViewAllTeachersSectionProps> = ({
     });
   };
 
-  const firstNameCmp = memo(({ column }) => {
+  const firstNameCmp = memo<{ column: any }>(({ column }) => {
     return (
       <button
         type="button"
@@ -84,7 +86,7 @@ const ViewAllTeachersSection: FC<ViewAllTeachersSectionProps> = ({
   });
   firstNameCmp.displayName = '';
 
-  const lastNameCmp = memo(({ column }) => {
+  const lastNameCmp = memo<{ column: any }>(({ column }) => {
     return (
       <button
         type="button"
@@ -96,7 +98,7 @@ const ViewAllTeachersSection: FC<ViewAllTeachersSectionProps> = ({
   });
   lastNameCmp.displayName = '';
 
-  const actionButtons = memo(({ row }) => (
+  const actionButtons = memo<{ row: any }>(({ row }) => (
     <button
       type="button"
       className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"

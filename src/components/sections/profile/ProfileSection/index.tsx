@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { isAxiosError } from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 import Button from '@components/atoms/Button';
 import ProfileIcon from '@components/atoms/ProfileIcon';
