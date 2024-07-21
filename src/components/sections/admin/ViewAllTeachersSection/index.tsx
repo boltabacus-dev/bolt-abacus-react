@@ -1,4 +1,7 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, memo, useEffect, useState } from 'react';
+import { isAxiosError } from 'axios';
+import { BiSolidTrash } from 'react-icons/bi';
+import { useNavigate } from 'react-router-dom';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 import {
   ColumnDef,
@@ -12,57 +15,130 @@ import {
   getPaginationRowModel,
   FilterFn,
 } from '@tanstack/react-table';
+
 import { TeacherV2 } from '@interfaces/apis/teacher';
+import { accountDeletionRequest } from '@services/student';
+import { useAuthStore } from '@store/authStore';
+
+import { ERRORS } from '@constants/app';
 
 export interface ViewAllTeachersSectionProps {
   teachers: TeacherV2[];
 }
 
-const columns: ColumnDef<TeacherV2>[] = [
-  {
-    accessorKey: 'firstName',
-    header: ({ column }) => {
-      return (
-        <button
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          First Name
-        </button>
-      );
-    },
-  },
-  {
-    accessorKey: 'lastName',
-    header: ({ column }) => {
-      return (
-        <button
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Last Name
-        </button>
-      );
-    },
-  },
-  {
-    accessorKey: 'tag',
-    header: ({ column }) => {
-      return (
-        <button
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Tag Name
-        </button>
-      );
-    },
-  },
-];
-
 const ViewAllTeachersSection: FC<ViewAllTeachersSectionProps> = ({
   teachers,
 }) => {
+  const navigate = useNavigate();
+  const authToken = useAuthStore((state) => state.authToken);
+
+  const deleteAccount = async (userId: number) => {
+    swal({
+      title: 'Are you certain you want to delete the account ?',
+      text: `Once deleted you can't access the account anymore.`,
+      icon: 'warning',
+      buttons: ['Cancel', 'Ok'],
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          const res = await accountDeletionRequest(userId, authToken!);
+          if (res.status === 200) {
+            swal('Account deleted successfully', {
+              icon: 'success',
+            }).then(() => {
+              navigate(0);
+            });
+          }
+        } catch (error) {
+          if (isAxiosError(error)) {
+            const status = error.response?.status;
+            if (status === 401 || status === 403) {
+              swal(error.response?.data?.message || ERRORS.SERVER_ERROR, {
+                icon: 'error',
+              });
+            } else {
+              swal(ERRORS.SERVER_ERROR, {
+                icon: 'error',
+              });
+            }
+          } else {
+            swal(ERRORS.SERVER_ERROR, {
+              icon: 'error',
+            });
+          }
+        }
+      }
+    });
+  };
+
+  const firstNameCmp = memo(({ column }) => {
+    return (
+      <button
+        type="button"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        First Name
+      </button>
+    );
+  });
+  firstNameCmp.displayName = '';
+
+  const lastNameCmp = memo(({ column }) => {
+    return (
+      <button
+        type="button"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Last Name
+      </button>
+    );
+  });
+  lastNameCmp.displayName = '';
+
+  const tagNameCmp = memo(({ column }) => {
+    return (
+      <button
+        type="button"
+        onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+      >
+        Tag Name
+      </button>
+    );
+  });
+  tagNameCmp.displayName = '';
+
+  const actionButtons = memo(({ row }) => (
+    <button
+      type="button"
+      className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
+      onClick={() => deleteAccount(row.getValue('userId'))}
+    >
+      <BiSolidTrash />
+    </button>
+  ));
+  actionButtons.displayName = '';
+
+  const columns: ColumnDef<TeacherV2>[] = [
+    {
+      accessorKey: 'firstName',
+      header: firstNameCmp,
+    },
+    {
+      accessorKey: 'lastName',
+      header: lastNameCmp,
+    },
+    {
+      accessorKey: 'tag',
+      header: tagNameCmp,
+    },
+    {
+      accessorKey: 'userId',
+      header: 'Actions',
+      cell: actionButtons,
+    },
+  ];
+
   const [teacherDetails, setTeacherDetails] = useState<TeacherV2[]>([]);
 
   const [sorting, setSorting] = useState<SortingState>([]);
