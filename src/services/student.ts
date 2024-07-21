@@ -9,12 +9,19 @@ import {
   STUDENT_QUIZ_SUBMIT_ENDPOINT,
   STUDENT_REPORT_ENDPOINT,
   BULK_ADD_STUDENT_ENDPOINT,
+  STUDENT_DASHBOARD_V2_ENDPOINT,
 } from '@constants/routes';
 import { QuizAnswer } from '@interfaces/apis/student';
 import { Student } from '@interfaces/StudentsFile';
 
 export const dashboardRequest = async (token: string) => {
   return axios.get(STUDENT_DASHBOARD_ENDPOINT, {
+    headers: { 'AUTH-TOKEN': token },
+  });
+};
+
+export const dashboardRequestV2 = async (token: string) => {
+  return axios.get(STUDENT_DASHBOARD_V2_ENDPOINT, {
     headers: { 'AUTH-TOKEN': token },
   });
 };

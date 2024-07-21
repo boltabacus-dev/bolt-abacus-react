@@ -8,6 +8,19 @@ export const DashboardResponseSchema = z.object({
 });
 export type DashboardResponse = z.infer<typeof DashboardResponseSchema>;
 
+// Dashboard Page V2 API Response
+export const DashboardResponseV2Schema = z.object({
+  levelsPercentage: z.record(z.number()),
+  levelId: z.number().gt(0).lt(11),
+  latestClass: z.number(),
+  latestLink: z.string().url(),
+});
+export type DashboardResponseV2 = z.infer<typeof DashboardResponseV2Schema>;
+
+export type LevelsPercentage = {
+  [key: string]: number;
+};
+
 // Level Page API Response
 const SingleClassSchema = z.object({
   classId: z.number(),

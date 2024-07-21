@@ -8,11 +8,14 @@ import InfoSection from '@components/sections/student/dashboard/InfoSection';
 import RoadmapSection from '@components/sections/student/dashboard/RoadMapSection';
 import WelcomeSection from '@components/sections/student/dashboard/WelcomeSection';
 
-import { dashboardRequest } from '@services/student';
+import { dashboardRequestV2 } from '@services/student';
 import { useAuthStore } from '@store/authStore';
-import { ERRORS, MESSAGES, NO_OF_CLASSES } from '@constants/app';
+import { ERRORS, MESSAGES } from '@constants/app';
 import { LOGIN_PAGE, STUDENT_DASHBOARD } from '@constants/routes';
-import { DashboardResponse } from '@interfaces/apis/student';
+import {
+  DashboardResponseV2,
+  LevelsPercentage,
+} from '@interfaces/apis/student';
 
 export interface StudentDashboardPageProps {}
 
@@ -27,23 +30,23 @@ const StudentDashboardPage: FC<StudentDashboardPageProps> = () => {
     MESSAGES.TRY_AGAIN
   );
 
-  const [currentLevel, setCurrentLevel] = useState<number>();
-  const [currentClass, setCurrentClass] = useState<number>();
+  const [currentLevel, setCurrentLevel] = useState<number>(1);
+  const [currentClass, setCurrentClass] = useState<number>(1);
   const [classLink, setClassLink] = useState<string>();
-  const [progress, setProgress] = useState<number>();
+  const [progress, setProgress] = useState<LevelsPercentage>({});
 
   useEffect(() => {
     const getDashboardData = async () => {
       if (isAuthenticated) {
         try {
-          const res = await dashboardRequest(authToken!);
+          const res = await dashboardRequestV2(authToken!);
           if (res.status === 200) {
-            const dashboardResponse: DashboardResponse = res.data;
+            const dashboardResponse: DashboardResponseV2 = res.data;
             setCurrentLevel(dashboardResponse.levelId);
             setCurrentClass(dashboardResponse.latestClass);
             setClassLink(dashboardResponse.latestLink);
             setApiError(null);
-            setProgress((dashboardResponse.latestClass / NO_OF_CLASSES) * 100);
+            setProgress(dashboardResponse.levelsPercentage);
           }
         } catch (error) {
           if (isAxiosError(error)) {
@@ -100,7 +103,7 @@ const StudentDashboardPage: FC<StudentDashboardPageProps> = () => {
               <InfoSection
                 currentLevel={currentLevel!}
                 description={`Class ${currentClass!}`}
-                progress={progress!}
+                progress={progress[currentLevel]}
               />
               <RoadmapSection
                 currentLevel={currentLevel!}

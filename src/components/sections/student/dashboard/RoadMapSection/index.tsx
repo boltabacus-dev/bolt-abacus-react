@@ -2,10 +2,12 @@ import { FC } from 'react';
 
 import LevelCard from '@components/molecules/LevelCard';
 
+import { LevelsPercentage } from '@interfaces/apis/student';
+
 export interface RoadmapSectionProps {
   currentLevel: number;
   currentClass: number;
-  progress: number;
+  progress: LevelsPercentage;
 }
 
 const RoadmapSection: FC<RoadmapSectionProps> = ({
@@ -17,21 +19,33 @@ const RoadmapSection: FC<RoadmapSectionProps> = ({
 
   for (let i = 1; i < 11; i += 1) {
     if (currentLevel > i) {
-      classCards.push(
-        <LevelCard
-          key={i}
-          type="finished"
-          description="Classes Completed"
-          level={i}
-        />
-      );
+      if (progress!.currentLevel === 100) {
+        classCards.push(
+          <LevelCard
+            key={i}
+            type="inprogress"
+            description="Classes Incomplete"
+            progress={progress[i]}
+            level={i}
+          />
+        );
+      } else {
+        classCards.push(
+          <LevelCard
+            key={i}
+            type="finished"
+            description="Classes Completed"
+            level={i}
+          />
+        );
+      }
     } else if (currentLevel === i) {
       classCards.push(
         <LevelCard
           key={i}
           type="inprogress"
           description={`Class ${currentClass}`}
-          progress={progress}
+          progress={progress[currentLevel]}
           level={i}
         />
       );
