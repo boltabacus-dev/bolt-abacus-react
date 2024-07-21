@@ -10,6 +10,7 @@ import {
   STUDENT_REPORT_ENDPOINT,
   BULK_ADD_STUDENT_ENDPOINT,
   STUDENT_DASHBOARD_V2_ENDPOINT,
+  ACCOUNT_DELETION_ENDPOINT,
 } from '@constants/routes';
 import { QuizAnswer } from '@interfaces/apis/student';
 import { Student } from '@interfaces/StudentsFile';
@@ -31,6 +32,18 @@ export const levelRequest = async (levelId: number, token: string) => {
     STUDENT_LEVEL_ENDPOINT,
     {
       levelId,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const accountDeletionRequest = async (userId: number, token: string) => {
+  return axios.post(
+    ACCOUNT_DELETION_ENDPOINT,
+    {
+      userId: userId ?? 0,
     },
     {
       headers: { 'AUTH-TOKEN': token },

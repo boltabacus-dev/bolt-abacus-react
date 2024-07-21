@@ -62,6 +62,7 @@ export const TEACHER_STUDENTS = `${TEACHER_ROUTE}/students`;
 export const LOGIN_ENDPOINT = '/login/';
 export const RESET_PASSWORD_ENDPOINT = '/resetPassword/';
 export const FORGOT_PASSWORD_ENDPOINT = '/forgotPassword/';
+export const ACCOUNT_DELETION_ENDPOINT = '/accountDeletion/';
 
 export const ADD_STUDENT_ENDPOINT = '/addStudent/';
 export const BULK_ADD_STUDENT_ENDPOINT = '/bulkAddStudents/';
