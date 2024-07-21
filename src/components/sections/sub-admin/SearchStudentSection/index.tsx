@@ -1,10 +1,10 @@
+import { FC, memo, useEffect, useState } from 'react';
 import { isAxiosError } from 'axios';
-import { FC, useEffect, useState } from 'react';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, FormProvider, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import { BiSolidReport } from 'react-icons/bi';
+import { BiSolidLock, BiSolidReport } from 'react-icons/bi';
 import {
   ColumnDef,
   SortingState,
@@ -15,7 +15,10 @@ import {
   useReactTable,
   ColumnFiltersState,
   getPaginationRowModel,
+  Column,
+  Row,
 } from '@tanstack/react-table';
+import swal from 'sweetalert';
 
 import FormButton from '@components/atoms/FormButton';
 import FormInput from '@components/atoms/FormInput';
@@ -24,6 +27,7 @@ import ErrorMessage from '@components/atoms/ErrorMessage';
 import { useAuthStore } from '@store/authStore';
 import { searchStudentSchema } from '@validations/admin';
 import { searchStudentsRequest } from '@services/admin';
+import { accountDeactivationRequest } from '@services/student';
 
 import { SearchStudent } from '@interfaces/StudentsFile';
 import { SearchStudentsResponse } from '@interfaces/apis/admin';
@@ -33,10 +37,49 @@ import { SUB_ADMIN_STUDENT_PROGRESS } from '@constants/routes';
 
 export interface SearchStudentSectionProps {}
 
-const columns: ColumnDef<SearchStudent>[] = [
-  {
-    accessorKey: 'firstName',
-    header: ({ column }) => {
+const SearchStudentSection: FC<SearchStudentSectionProps> = () => {
+  const authToken = useAuthStore((state) => state.authToken);
+
+  const deactivateAccount = async (userId: number) => {
+    swal({
+      title: 'Are you certain you want to deactivate the account ?',
+      text: `Once deactivated the student can't access the account anymore.`,
+      icon: 'warning',
+      buttons: ['Cancel', 'Ok'],
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          const res = await accountDeactivationRequest(userId, authToken!);
+          if (res.status === 200) {
+            swal('Account deactivated successfully', {
+              icon: 'success',
+            });
+          }
+        } catch (error) {
+          if (isAxiosError(error)) {
+            const status = error.response?.status;
+            if (status === 401 || status === 403 || status === 409) {
+              swal(error.response?.data?.message || ERRORS.SERVER_ERROR, {
+                icon: 'error',
+              });
+            } else {
+              swal(ERRORS.SERVER_ERROR, {
+                icon: 'error',
+              });
+            }
+          } else {
+            swal(ERRORS.SERVER_ERROR, {
+              icon: 'error',
+            });
+          }
+        }
+      }
+    });
+  };
+
+  const firstNameCmp = memo<{ column: Column<SearchStudent, unknown> }>(
+    ({ column }) => {
       return (
         <button
           type="button"
@@ -45,11 +88,12 @@ const columns: ColumnDef<SearchStudent>[] = [
           First Name
         </button>
       );
-    },
-  },
-  {
-    accessorKey: 'lastName',
-    header: ({ column }) => {
+    }
+  );
+  firstNameCmp.displayName = '';
+
+  const lastNameCmp = memo<{ column: Column<SearchStudent, unknown> }>(
+    ({ column }) => {
       return (
         <button
           type="button"
@@ -58,37 +102,12 @@ const columns: ColumnDef<SearchStudent>[] = [
           Last Name
         </button>
       );
-    },
-  },
-  {
-    accessorKey: 'phoneNumber',
-    header: ({ column }) => {
-      return (
-        <button
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Phone
-        </button>
-      );
-    },
-  },
-  {
-    accessorKey: 'batchName',
-    header: ({ column }) => {
-      return (
-        <button
-          type="button"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Batch
-        </button>
-      );
-    },
-  },
-  {
-    accessorKey: 'email',
-    header: ({ column }) => {
+    }
+  );
+  lastNameCmp.displayName = '';
+
+  const emailCmp = memo<{ column: Column<SearchStudent, unknown> }>(
+    ({ column }) => {
       return (
         <button
           type="button"
@@ -97,30 +116,92 @@ const columns: ColumnDef<SearchStudent>[] = [
           Email
         </button>
       );
-    },
-  },
-  {
-    accessorKey: 'userId',
-    header: 'Actions',
-    cell: ({ row }) => (
+    }
+  );
+  emailCmp.displayName = '';
+
+  const phoneCmp = memo<{ column: Column<SearchStudent, unknown> }>(
+    ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Phone
+        </button>
+      );
+    }
+  );
+  phoneCmp.displayName = '';
+
+  const batchCmp = memo<{ column: Column<SearchStudent, unknown> }>(
+    ({ column }) => {
+      return (
+        <button
+          type="button"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Batch
+        </button>
+      );
+    }
+  );
+  batchCmp.displayName = '';
+
+  const actionButtons = memo<{ row: Row<SearchStudent> }>(({ row }) => (
+    <div className="flex gap-2">
+      <button
+        type="button"
+        className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold disabled:bg-gold/50"
+        onClick={() => deactivateAccount(row.original.userId)}
+        disabled={row.original.blocked}
+      >
+        <BiSolidLock />
+      </button>
       <button
         type="button"
         className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
       >
         <Link
-          to={`${SUB_ADMIN_STUDENT_PROGRESS}/${row.getValue('userId')}`}
+          to={`${SUB_ADMIN_STUDENT_PROGRESS}/${row.original.userId}`}
           target="_blank"
           rel="noopener noreferrer"
         >
           <BiSolidReport />
         </Link>
       </button>
-    ),
-  },
-];
+    </div>
+  ));
+  actionButtons.displayName = '';
 
-const SearchStudentSection: FC<SearchStudentSectionProps> = () => {
-  const authToken = useAuthStore((state) => state.authToken);
+  const columns: ColumnDef<SearchStudent>[] = [
+    {
+      accessorKey: 'firstName',
+      header: firstNameCmp,
+    },
+    {
+      accessorKey: 'lastName',
+      header: lastNameCmp,
+    },
+    {
+      accessorKey: 'email',
+      header: emailCmp,
+    },
+    {
+      accessorKey: 'phoneNumber',
+      header: phoneCmp,
+    },
+    {
+      accessorKey: 'batchName',
+      header: batchCmp,
+    },
+    {
+      accessorKey: 'userId',
+      header: 'Actions',
+      cell: actionButtons,
+    },
+  ];
+
   const [studentDetails, setStudentDetails] = useState<SearchStudent[]>([]);
   const [firstTime, setFirstTime] = useState<boolean>(true);
 

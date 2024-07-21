@@ -63,6 +63,7 @@ export const SearchStudentsResponseSchema = z.object({
       email: z.string(),
       tag: z.string(),
       batchName: z.string(),
+      blocked: z.boolean(),
     })
   ),
 });

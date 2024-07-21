@@ -26,14 +26,14 @@ import { searchStudentSchema } from '@validations/teacher';
 import { searchStudentsRequest } from '@services/teacher';
 
 import { SearchStudentsResponse } from '@interfaces/apis/teacher';
-import { SearchStudent } from '@interfaces/StudentsFile';
+import { SearchStudentV2 } from '@interfaces/StudentsFile';
 
 import { ERRORS } from '@constants/app';
 import { TEACHER_STUDENT_PROGRESS } from '@constants/routes';
 
 export interface SearchStudentSectionProps {}
 
-const columns: ColumnDef<SearchStudent>[] = [
+const columns: ColumnDef<SearchStudentV2>[] = [
   {
     accessorKey: 'firstName',
     header: ({ column }) => {
@@ -121,7 +121,7 @@ const columns: ColumnDef<SearchStudent>[] = [
 
 const SearchStudentSection: FC<SearchStudentSectionProps> = () => {
   const authToken = useAuthStore((state) => state.authToken);
-  const [studentDetails, setStudentDetails] = useState<SearchStudent[]>([]);
+  const [studentDetails, setStudentDetails] = useState<SearchStudentV2[]>([]);
   const [firstTime, setFirstTime] = useState<boolean>(true);
 
   const [apiError, setApiError] = useState('');

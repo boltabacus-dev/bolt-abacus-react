@@ -44,4 +44,15 @@ export type SearchStudent = {
   email: string;
   batchName: string;
   tag: string;
+  blocked: boolean;
+};
+
+export type SearchStudentV2 = {
+  userId: number;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  batchName: string;
+  tag: string;
 };
