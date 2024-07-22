@@ -3,6 +3,8 @@ import { isAxiosError } from 'axios';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 import { Link, useNavigate } from 'react-router-dom';
 import { BiSolidLock, BiSolidReport } from 'react-icons/bi';
+import { FaExchangeAlt } from 'react-icons/fa';
+import { Tooltip } from 'react-tooltip';
 import {
   ColumnDef,
   SortingState,
@@ -24,7 +26,10 @@ import { SubAdminStudent } from '@interfaces/StudentsFile';
 import { accountDeactivationRequest } from '@services/student';
 
 import { ERRORS } from '@constants/app';
-import { SUB_ADMIN_STUDENT_PROGRESS } from '@constants/routes';
+import {
+  SUB_ADMIN_STUDENT_MOVE_BATCH,
+  SUB_ADMIN_STUDENT_PROGRESS,
+} from '@constants/routes';
 
 export interface ViewAllStudentsSectionProps {
   students: SubAdminStudent[];
@@ -139,12 +144,37 @@ const ViewAllStudentsSection: FC<ViewAllStudentsSectionProps> = ({
         className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold disabled:bg-gold/50"
         onClick={() => deactivateAccount(row.original.userId)}
         disabled={row.original.blocked}
+        data-tooltip-id="lock-student-tooltip"
+        data-tooltip-content={
+          row.original.blocked ? 'Already deactivated' : 'Deactivate Student'
+        }
+        data-tooltip-place="bottom"
       >
         <BiSolidLock />
+        <Tooltip id="lock-student-tooltip" />
       </button>
       <button
         type="button"
         className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
+        data-tooltip-id="update-batch-tooltip"
+        data-tooltip-content="Update Batch"
+        data-tooltip-place="bottom"
+      >
+        <Link
+          to={`${SUB_ADMIN_STUDENT_MOVE_BATCH}/${row.original.userId}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaExchangeAlt />
+          <Tooltip id="update-batch-tooltip" />
+        </Link>
+      </button>
+      <button
+        type="button"
+        className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
+        data-tooltip-id="student-progress-tooltip"
+        data-tooltip-content="Student Progress"
+        data-tooltip-place="bottom"
       >
         <Link
           to={`${SUB_ADMIN_STUDENT_PROGRESS}/${row.original.userId}`}
@@ -152,6 +182,7 @@ const ViewAllStudentsSection: FC<ViewAllStudentsSectionProps> = ({
           rel="noopener noreferrer"
         >
           <BiSolidReport />
+          <Tooltip id="student-progress-tooltip" />
         </Link>
       </button>
     </div>

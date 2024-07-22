@@ -36,6 +36,7 @@ export const MESSAGES = {
     'Maximum student limit reached. Please contact the administration to increase the limit.',
   WAIT_BULK_STUDENTS:
     'Please wait while we upload your students. This process may take a few moments....',
+  BATCH_MOVED: 'Student batch updated successfully!',
 };
 
 export const NO_OF_CLASSES = 12;

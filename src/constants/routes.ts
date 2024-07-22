@@ -49,6 +49,7 @@ export const SUB_ADMIN_ADD_BATCH = `${SUB_ADMIN_ROUTE}/add/batch`;
 export const SUB_ADMIN_ALL_BATCH = `${SUB_ADMIN_ROUTE}/all/batch`;
 export const SUB_ADMIN_EDIT_BATCH = `${SUB_ADMIN_ROUTE}/edit/batch`;
 export const SUB_ADMIN_BATCH_STUDENTS = `${SUB_ADMIN_ROUTE}/batch/students`;
+export const SUB_ADMIN_STUDENT_MOVE_BATCH = `${SUB_ADMIN_ROUTE}/student/update-batch`;
 
 export const TEACHER_ROUTE = '/teacher';
 export const TEACHER_DASHBOARD = `${TEACHER_ROUTE}/dashboard`;
@@ -100,6 +101,8 @@ export const UPDATE_CLASS_ENDPOINT = '/updateClass/';
 export const GET_BATCH_REPORT_ENDPOINT = '/getClassReport/';
 export const GET_STUDENT_PROGRESS_ENDPOINT = '/getStudentProgress/';
 export const GET_BATCH_STUDENTS_ENDPOINT = '/getStudents/';
+export const GET_STUDENT_BATCH_DETAILS_ENDPOINT = '/getStudentBatchDetails/';
+export const UPDATE_STUDENT_BATCH_ENDPOINT = '/updateStudentBatch/';
 
 export const ADD_SUB_ADMIN_ENDPOINT = '/addSubAdmin/';
 

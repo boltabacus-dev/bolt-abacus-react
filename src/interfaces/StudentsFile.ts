@@ -56,3 +56,11 @@ export type SearchStudentV2 = {
   batchName: string;
   tag: string;
 };
+
+export type StudentBatchDetails = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  batchId: number;
+  batchName: string;
+};

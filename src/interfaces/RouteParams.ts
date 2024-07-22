@@ -50,3 +50,7 @@ export type StudentProgressPageParams = {
 export type ResetPasswordPageParams = {
   authToken: string;
 };
+
+export type UpdateStudentBatchPageParams = {
+  studentId: string;
+};

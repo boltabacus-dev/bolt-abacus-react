@@ -331,3 +331,14 @@ export const editOrganizationFormSchema = z.object({
 export type TEditOrganizationFormSchema = z.infer<
   typeof editOrganizationFormSchema
 >;
+
+/*
+ * Update Student Batch Details Form Input Schema
+ */
+export const updateStudentBatchFormSchema = z.object({
+  batch: z.coerce.number().min(1, 'Invalid batch'),
+});
+
+export type TUpdateStudentBatchFormSchema = z.infer<
+  typeof updateStudentBatchFormSchema
+>;
