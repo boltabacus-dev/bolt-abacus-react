@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { isAxiosError } from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiFillUnlock, AiOutlineLink } from 'react-icons/ai';
 import { MdPeople } from 'react-icons/md';
 import { Tooltip } from 'react-tooltip';
@@ -36,6 +36,7 @@ const BatchCard: FC<BatchCardProps> = ({
   latestClass,
 }) => {
   const authToken = useAuthStore((state) => state.authToken);
+  const navigate = useNavigate();
 
   const updateClass = async () => {
     swal({
@@ -55,7 +56,9 @@ const BatchCard: FC<BatchCardProps> = ({
               {
                 icon: 'success',
               }
-            );
+            ).then(() => {
+              navigate(0);
+            });
           }
         } catch (error) {
           if (isAxiosError(error)) {
