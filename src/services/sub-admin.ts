@@ -3,7 +3,9 @@ import axios from '@helpers/axios';
 import {
   ADD_SUB_ADMIN_ENDPOINT,
   GET_BATCH_STUDENTS_ENDPOINT,
+  GET_BATCH_TEACHER_ENDPOINT,
   GET_STUDENT_BATCH_DETAILS_ENDPOINT,
+  UPDATE_BATCH_TEACHER_ENDPOINT,
   UPDATE_STUDENT_BATCH_ENDPOINT,
 } from '@constants/routes';
 
@@ -66,6 +68,40 @@ export const updateStudentBatchRequest = async (
     UPDATE_STUDENT_BATCH_ENDPOINT,
     {
       userId,
+      batchId,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const getBatchTeacherRequest = async (
+  batchId: number,
+  token: string
+) => {
+  return axios.post(
+    GET_BATCH_TEACHER_ENDPOINT,
+    {
+      batchId,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const updateBatchTeacherRequest = async (
+  currentTeacherId: number,
+  futureTeacherId: number,
+  batchId: number,
+  token: string
+) => {
+  return axios.post(
+    UPDATE_BATCH_TEACHER_ENDPOINT,
+    {
+      currentTeacherId,
+      futureTeacherId,
       batchId,
     },
     {

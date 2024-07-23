@@ -10,24 +10,25 @@ import ErrorMessage from '@components/atoms/ErrorMessage';
 import SuccessMessage from '@components/atoms/SuccessMessage';
 import FormSelect, { LabelValuePair } from '@components/atoms/FormSelect';
 
-import { updateStudentBatchFormSchema } from '@validations/admin';
-import { updateStudentBatchRequest } from '@services/sub-admin';
+import { updateBatchTeacherFormSchema } from '@validations/admin';
+import { updateBatchTeacherRequest } from '@services/sub-admin';
 import { useAuthStore } from '@store/authStore';
 
-import { Batch } from '@interfaces/apis/batch';
-import { StudentBatchDetails } from '@interfaces/StudentsFile';
+import { Teacher } from '@interfaces/apis/teacher';
+import { TeacherDetails } from '@interfaces/apis/sub-admin';
+
 import { ERRORS, MESSAGES } from '@constants/app';
 
-export interface UpdateStudentBatchSectionProps {
-  userId: number;
-  student: StudentBatchDetails;
-  batches: Array<Batch>;
+export interface UpdateBatchTeacherSectionProps {
+  batchId: number;
+  batchTeacher: TeacherDetails;
+  teachers: Array<Teacher>;
 }
 
-const UpdateStudentBatchSection: FC<UpdateStudentBatchSectionProps> = ({
-  userId,
-  student,
-  batches,
+const UpdateBatchTeacherSection: FC<UpdateBatchTeacherSectionProps> = ({
+  batchId,
+  batchTeacher,
+  teachers,
 }) => {
   const authToken = useAuthStore((state) => state.authToken);
   const navigate = useNavigate();
@@ -36,15 +37,16 @@ const UpdateStudentBatchSection: FC<UpdateStudentBatchSectionProps> = ({
   const [formSuccess, setFormSuccess] = useState('');
 
   const formMethods = useForm({
-    resolver: zodResolver(updateStudentBatchFormSchema),
+    resolver: zodResolver(updateBatchTeacherFormSchema),
   });
   const isLoading = formMethods.formState.isSubmitting;
 
   const onSubmit = async (data: FieldValues) => {
     try {
-      const res = await updateStudentBatchRequest(
-        userId,
-        parseInt(data?.batch, 10),
+      const res = await updateBatchTeacherRequest(
+        batchTeacher?.userId,
+        parseInt(data?.teacher, 10),
+        batchId,
         authToken!
       );
       if (res.status === 200) {
@@ -76,13 +78,13 @@ const UpdateStudentBatchSection: FC<UpdateStudentBatchSectionProps> = ({
     }
   };
 
-  const getOptions = (arr: Array<Batch>, batchId: number) => {
+  const getOptions = (arr: Array<Teacher>, teacherId: number) => {
     const options: LabelValuePair[] = [];
     arr.map((item) => {
-      if (item.batchId !== batchId)
+      if (item.userId !== teacherId)
         return options.push({
-          label: item.batchName,
-          value: item.batchId,
+          label: `${item?.firstName} ${item?.lastName}`,
+          value: item.userId,
         });
       return options;
     });
@@ -92,28 +94,22 @@ const UpdateStudentBatchSection: FC<UpdateStudentBatchSectionProps> = ({
   return (
     <div className="flex flex-col gap-3 px-6 py-2 justify-evenly tablet:flex-row tablet:justify-between tablet:items-center tablet:p-10 desktop:px-36">
       <div className="flex flex-col w-full gap-10">
-        <p className="text-xl font-bold text-gold">Update Batch</p>
+        <p className="text-xl font-bold text-gold">Update Batch Teacher</p>
         <FormProvider {...formMethods}>
           <form onSubmit={formMethods.handleSubmit(onSubmit)}>
             <div className="w-full pb-2 justify-items-center desktop:justify-items-start">
               <p className="py-2">
-                <span className="text-white/90">Student Name: </span>
-                <span className="font-bold">{`${student.firstName} ${student.lastName}`}</span>
-              </p>
-              <p className="py-2">
-                <span className="text-white/90">Student Email: </span>
-                <span className="font-bold">{`${student.email}`}</span>
-              </p>
-              <p className="py-2">
-                <span className="text-white/90">Current Batch: </span>
-                <span className="font-bold">{`${student.batchName}`}</span>
+                <span className="text-white/90">Current Batch Teacher: </span>
+                <span className="font-bold">{`${
+                  batchTeacher?.firstName || ''
+                } ${batchTeacher?.lastName || ''}`}</span>
               </p>
               <FormSelect
-                name="batch"
-                placeholder="Select Batch"
-                label="Batch *"
+                name="teacher"
+                placeholder="Select Teacher"
+                label="Teacher *"
                 width="full"
-                options={getOptions(batches!, student.batchId!)}
+                options={getOptions(teachers!, batchTeacher?.userId)}
               />
             </div>
             <div className="flex justify-center desktop:justify-start">
@@ -140,4 +136,4 @@ const UpdateStudentBatchSection: FC<UpdateStudentBatchSectionProps> = ({
   );
 };
 
-export default UpdateStudentBatchSection;
+export default UpdateBatchTeacherSection;

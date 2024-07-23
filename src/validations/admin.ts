@@ -342,3 +342,14 @@ export const updateStudentBatchFormSchema = z.object({
 export type TUpdateStudentBatchFormSchema = z.infer<
   typeof updateStudentBatchFormSchema
 >;
+
+/*
+ * Update Batch Teacher Form Input Schema
+ */
+export const updateBatchTeacherFormSchema = z.object({
+  teacher: z.coerce.number().min(1, 'Invalid Teacher'),
+});
+
+export type TUpdateBatchTeacherFormSchema = z.infer<
+  typeof updateBatchTeacherFormSchema
+>;

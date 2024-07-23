@@ -5,29 +5,31 @@ import { useNavigate, useParams } from 'react-router-dom';
 import SeoComponent from '@components/atoms/SeoComponent';
 import LoadingBox from '@components/organisms/LoadingBox';
 import ErrorBox from '@components/organisms/ErrorBox';
-import UpdateStudentBatchSection from '@components/sections/sub-admin/UpdateStudentBatchSection';
 
-import { getAllBatchesRequest } from '@services/batch';
 import { useAuthStore } from '@store/authStore';
 
-import { getStudentBatchDetailsRequest } from '@services/sub-admin';
+import { getBatchTeacherRequest } from '@services/sub-admin';
+import { getAllTeachersRequest } from '@services/teacher';
 
-import { Batch, GetAllBatchesResponse } from '@interfaces/apis/batch';
-import { StudentBatchDetails } from '@interfaces/StudentsFile';
-import { GetStudentBatchDetailsResponse } from '@interfaces/apis/sub-admin';
-import { UpdateStudentBatchPageParams } from '@interfaces/RouteParams';
+import {
+  GetBatchTeacherResponse,
+  TeacherDetails,
+} from '@interfaces/apis/sub-admin';
+import { GetAllTeachersResponse, Teacher } from '@interfaces/apis/teacher';
+import { UpdateBatchTeacherPageParams } from '@interfaces/RouteParams';
 
 import { isValidId } from '@helpers/paramsValidator';
 
 import { ERRORS, MESSAGES } from '@constants/app';
 import { SUB_ADMIN_DASHBOARD, LOGIN_PAGE } from '@constants/routes';
+import UpdateBatchTeacherSection from '@components/sections/sub-admin/UpdateBatchTeacherSection';
 
-export interface SubAdminUpdateStudentBatchPageProps {}
+export interface SubAdminUpdateBatchTeacherPageProps {}
 
-const SubAdminUpdateStudentBatchPage: FC<
-  SubAdminUpdateStudentBatchPageProps
+const SubAdminUpdateBatchTeacherPage: FC<
+  SubAdminUpdateBatchTeacherPageProps
 > = () => {
-  const params = useParams<UpdateStudentBatchPageParams>();
+  const params = useParams<UpdateBatchTeacherPageParams>();
   const navigate = useNavigate();
 
   const authToken = useAuthStore((state) => state.authToken);
@@ -40,36 +42,36 @@ const SubAdminUpdateStudentBatchPage: FC<
     MESSAGES.TRY_AGAIN
   );
 
-  const [batches, setBatches] = useState<Array<Batch>>();
-  const [studentDetails, setStudentDetails] = useState<StudentBatchDetails>();
+  const [teachers, setTeachers] = useState<Teacher[]>([]);
+  const [batchTeacher, setBatchTeacher] = useState<TeacherDetails>();
 
   useEffect(() => {
-    const getAllBatchesData = async () => {
+    const getAllTeacherData = async () => {
       if (isAuthenticated) {
         try {
-          const res = await getAllBatchesRequest(authToken!);
-          if (res.status === 200) {
-            const allBatchesResponse: GetAllBatchesResponse = res.data;
-            setBatches(allBatchesResponse.batches);
-            setApiError(null);
-          }
+          const res = await getAllTeachersRequest(authToken!);
+          const getAllTeachersResponse: GetAllTeachersResponse = res.data;
+          setTeachers(getAllTeachersResponse.teachers);
+          setApiError(null);
         } catch (error) {
           if (isAxiosError(error)) {
             const status = error.response?.status;
-            if (status === 401 || status === 403 || status === 402) {
+            if (status === 401 || status === 402 || status === 403) {
               setApiError(
                 error.response?.data?.error ||
                   error.response?.data?.message ||
                   ERRORS.SERVER_ERROR
               );
-              setFallBackLink(SUB_ADMIN_DASHBOARD);
-              setFallBackAction(MESSAGES.GO_DASHBOARD);
+              setFallBackLink(LOGIN_PAGE);
+              setFallBackAction(MESSAGES.GO_LOGIN);
             } else {
               setApiError(ERRORS.SERVER_ERROR);
             }
           } else {
             setApiError(ERRORS.SERVER_ERROR);
           }
+        } finally {
+          setLoading(false);
         }
       } else {
         setLoading(false);
@@ -79,21 +81,17 @@ const SubAdminUpdateStudentBatchPage: FC<
       }
     };
 
-    const getStudentBatchesData = async () => {
+    const getBatchesData = async () => {
       if (isAuthenticated) {
-        if (!isValidId(params.studentId!)) {
+        if (!isValidId(params.batchId!)) {
           navigate(SUB_ADMIN_DASHBOARD);
         }
         try {
-          const studentId = parseInt(params.studentId!, 10);
-          const res = await getStudentBatchDetailsRequest(
-            studentId!,
-            authToken!
-          );
+          const batchId = parseInt(params.batchId!, 10);
+          const res = await getBatchTeacherRequest(batchId!, authToken!);
           if (res.status === 200) {
-            const studentBatchDetailsResponse: GetStudentBatchDetailsResponse =
-              res.data;
-            setStudentDetails(studentBatchDetailsResponse);
+            const getBatchTeacherResponse: GetBatchTeacherResponse = res.data;
+            setBatchTeacher(getBatchTeacherResponse.teachers.pop());
             setApiError(null);
           }
         } catch (error) {
@@ -123,13 +121,13 @@ const SubAdminUpdateStudentBatchPage: FC<
     };
 
     const loadData = async () => {
-      await getStudentBatchesData();
-      await getAllBatchesData();
+      await getBatchesData();
+      await getAllTeacherData();
       setLoading(false);
     };
 
     loadData();
-  }, [authToken, isAuthenticated, navigate, params.studentId]);
+  }, [authToken, isAuthenticated, navigate, params.batchId]);
 
   return (
     <div>
@@ -151,11 +149,11 @@ const SubAdminUpdateStudentBatchPage: FC<
             </>
           ) : (
             <>
-              <SeoComponent title="Update Student Batch" />
-              <UpdateStudentBatchSection
-                userId={parseInt(params.studentId!, 10)}
-                student={studentDetails!}
-                batches={batches!}
+              <SeoComponent title="Update Batch Teacher" />
+              <UpdateBatchTeacherSection
+                teachers={teachers}
+                batchTeacher={batchTeacher!}
+                batchId={parseInt(params.batchId!, 10)}
               />
             </>
           )}
@@ -165,4 +163,4 @@ const SubAdminUpdateStudentBatchPage: FC<
   );
 };
 
-export default SubAdminUpdateStudentBatchPage;
+export default SubAdminUpdateBatchTeacherPage;

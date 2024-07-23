@@ -54,3 +54,7 @@ export type ResetPasswordPageParams = {
 export type UpdateStudentBatchPageParams = {
   studentId: string;
 };
+
+export type UpdateBatchTeacherPageParams = {
+  batchId: string;
+};

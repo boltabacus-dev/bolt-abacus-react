@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BiSolidEdit } from 'react-icons/bi';
+import { RiUserSharedFill } from 'react-icons/ri';
 import { MdNavigateBefore, MdNavigateNext } from 'react-icons/md';
 import {
   ColumnDef,
@@ -18,8 +19,10 @@ import { Batch } from '@interfaces/apis/batch';
 import {
   SUB_ADMIN_BATCH_STUDENTS,
   SUB_ADMIN_EDIT_BATCH,
+  SUB_ADMIN_UPDATE_BATCH_TEACHER,
 } from '@constants/routes';
 import { BsPeopleFill } from 'react-icons/bs';
+import { Tooltip } from 'react-tooltip';
 
 export interface ViewAllBatchesSectionProps {
   batches: Batch[];
@@ -99,6 +102,9 @@ const columns: ColumnDef<Batch>[] = [
         <button
           type="button"
           className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
+          data-tooltip-id="view-students-tooltip"
+          data-tooltip-content="View Students"
+          data-tooltip-place="bottom"
         >
           <Link
             to={`${SUB_ADMIN_BATCH_STUDENTS}/${row.getValue('batchId')}`}
@@ -106,11 +112,15 @@ const columns: ColumnDef<Batch>[] = [
             rel="noopener noreferrer"
           >
             <BsPeopleFill />
+            <Tooltip id="view-students-tooltip" />
           </Link>
         </button>
         <button
           type="button"
           className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
+          data-tooltip-id="edit-batch-tooltip"
+          data-tooltip-content="Edit Batch"
+          data-tooltip-place="bottom"
         >
           <Link
             to={`${SUB_ADMIN_EDIT_BATCH}/${row.getValue('batchId')}`}
@@ -118,6 +128,24 @@ const columns: ColumnDef<Batch>[] = [
             rel="noopener noreferrer"
           >
             <BiSolidEdit />
+            <Tooltip id="edit-batch-tooltip" />
+          </Link>
+        </button>
+
+        <button
+          type="button"
+          className="flex items-center justify-center p-2 font-semibold text-center text-black duration-150 ease-in-out rounded-lg text-md bg-gold/80 hover:bg-gold"
+          data-tooltip-id="update-teacher-tooltip"
+          data-tooltip-content="Update Teacher"
+          data-tooltip-place="bottom"
+        >
+          <Link
+            to={`${SUB_ADMIN_UPDATE_BATCH_TEACHER}/${row.getValue('batchId')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <RiUserSharedFill />
+            <Tooltip id="update-teacher-tooltip" />
           </Link>
         </button>
       </div>

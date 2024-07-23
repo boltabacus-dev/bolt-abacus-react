@@ -28,3 +28,18 @@ export const GetStudentBatchDetailsSchema = z.object({
 export type GetStudentBatchDetailsResponse = z.infer<
   typeof GetStudentBatchDetailsSchema
 >;
+
+// Get Batch Teacher Details API
+export const TeacherDetailsSchema = z.object({
+  firstName: z.string(),
+  lastName: z.string(),
+  userId: z.number(),
+});
+
+export type TeacherDetails = z.infer<typeof TeacherDetailsSchema>;
+
+export const GetBatchTeacherSchema = z.object({
+  teachers: z.array(TeacherDetailsSchema),
+});
+
+export type GetBatchTeacherResponse = z.infer<typeof GetBatchTeacherSchema>;

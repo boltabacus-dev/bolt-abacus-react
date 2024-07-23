@@ -51,6 +51,7 @@ import SubAdminViewAllBatchesPage from '@pages/sub-admin/all-batches';
 import SubAdminBatchViewStudentsPage from '@pages/sub-admin/batch-all-students';
 import SubAdminEditBatchPage from '@pages/sub-admin/edit-batch';
 import SubAdminUpdateStudentBatchPage from '@pages/sub-admin/update-student-batch';
+import SubAdminUpdateBatchTeacherPage from '@pages/sub-admin/update-batch-teacher';
 import TeacherDashboardPage from '@pages/teacher/dashboard';
 import TeacherUpdateLinkPage from '@pages/teacher/update-link';
 import TeacherBatchReportPage from '@pages/teacher/report';
@@ -328,6 +329,10 @@ export const router = createBrowserRouter([
           {
             path: 'student/update-batch/:studentId',
             element: <SubAdminUpdateStudentBatchPage />,
+          },
+          {
+            path: 'batch/update-teacher/:batchId',
+            element: <SubAdminUpdateBatchTeacherPage />,
           },
           {
             path: '*',
