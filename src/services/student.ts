@@ -12,7 +12,9 @@ import {
   STUDENT_DASHBOARD_V2_ENDPOINT,
   ACCOUNT_DELETION_ENDPOINT,
   ACCOUNT_DEACTIVATION_ENDPOINT,
+  STUDENT_LEVEL_V2_ENDPOINT,
 } from '@constants/routes';
+
 import { QuizAnswer } from '@interfaces/apis/student';
 import { Student } from '@interfaces/StudentsFile';
 
@@ -31,6 +33,18 @@ export const dashboardRequestV2 = async (token: string) => {
 export const levelRequest = async (levelId: number, token: string) => {
   return axios.post(
     STUDENT_LEVEL_ENDPOINT,
+    {
+      levelId,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const levelRequestV2 = async (levelId: number, token: string) => {
+  return axios.post(
+    STUDENT_LEVEL_V2_ENDPOINT,
     {
       levelId,
     },

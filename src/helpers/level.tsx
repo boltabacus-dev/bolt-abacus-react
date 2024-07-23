@@ -2,7 +2,12 @@ import { ReactNode } from 'react';
 
 import ClassAccordion from '@components/organisms/ClassAccordion';
 
-import { ClassProgress, ClassSchema } from '@interfaces/apis/student';
+import {
+  ClassProgress,
+  ClassProgressV2,
+  ClassSchema,
+} from '@interfaces/apis/student';
+import ClassAccordionV2 from '@components/organisms/ClassAccordionV2';
 
 export const createClassAccordions = (
   level: number,
@@ -88,5 +93,39 @@ export const createClassAccordions = (
       }
     }
   });
+  return classAccordions;
+};
+
+export const createClassAccordionsV2 = (
+  level: number,
+  progress: Array<ClassProgressV2>
+) => {
+  const classAccordions: Array<ReactNode> = [];
+
+  classAccordions.push(
+    <ClassAccordionV2 key={level} levelId={level} type="locked" classId={1} />
+  );
+
+  for (let i = 2; i <= progress.length; i += 1) {
+    const classProgress: ClassProgressV2 | undefined = progress.find(
+      (obj) => obj.classId === i
+    );
+    classAccordions.push(
+      <ClassAccordionV2
+        key={i}
+        levelId={level}
+        type="inprogress"
+        classId={i}
+        progress={classProgress}
+      />
+    );
+  }
+
+  for (let i = progress.length + 1; i < 13; i += 1) {
+    classAccordions.push(
+      <ClassAccordionV2 key={i} levelId={level} type="locked" classId={i} />
+    );
+  }
+
   return classAccordions;
 };

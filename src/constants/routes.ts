@@ -71,6 +71,7 @@ export const BULK_ADD_STUDENT_ENDPOINT = '/bulkAddStudents/';
 export const STUDENT_DASHBOARD_ENDPOINT = '/levels/';
 export const STUDENT_DASHBOARD_V2_ENDPOINT = '/levelsV2/';
 export const STUDENT_LEVEL_ENDPOINT = '/classes/';
+export const STUDENT_LEVEL_V2_ENDPOINT = '/classesV2/';
 export const STUDENT_QUIZ_ENDPOINT = '/quiz/';
 export const STUDENT_QUIZ_SUBMIT_ENDPOINT = '/quizCorrection/';
 export const STUDENT_REPORT_ENDPOINT = '/report/';

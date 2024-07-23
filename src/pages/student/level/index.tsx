@@ -14,14 +14,10 @@ import {
   STUDENT_DASHBOARD,
   STUDENT_LEVEL,
 } from '@constants/routes';
-import { levelRequest } from '@services/student';
-import {
-  ClassSchema,
-  ClassProgress,
-  LevelResponse,
-} from '@interfaces/apis/student';
+import { levelRequestV2 } from '@services/student';
+import { ClassProgressV2, LevelResponseV2 } from '@interfaces/apis/student';
 import { LevelPageParams } from '@interfaces/RouteParams';
-import { createClassAccordions } from '@helpers/level';
+import { createClassAccordionsV2 } from '@helpers/level';
 
 export interface StudentLevelPageProps {}
 
@@ -39,10 +35,7 @@ const StudentLevelPage: FC<StudentLevelPageProps> = () => {
   );
 
   const [levelId, setLevelId] = useState<number>();
-  const [isLatestLevel, setIsLatestLevel] = useState<boolean>(false);
-  const [levelSchema, setLevelSchema] = useState<Array<ClassSchema>>();
-  const [latestClass, setLatestClass] = useState<number>();
-  const [classProgress, setClassProgress] = useState<Array<ClassProgress>>();
+  const [progress, setProgress] = useState<Array<ClassProgressV2>>();
 
   useEffect(() => {
     const getLevelData = async () => {
@@ -56,14 +49,11 @@ const StudentLevelPage: FC<StudentLevelPageProps> = () => {
           try {
             const id = parseInt(params.levelId!, 10);
             setLevelId(id);
-            const res = await levelRequest(id, authToken!);
+            const res = await levelRequestV2(id, authToken!);
 
             if (res.status === 200) {
-              const levelResponse: LevelResponse = res.data;
-              setIsLatestLevel(levelResponse.isLatestLevel);
-              setLatestClass(levelResponse.latestClass);
-              setLevelSchema(levelResponse.schema);
-              setClassProgress(levelResponse.progress);
+              const levelResponse: LevelResponseV2 = res.data;
+              setProgress(levelResponse.progress);
               setApiError(null);
             }
           } catch (error) {
@@ -119,13 +109,7 @@ const StudentLevelPage: FC<StudentLevelPageProps> = () => {
             <>
               <SeoComponent title={`Level ${params.levelId}`} />
               <div className="flex flex-col gap-4 p-6 justify-evenly tablet:justify-between tablet:items-center tablet:p-10 tablet:gap-8 desktop:p-20">
-                {createClassAccordions(
-                  levelId!,
-                  latestClass!,
-                  isLatestLevel,
-                  levelSchema!,
-                  classProgress!
-                )}
+                {createClassAccordionsV2(levelId!, progress!)}
               </div>
             </>
           )}

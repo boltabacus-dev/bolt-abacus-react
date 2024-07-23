@@ -44,6 +44,31 @@ export const LevelResponseSchema = z.object({
 });
 export type LevelResponse = z.infer<typeof LevelResponseSchema>;
 
+// Level Page V2 API Response
+const QuizResultV2Schema = z.object({
+  percentage: z.number(),
+  time: z.number(),
+});
+export type QuizResultV2 = z.infer<typeof QuizResultV2Schema>;
+
+const TopicProgressV2Schema = z.object({
+  Homework: QuizResultV2Schema.optional(),
+  Classwork: QuizResultV2Schema.optional(),
+  Test: QuizResultV2Schema.optional(),
+});
+export type TopicProgressV2 = z.infer<typeof TopicProgressV2Schema>;
+
+const ProgressV2Schema = z.object({
+  classId: z.number(),
+  topics: z.record(TopicProgressV2Schema),
+});
+export type ClassProgressV2 = z.infer<typeof ProgressV2Schema>;
+
+export const LevelResponseV2Schema = z.object({
+  progress: z.array(ProgressV2Schema),
+});
+export type LevelResponseV2 = z.infer<typeof LevelResponseV2Schema>;
+
 // Quiz Page API Response
 
 const QuizQuestionSchema = z.object({

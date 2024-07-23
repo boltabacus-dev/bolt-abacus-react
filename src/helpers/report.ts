@@ -13,3 +13,20 @@ export const getClassNamesForScore = (time: number, score: number): string => {
 
   return 'border-red bg-red/10 text-red';
 };
+
+export const getButtonTypeForScore = (
+  time: number,
+  score: number
+): 'grey' | 'green' | 'yellow' | 'red' => {
+  if (time === 0 && score === 0) {
+    return 'grey';
+  }
+  if (time > 0 && score === FULL_MARKS) {
+    return 'green';
+  }
+  if (time > 0 && score < FULL_MARKS && score >= PASS_MARKS) {
+    return 'yellow';
+  }
+
+  return 'red';
+};
