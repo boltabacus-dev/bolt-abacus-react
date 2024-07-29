@@ -1,3 +1,4 @@
+/* eslint-disable no-continue */
 import { ReactNode } from 'react';
 
 import ClassAccordion from '@components/organisms/ClassAccordion';
@@ -102,11 +103,13 @@ export const createClassAccordionsV2 = (
 ) => {
   const classAccordions: Array<ReactNode> = [];
 
-  classAccordions.push(
-    <ClassAccordionV2 key={level} levelId={level} type="locked" classId={1} />
-  );
+  if (level === 1)
+    classAccordions.push(
+      <ClassAccordionV2 key={level} levelId={level} type="locked" classId={1} />
+    );
 
-  for (let i = 2; i <= progress.length; i += 1) {
+  for (let i = 1; i <= progress.length; i += 1) {
+    if (level === 1 && i === 1) continue;
     const classProgress: ClassProgressV2 | undefined = progress.find(
       (obj) => obj.classId === i
     );
@@ -122,6 +125,7 @@ export const createClassAccordionsV2 = (
   }
 
   for (let i = progress.length + 1; i < 13; i += 1) {
+    if (level === 1 && i === 1) continue;
     classAccordions.push(
       <ClassAccordionV2 key={i} levelId={level} type="locked" classId={i} />
     );
