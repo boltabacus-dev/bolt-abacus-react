@@ -130,7 +130,7 @@ const ClassAccordionV2: FC<ClassAccordionV2Props> = ({
             {type === 'inprogress' && (
               <ProgressBar
                 percentage={progressPercentage}
-                type="purple"
+                type={progressPercentage === 100 ? 'green' : 'purple'}
                 isBgBlack
               />
             )}
