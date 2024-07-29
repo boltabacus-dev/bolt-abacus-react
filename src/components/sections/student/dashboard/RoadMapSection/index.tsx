@@ -19,7 +19,7 @@ const RoadmapSection: FC<RoadmapSectionProps> = ({
 
   for (let i = 1; i < 11; i += 1) {
     if (currentLevel > i) {
-      if (progress!.currentLevel === 100) {
+      if (progress[i] !== 100) {
         classCards.push(
           <LevelCard
             key={i}
