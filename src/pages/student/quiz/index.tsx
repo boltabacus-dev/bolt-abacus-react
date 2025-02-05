@@ -39,6 +39,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
   const [quizId, setQuizId] = useState<number>();
   const [quizAnswers, setQuizAnswers] = useState<Array<QuizAnswer>>([]);
   const [level, setLevel] = useState<number>();
+  const [quizType, setQuizType] = useState<'classwork' | 'homework'>();
 
   useEffect(() => {
     const getLevelData = async () => {
@@ -60,7 +61,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
             const levelId = parseInt(params.levelId!, 10);
             const classId = parseInt(params.classId!, 10);
             const topicId = parseInt(params.topicId!, 10);
-            const quizType =
+            const type =
               params.quizType === 'classwork' ? 'Classwork' : 'Homework';
 
             setLevel(levelId);
@@ -69,7 +70,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
               levelId,
               classId,
               topicId,
-              quizType,
+              type,
               authToken!
             );
 
@@ -79,6 +80,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
               setQuizQuestions(quizResponse.questions);
               setQuizAnswers(getInitialQuizAnswers(quizResponse.questions));
               setQuizId(quizResponse.quizId);
+              setQuizType(params.quizType);
             }
           } catch (error) {
             if (isAxiosError(error)) {
@@ -137,6 +139,7 @@ const StudentQuizPage: FC<StudentQuizPageProps> = () => {
                 quizId={quizId!}
                 quizQuestions={quizQuestions!}
                 quizAnswers={quizAnswers}
+                quizType={quizType!}
                 setQuizAnswers={setQuizAnswers}
               />
             </>

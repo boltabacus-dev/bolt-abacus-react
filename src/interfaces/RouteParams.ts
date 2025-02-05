@@ -2,7 +2,7 @@ export type QuizPageParams = {
   levelId: string;
   classId: string;
   topicId: string;
-  quizType: string;
+  quizType: 'classwork' | 'homework';
 };
 
 export type TestPageParams = {

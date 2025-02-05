@@ -24,6 +24,7 @@ export interface QuizSectionProps {
   quizQuestions: Array<QuizQuestion>;
   quizAnswers: Array<QuizAnswer>;
   setQuizAnswers: Dispatch<SetStateAction<Array<QuizAnswer>>>;
+  quizType: 'classwork' | 'homework';
 }
 
 const QuizSection: FC<QuizSectionProps> = ({
@@ -31,6 +32,7 @@ const QuizSection: FC<QuizSectionProps> = ({
   quizId,
   quizQuestions,
   quizAnswers,
+  quizType,
   setQuizAnswers,
 }) => {
   const authToken = useAuthStore((state) => state.authToken);
@@ -153,8 +155,9 @@ const QuizSection: FC<QuizSectionProps> = ({
           ) : (
             <>
               <QuizHeader
-                quizType="classwork"
-                quizProgress={((currentIndex + 1) / quizQuestions.length) * 100}
+                quizType={quizType}
+                questionNumber={currentIndex}
+                noOfQuestions={quizQuestions.length}
                 minutes={minutes}
                 seconds={seconds}
               />

@@ -166,8 +166,9 @@ const TestSection: FC<TestSectionProps> = ({
           ) : (
             <>
               <QuizHeader
-                quizType="classwork"
-                quizProgress={((currentIndex + 1) / quizQuestions.length) * 100}
+                quizType="test"
+                questionNumber={currentIndex}
+                noOfQuestions={quizQuestions.length}
                 minutes={minutes}
                 seconds={seconds}
               />
