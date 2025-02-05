@@ -6,7 +6,7 @@ import { GoDotFill } from 'react-icons/go';
 import { getZeroPaddedNumber } from '@helpers/timer';
 
 export interface QuizHeaderProps {
-  quizType: 'homework' | 'classwork' | 'test';
+  quizType: 'homework' | 'classwork' | 'test' | 'oral-test';
   questionNumber: number;
   noOfQuestions: number;
   minutes: number;
@@ -29,7 +29,9 @@ const QuizHeader: FC<QuizHeaderProps> = ({
               ? 'Classwork'
               : quizType === 'homework'
               ? 'Homework'
-              : 'Test'}
+              : quizType === 'test'
+              ? 'Test'
+              : 'Oral Test'}
           </h1>
           <p className="flex items-center gap-1 text-lightGreen">
             <GoDotFill className="text-[10px]" />

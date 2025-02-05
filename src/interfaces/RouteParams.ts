@@ -10,6 +10,11 @@ export type TestPageParams = {
   classId: string;
 };
 
+export type OralTestPageParams = {
+  levelId: string;
+  classId: string;
+};
+
 export type LevelPageParams = {
   levelId: string;
 };

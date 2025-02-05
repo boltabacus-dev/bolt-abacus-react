@@ -17,6 +17,7 @@ import ForgotPasswordPage from '@pages/forgot-password';
 import StudentDashboardPage from '@pages/student/dashboard';
 import StudentLevelPage from '@pages/student/level';
 import StudentQuizPage from '@pages/student/quiz';
+import StudentOralTestPage from '@pages/student/oral-test';
 import StudentTestPage from '@pages/student/test';
 import StudentReportPage from '@pages/student/report';
 import StudentProgressPage from '@pages/student/student-progress';
@@ -162,6 +163,10 @@ export const router = createBrowserRouter([
           {
             path: 'test/:levelId/:classId',
             element: <StudentTestPage />,
+          },
+          {
+            path: 'oral-test/:levelId/:classId',
+            element: <StudentOralTestPage />,
           },
           {
             path: '*',
