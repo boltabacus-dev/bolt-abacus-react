@@ -14,13 +14,21 @@ import LoginPage from '@pages/login';
 import ResetPasswordPage from '@pages/reset-password';
 import ResetPasswordPageV2 from '@pages/reset-password-v2';
 import ForgotPasswordPage from '@pages/forgot-password';
+
 import StudentDashboardPage from '@pages/student/dashboard';
 import StudentLevelPage from '@pages/student/level';
 import StudentQuizPage from '@pages/student/quiz';
 import StudentOralTestPage from '@pages/student/oral-test';
+import StudentFinalTestPage from '@pages/student/final-test';
 import StudentTestPage from '@pages/student/test';
 import StudentReportPage from '@pages/student/report';
 import StudentProgressPage from '@pages/student/student-progress';
+import StudentPracticePage from '@pages/student/practice-mode';
+import StudentTimedPracticePage from '@pages/student/practice-test/timed';
+import StudentUntimedPracticePage from '@pages/student/practice-test/untimed';
+import StudentFlashCardPracticePage from '@pages/student/practice-test/flashcards';
+import StudentSetPracticePage from '@pages/student/practice-test/set';
+
 import AdminDashboardPage from '@pages/admin/dashboard';
 import AdminViewAllTeachersPage from '@pages/admin/all-teachers';
 import AdminAddTeacherPage from '@pages/admin/add-teacher';
@@ -40,6 +48,7 @@ import AdminViewQuizPage from '@pages/admin/view-quiz';
 import AdminAddOrganizationPage from '@pages/admin/add-organization';
 import AdminViewOrganizationPage from '@pages/admin/view-organization';
 import AdminEditOrganizationPage from '@pages/admin/edit-organization';
+
 import SubAdminDashboardPage from '@pages/sub-admin/dashboard';
 import SubAdminAddBatchPage from '@pages/sub-admin/add-batch';
 import SubAdminAddStudentPage from '@pages/sub-admin/add-student';
@@ -53,6 +62,7 @@ import SubAdminBatchViewStudentsPage from '@pages/sub-admin/batch-all-students';
 import SubAdminEditBatchPage from '@pages/sub-admin/edit-batch';
 import SubAdminUpdateStudentBatchPage from '@pages/sub-admin/update-student-batch';
 import SubAdminUpdateBatchTeacherPage from '@pages/sub-admin/update-batch-teacher';
+
 import TeacherDashboardPage from '@pages/teacher/dashboard';
 import TeacherUpdateLinkPage from '@pages/teacher/update-link';
 import TeacherBatchReportPage from '@pages/teacher/report';
@@ -138,6 +148,10 @@ export const router = createBrowserRouter([
             element: <StudentDashboardPage />,
           },
           {
+            path: 'practice',
+            element: <StudentPracticePage />,
+          },
+          {
             path: 'level/:levelId',
             element: <StudentLevelPage />,
           },
@@ -165,8 +179,28 @@ export const router = createBrowserRouter([
             element: <StudentTestPage />,
           },
           {
-            path: 'oral-test/:levelId/:classId',
+            path: 'oral-test/:levelId',
             element: <StudentOralTestPage />,
+          },
+          {
+            path: 'final-test/:levelId',
+            element: <StudentFinalTestPage />,
+          },
+          {
+            path: 'practice/timed/:operation',
+            element: <StudentTimedPracticePage />,
+          },
+          {
+            path: 'practice/untimed/:operation',
+            element: <StudentUntimedPracticePage />,
+          },
+          {
+            path: 'practice/set/:operation',
+            element: <StudentSetPracticePage />,
+          },
+          {
+            path: 'practice/flashcards',
+            element: <StudentFlashCardPracticePage />,
           },
           {
             path: '*',

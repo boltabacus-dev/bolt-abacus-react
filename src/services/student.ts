@@ -13,6 +13,7 @@ import {
   ACCOUNT_DELETION_ENDPOINT,
   ACCOUNT_DEACTIVATION_ENDPOINT,
   STUDENT_LEVEL_V2_ENDPOINT,
+  STUDENT_PRACTICE_SUBMIT_ENDPOINT,
 } from '@constants/routes';
 
 import { QuizAnswer } from '@interfaces/apis/student';
@@ -102,6 +103,58 @@ export const quizRequest = async (
   );
 };
 
+export const oralTestRequest = async (levelId: number, token: string) => {
+  // return axios.post(
+  //   STUDENT_ORAL_TEST_ENDPOINT,
+  //   {
+  //     levelId,
+  //   },
+  //   {
+  //     headers: { 'AUTH-TOKEN': token },
+  //   }
+  // );
+
+  // TODO: Replace this with the oral test route
+  return axios.post(
+    STUDENT_QUIZ_ENDPOINT,
+    {
+      levelId,
+      classId: 2,
+      topicId: 1,
+      quizType: 'Homework',
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const finalTestRequest = async (levelId: number, token: string) => {
+  // return axios.post(
+  //   STUDENT_FINAL_TEST_ENDPOINT,
+  //   {
+  //     levelId,
+  //   },
+  //   {
+  //     headers: { 'AUTH-TOKEN': token },
+  //   }
+  // );
+
+  // TODO: Replace this with the final test route
+  return axios.post(
+    STUDENT_QUIZ_ENDPOINT,
+    {
+      levelId,
+      classId: 2,
+      topicId: 1,
+      quizType: 'Homework',
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
 export const quizSubmitRequest = async (
   quizId: number,
   time: number,
@@ -114,6 +167,33 @@ export const quizSubmitRequest = async (
       answers,
       time,
       quizId,
+    },
+    {
+      headers: { 'AUTH-TOKEN': token },
+    }
+  );
+};
+
+export const practiceSubmitRequest = async (
+  practiceType: string,
+  numberOfQuestions: number,
+  operation: string,
+  numberOfDigits: number,
+  score: number,
+  totalTime: number,
+  averageTime: number,
+  token: string
+) => {
+  return axios.post(
+    STUDENT_PRACTICE_SUBMIT_ENDPOINT,
+    {
+      practiceType,
+      numberOfQuestions,
+      operation,
+      numberOfDigits,
+      score,
+      totalTime,
+      averageTime,
     },
     {
       headers: { 'AUTH-TOKEN': token },

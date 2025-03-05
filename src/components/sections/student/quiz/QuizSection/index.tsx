@@ -124,7 +124,7 @@ const QuizSection: FC<QuizSectionProps> = ({
   }, [quizStarted, start]);
 
   return (
-    <div className="flex flex-col gap-10 p-6 tablet:p-10 tablet:gap-16 desktop:px-64 desktop:py-6 desktop:gap-8">
+    <div className="tablet:gap-16 tablet:p-10 desktop:px-64 desktop:py-6 flex flex-col gap-10 desktop:gap-8 p-6">
       {!quizStarted ? (
         <Instructions startQuiz={setQuizStarted} type="quiz" />
       ) : (
@@ -170,7 +170,7 @@ const QuizSection: FC<QuizSectionProps> = ({
                   submitAnswer={answerQuestion}
                 />
               </div>
-              <div className="flex items-center justify-center gap-4 pt-4 tablet:gap-12">
+              <div className="tablet:gap-12 flex justify-center items-center gap-4 pt-4">
                 <QuizActionButton
                   type="skip"
                   text="Skip"

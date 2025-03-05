@@ -5,25 +5,26 @@ import { useParams } from 'react-router-dom';
 import SeoComponent from '@components/atoms/SeoComponent';
 import ErrorBox from '@components/organisms/ErrorBox';
 import LoadingBox from '@components/organisms/LoadingBox';
-import OralTestSection from '@components/sections/student/quiz/OralTestSection';
+import TestSection from '@components/sections/student/quiz/TestSection';
 
 import { useAuthStore } from '@store/authStore';
-import { oralTestRequest } from '@services/student';
+import { finalTestRequest } from '@services/student';
 import { isValidLevelId } from '@helpers/paramsValidator';
 import {
   QuizAnswer,
   QuizQuestion,
   QuizResponse,
 } from '@interfaces/apis/student';
-import { OralTestPageParams } from '@interfaces/RouteParams';
+import { FinalTestPageParams } from '@interfaces/RouteParams';
 import { LOGIN_PAGE, STUDENT_DASHBOARD } from '@constants/routes';
 import { ERRORS, MESSAGES } from '@constants/app';
 import { getInitialQuizAnswers } from '@helpers/quiz';
+import { minutesToSeconds } from '@helpers/timer';
 
-export interface StudentOralTestPageProps {}
+export interface StudentFinalTestPageProps {}
 
-const StudentOralTestPage: FC<StudentOralTestPageProps> = () => {
-  const params = useParams<OralTestPageParams>();
+const StudentFinalTestPage: FC<StudentFinalTestPageProps> = () => {
+  const params = useParams<FinalTestPageParams>();
 
   const authToken = useAuthStore((state) => state.authToken);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
@@ -38,7 +39,16 @@ const StudentOralTestPage: FC<StudentOralTestPageProps> = () => {
   const [quizQuestions, setQuizQuestions] = useState<Array<QuizQuestion>>([]);
   const [quizId, setQuizId] = useState<number>();
   const [quizAnswers, setQuizAnswers] = useState<Array<QuizAnswer>>([]);
+  const [timeInSeconds, setTimeInSeconds] = useState<number>();
+  const [expiryTimestamp, setExpiryTimestamp] = useState<Date>(new Date());
   const [level, setLevel] = useState<number>();
+
+  const setTimer = (minutes: number) => {
+    const timestamp = new Date();
+    timestamp.setSeconds(timestamp.getSeconds() + minutes * 60);
+    setTimeInSeconds(minutesToSeconds(minutes));
+    setExpiryTimestamp(timestamp);
+  };
 
   useEffect(() => {
     const getLevelData = async () => {
@@ -50,12 +60,10 @@ const StudentOralTestPage: FC<StudentOralTestPageProps> = () => {
           setLoading(false);
         } else {
           try {
-            // TODO: Change to oral test
             const levelId = parseInt(params.levelId!, 10);
-
             setLevel(levelId);
 
-            const res = await oralTestRequest(levelId, authToken!);
+            const res = await finalTestRequest(levelId, authToken!);
 
             if (res.status === 200) {
               setApiError(null);
@@ -63,6 +71,8 @@ const StudentOralTestPage: FC<StudentOralTestPageProps> = () => {
               setQuizQuestions(quizResponse.questions);
               setQuizAnswers(getInitialQuizAnswers(quizResponse.questions));
               setQuizId(quizResponse.quizId);
+
+              setTimer(quizResponse.time);
             }
           } catch (error) {
             if (isAxiosError(error)) {
@@ -115,14 +125,15 @@ const StudentOralTestPage: FC<StudentOralTestPageProps> = () => {
             </>
           ) : (
             <>
-              <SeoComponent title="Oral Test" />
-              <OralTestSection
+              <SeoComponent title="Final Test" />
+              <TestSection
                 levelId={level!}
                 quizId={quizId!}
                 quizQuestions={quizQuestions!}
                 quizAnswers={quizAnswers}
                 setQuizAnswers={setQuizAnswers}
-                quizType="oral-test"
+                totalSeconds={timeInSeconds!}
+                expiryTimestamp={expiryTimestamp!}
               />
             </>
           )}
@@ -132,4 +143,4 @@ const StudentOralTestPage: FC<StudentOralTestPageProps> = () => {
   );
 };
 
-export default StudentOralTestPage;
+export default StudentFinalTestPage;

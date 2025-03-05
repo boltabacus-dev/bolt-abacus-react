@@ -2,13 +2,13 @@
 import { ReactNode } from 'react';
 
 import ClassAccordion from '@components/organisms/ClassAccordion';
+import ClassAccordionV2 from '@components/organisms/ClassAccordionV2';
 
 import {
   ClassProgress,
   ClassProgressV2,
   ClassSchema,
 } from '@interfaces/apis/student';
-import ClassAccordionV2 from '@components/organisms/ClassAccordionV2';
 
 export const createClassAccordions = (
   level: number,

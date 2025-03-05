@@ -12,7 +12,14 @@ export type TestPageParams = {
 
 export type OralTestPageParams = {
   levelId: string;
-  classId: string;
+};
+
+export type FinalTestPageParams = {
+  levelId: string;
+};
+
+export type PracticePageParams = {
+  operation: 'addition' | 'multiplication' | 'division';
 };
 
 export type LevelPageParams = {

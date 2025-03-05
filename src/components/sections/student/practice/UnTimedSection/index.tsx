@@ -1,54 +1,63 @@
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 
 import QuizActionButton from '@components/atoms/QuizActionButton';
-import QuizHeader from '@components/molecules/QuizHeader';
-import Instructions from '@components/organisms/Instructions';
+import PracticeHeader from '@components/molecules/PracticeHeader';
+import UnTimedPracticeForm from '@components/organisms/UnTimedPracticeForm';
+import QuizBox from '@components/organisms/QuizBox';
 import LoadingSection from '@components/organisms/LoadingBox';
-import OralTestBox from '@components/organisms/OralTestBox';
+import ResultSection from '@components/sections/student/practice/ResultSection';
 import ErrorSection from '@components/sections/student/quiz/ErrorSection';
-import ResultSection from '@components/sections/student/quiz/ResultSection';
 
-import { ERRORS, MESSAGES } from '@constants/app';
 import {
   QuestionResult,
   QuizAnswer,
   QuizQuestion,
-  QuizResult,
 } from '@interfaces/apis/student';
-import { quizSubmitRequest } from '@services/student';
-import { useAuthStore } from '@store/authStore';
+import {
+  generatePracticeAnswers,
+  generatePracticeQuestions,
+  generateResult,
+} from '@helpers/questionBuilder';
+import { practiceSubmitRequest } from '@services/student';
 
-export interface OralTestSectionProps {
-  levelId: number;
-  quizId: number;
-  quizQuestions: Array<QuizQuestion>;
-  quizAnswers: Array<QuizAnswer>;
-  setQuizAnswers: Dispatch<SetStateAction<Array<QuizAnswer>>>;
-  quizType: 'classwork' | 'homework' | 'oral-test';
+import { useAuthStore } from '@store/authStore';
+import { MESSAGES } from '@constants/app';
+
+export interface UnTimedPracticeSectionProps {
+  operation: 'addition' | 'multiplication' | 'division';
 }
 
-const OralTestSection: FC<OralTestSectionProps> = ({
-  levelId,
-  quizId,
-  quizQuestions,
-  quizAnswers,
-  quizType,
-  setQuizAnswers,
+const UnTimedPracticeSection: FC<UnTimedPracticeSectionProps> = ({
+  operation,
 }) => {
   const authToken = useAuthStore((state) => state.authToken);
 
   const [loading, setLoading] = useState(false);
-  const [apiError, setApiError] = useState<string | null>(null);
-  const [result, setResult] = useState<Array<QuestionResult>>();
-  const [quizVerdict, setQuizVerdict] = useState<boolean>();
-  const [quizCompletionTime, setQuizCompletionTime] = useState<number>();
+  const [apiError] = useState<string | null>(null);
 
-  const [quizStarted, setQuizStarted] = useState<boolean>(false);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [isNextDisabled, setIsNextDisabled] = useState<boolean>(true);
-  const [currentAnswer, setCurrentAnswer] = useState<string>('');
-  const [quizCompleted, setQuizCompleted] = useState<boolean>(false);
+  const [isQuizStarted, setIsQuizStarted] = useState(false);
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false);
+
+  const [quizQuestions, setQuizQuestions] = useState<Array<QuizQuestion>>([]);
+  const [quizAnswers, setQuizAnswers] = useState<Array<QuizAnswer>>([]);
+
+  const [quizResult, setQuestionResult] = useState<Array<QuestionResult>>([]);
+  const [totalScore, setTotalScore] = useState(0);
+  const [averageTime, setAverageTime] = useState(0);
+
+  const [numberOfQuestions, setNumberOfQuestions] = useState(10);
+  const [numberOfDigits, setNumberOfDigits] = useState(1);
+  const [numberOfRows, setNumberOfRows] = useState(2);
+  const [isZigzag, setIsZigzag] = useState(false);
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentAnswer, setCurrentAnswer] = useState('');
+  const [isNextDisabled, setIsNextDisabled] = useState(true);
+
+  const { start, pause, totalSeconds, seconds, minutes } = useStopwatch({
+    autoStart: false,
+  });
 
   const getUpdatedAnswers = (ans: string | null) => {
     const { questionId } = quizQuestions[currentIndex];
@@ -62,38 +71,55 @@ const OralTestSection: FC<OralTestSectionProps> = ({
       }
       return a;
     });
+
     return answers;
   };
 
   const submitQuiz = async (timeTaken: number) => {
     const answers = getUpdatedAnswers(currentAnswer);
-    setQuizCompleted(true);
     setLoading(true);
+    setIsQuizCompleted(true);
+
+    const { result, totalScore: score } = generateResult(
+      quizQuestions,
+      answers
+    );
+
+    setAverageTime(timeTaken / quizQuestions.length);
+    setTotalScore(score);
+    setQuestionResult(result);
+
     try {
-      const res = await quizSubmitRequest(
-        quizId,
-        timeTaken,
-        answers,
+      await practiceSubmitRequest(
+        'untimed',
+        numberOfQuestions,
+        operation,
+        numberOfDigits,
+        score,
+        totalSeconds,
+        timeTaken / quizQuestions.length,
         authToken!
       );
-
-      if (res.status === 200) {
-        setApiError(null);
-        const resultResponse: QuizResult = res.data;
-        setResult(resultResponse.results);
-        setQuizVerdict(resultResponse.pass);
-        setQuizCompletionTime(resultResponse.time);
-      }
     } catch (error) {
-      setApiError(ERRORS.SERVER_ERROR);
-    } finally {
-      setLoading(false);
+      // setApiError(ERRORS.SERVER_ERROR);
     }
+    setLoading(false);
   };
 
-  const { start, pause, totalSeconds, seconds, minutes } = useStopwatch({
-    autoStart: false,
-  });
+  const handleStartQuiz = () => {
+    setQuizQuestions(
+      generatePracticeQuestions(
+        operation,
+        numberOfDigits,
+        numberOfQuestions,
+        numberOfRows,
+        isZigzag
+      )
+    );
+    setQuizAnswers(generatePracticeAnswers(numberOfQuestions));
+    start();
+    setIsQuizStarted(true);
+  };
 
   const moveQuestion = () => {
     if (currentIndex + 1 >= quizQuestions.length) {
@@ -118,19 +144,24 @@ const OralTestSection: FC<OralTestSectionProps> = ({
     moveQuestion();
   };
 
-  useEffect(() => {
-    if (quizStarted) {
-      start();
-    }
-  }, [quizStarted, start]);
-
   return (
     <div className="tablet:gap-16 tablet:p-10 desktop:px-64 desktop:py-6 flex flex-col gap-10 desktop:gap-8 p-6">
-      {!quizStarted ? (
-        <Instructions startQuiz={setQuizStarted} type="test" />
+      {!isQuizStarted ? (
+        <UnTimedPracticeForm
+          operation={operation}
+          numberOfQuestions={numberOfQuestions}
+          setNumberOfQuestions={setNumberOfQuestions}
+          numberOfDigits={numberOfDigits}
+          setNumberOfDigits={setNumberOfDigits}
+          isZigzag={isZigzag}
+          setIsZigzag={setIsZigzag}
+          numberOfRows={numberOfRows}
+          setNumberOfRows={setNumberOfRows}
+          handleStartQuiz={handleStartQuiz}
+        />
       ) : (
         <div>
-          {quizCompleted ? (
+          {isQuizCompleted ? (
             <div>
               {loading ? (
                 <LoadingSection loadingText="Submitting Quiz. Please wait" />
@@ -144,10 +175,11 @@ const OralTestSection: FC<OralTestSectionProps> = ({
                     />
                   ) : (
                     <ResultSection
-                      levelId={levelId!}
-                      result={result!}
-                      verdict={quizVerdict!}
-                      time={quizCompletionTime!}
+                      result={quizResult!}
+                      time={totalSeconds!}
+                      totalScore={`${totalScore} of ${quizQuestions.length}`}
+                      averageTime={averageTime}
+                      practiceType="untimed"
                     />
                   )}
                 </div>
@@ -155,17 +187,17 @@ const OralTestSection: FC<OralTestSectionProps> = ({
             </div>
           ) : (
             <>
-              <QuizHeader
-                quizType={quizType}
+              <PracticeHeader
+                practiceType="untimed"
                 questionNumber={currentIndex}
                 noOfQuestions={quizQuestions.length}
                 minutes={minutes}
                 seconds={seconds}
               />
               <div className="tablet:px-4">
-                <OralTestBox
+                <QuizBox
+                  quizQuestion={quizQuestions[currentIndex]}
                   answer={currentAnswer}
-                  questionNumber={currentIndex + 1}
                   setAnswer={setCurrentAnswer}
                   setDisabled={setIsNextDisabled}
                   submitAnswer={answerQuestion}
@@ -201,4 +233,4 @@ const OralTestSection: FC<OralTestSectionProps> = ({
   );
 };
 
-export default OralTestSection;
+export default UnTimedPracticeSection;

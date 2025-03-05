@@ -45,3 +45,13 @@ export const areValidReportsParams = (levelId: string, classId: string) => {
   if (!isValidLevelId(levelId) || !isValidId(classId)) return false;
   return true;
 };
+
+export const areValidPracticeParams = (operation: string) => {
+  if (
+    operation === 'addition' ||
+    operation === 'multiplication' ||
+    operation === 'division'
+  )
+    return true;
+  return false;
+};

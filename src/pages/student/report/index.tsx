@@ -106,7 +106,7 @@ const StudentReportPage: FC<StudentReportPageProps> = () => {
           ) : (
             <>
               <SeoComponent title={`Level ${params.levelId} | Report`} />
-              <div className="flex flex-col gap-4 p-6 justify-evenly tablet:justify-between tablet:items-center tablet:p-10 tablet:gap-8 desktop:p-20 desktop:py-8">
+              <div className="tablet:gap-8 tablet:p-10 desktop:p-20 desktop:py-8 flex flex-col justify-evenly tablet:justify-between tablet:items-center gap-4 p-6">
                 <ReportSection
                   quizReport={quizReport!}
                   testReport={testReport!}

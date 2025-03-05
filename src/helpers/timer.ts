@@ -15,3 +15,19 @@ export const secondsToMinutesSeconds = (time: number) => {
   const seconds = `${time - parseInt(minutes, 10) * 60}`.padStart(2, '0');
   return `${minutes}:${seconds}`;
 };
+
+export const secondsToMinsSecs = (time: number) => {
+  if (time === null || Number.isNaN(time)) {
+    return {
+      minutes: 0,
+      seconds: 0,
+    };
+  }
+  const minutes = Math.floor(time / 60);
+  const seconds = time - minutes * 60;
+
+  return {
+    minutes,
+    seconds,
+  };
+};
