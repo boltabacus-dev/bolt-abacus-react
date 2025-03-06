@@ -33,8 +33,11 @@ export const generatePracticeQuestions = (
         numbers.push(generateRandomNumber(min, max));
       }
     } else {
+      const divisionMin = 10;
+      const divisionMax = 10 ** Math.min(numberOfDigits - 1, 3) - 1;
+
       let num1 = generateRandomNumber(min, max);
-      let num2 = generateRandomNumber(min, max);
+      let num2 = generateRandomNumber(divisionMin, divisionMax);
 
       if (num1 < num2) {
         [num1, num2] = [num2, num1];

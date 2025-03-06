@@ -110,7 +110,7 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
             onChange={(e) => setNumberOfDigits(parseInt(e.target.value, 10))}
           />
         </div>
-        {operation !== 'division' && (
+        {operation !== 'division' && operation !== 'multiplication' && (
           <div className="flex items-center gap-4 py-4">
             <p className="w-40 text-md">Number of Rows: </p>
             <input

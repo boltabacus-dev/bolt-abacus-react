@@ -11,8 +11,8 @@ export interface FlashCardsFormProps {
   setNumberOfDigits: Dispatch<SetStateAction<number>>;
   isZigzag: boolean;
   setIsZigzag: Dispatch<SetStateAction<boolean>>;
-  speed: 'fast' | 'medium' | 'slow';
-  setSpeed: Dispatch<SetStateAction<'fast' | 'medium' | 'slow'>>;
+  speed: number;
+  setSpeed: Dispatch<SetStateAction<number>>;
   numberOfRows: number;
   setNumberOfRows: Dispatch<SetStateAction<number>>;
   handleStartQuiz: () => void;
@@ -114,25 +114,22 @@ const FlashCardsForm: FC<FlashCardsFormProps> = ({
         )}
         <div className="flex items-center gap-4 py-4">
           <p className="w-40 text-md">Flash Card Speed: </p>
-          <select
-            name="speed"
-            className="px-2 py-1 border border-grey rounded-md w-fit text-black text-center"
-            id="speed"
-            value={speed}
-            onChange={(e) =>
-              setSpeed(e.target.value as 'fast' | 'medium' | 'slow')
-            }
-          >
-            <option className="p-4" value="fast">
-              Fast (1000 ms)
-            </option>
-            <option className="p-4" value="medium">
-              Medium (1500 ms)
-            </option>
-            <option className="p-4" value="slow">
-              Slow (2500 ms)
-            </option>
-          </select>
+          <div className="flex flex-col">
+            <input
+              name="speed"
+              className="px-2 py-1 border border-grey rounded-md w-fit text-black text-center"
+              id="speed"
+              type="range"
+              min={900}
+              max={5000}
+              value={speed}
+              onChange={(e) => setSpeed(parseInt(e.target.value, 10))}
+            />
+            <p className="text-center">
+              {speed} ms (
+              {speed < 1500 ? 'Fast' : speed > 2500 ? 'Slow' : 'Medium'})
+            </p>
+          </div>
         </div>
       </div>
       <div

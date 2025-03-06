@@ -49,7 +49,7 @@ const FlashCardsSection: FC<FlashCardsSectionProps> = ({ operation }) => {
   const [numberOfDigits, setNumberOfDigits] = useState(1);
   const [numberOfRows, setNumberOfRows] = useState(2);
   const [isZigzag, setIsZigzag] = useState(false);
-  const [speed, setSpeed] = useState<'fast' | 'medium' | 'slow'>('medium');
+  const [speed, setSpeed] = useState<number>(2500);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState('');
@@ -198,9 +198,7 @@ const FlashCardsSection: FC<FlashCardsSectionProps> = ({ operation }) => {
               />
               <div className="tablet:px-4">
                 <FlashCardBox
-                  speed={
-                    speed === 'fast' ? 1000 : speed === 'medium' ? 1500 : 2000
-                  }
+                  speed={speed}
                   quizQuestion={quizQuestions[currentIndex]}
                   answer={currentAnswer}
                   setAnswer={setCurrentAnswer}
