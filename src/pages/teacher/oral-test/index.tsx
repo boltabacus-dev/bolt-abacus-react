@@ -3,7 +3,6 @@ import { FC, useEffect, useState } from 'react';
 import SeoComponent from '@components/atoms/SeoComponent';
 import LoadingBox from '@components/organisms/LoadingBox';
 import ErrorBox from '@components/organisms/ErrorBox';
-import OralTestSection from '@components/sections/teacher/OralTestSection';
 
 import { useAuthStore } from '@store/authStore';
 
@@ -58,7 +57,7 @@ const TeacherOralTestPage: FC<TeacherOralTestPageProps> = () => {
           ) : (
             <>
               <SeoComponent title="Oral Test" />
-              <OralTestSection />
+              <p>Oral Test</p>
             </>
           )}
         </div>
