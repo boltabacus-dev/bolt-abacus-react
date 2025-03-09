@@ -41,7 +41,7 @@ const StudentOralTestPage: FC<StudentOralTestPageProps> = () => {
   const [level, setLevel] = useState<number>();
 
   useEffect(() => {
-    const getLevelData = async () => {
+    const getOralTestData = async () => {
       if (isAuthenticated) {
         if (!isValidLevelId(params.levelId!)) {
           setApiError(ERRORS.INVALID_QUIZ);
@@ -50,7 +50,6 @@ const StudentOralTestPage: FC<StudentOralTestPageProps> = () => {
           setLoading(false);
         } else {
           try {
-            // TODO: Change to oral test
             const levelId = parseInt(params.levelId!, 10);
 
             setLevel(levelId);
@@ -92,7 +91,7 @@ const StudentOralTestPage: FC<StudentOralTestPageProps> = () => {
         setFallBackAction(MESSAGES.GO_LOGIN);
       }
     };
-    getLevelData();
+    getOralTestData();
   }, [authToken, isAuthenticated, params]);
 
   return (

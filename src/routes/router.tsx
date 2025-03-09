@@ -69,6 +69,7 @@ import TeacherBatchReportPage from '@pages/teacher/report';
 import TeacherSearchStudentsPage from '@pages/teacher/search-students';
 import TeacherStudentProgressPage from '@pages/teacher/student-progress';
 import TeacherViewStudentsPage from '@pages/teacher/students';
+import TeacherOralTestPage from '@pages/teacher/oral-test';
 
 export const router = createBrowserRouter([
   {
@@ -419,6 +420,10 @@ export const router = createBrowserRouter([
           {
             path: 'search/student/',
             element: <TeacherSearchStudentsPage />,
+          },
+          {
+            path: 'oral-test/',
+            element: <TeacherOralTestPage />,
           },
           {
             path: 'student-progress/:studentId',
