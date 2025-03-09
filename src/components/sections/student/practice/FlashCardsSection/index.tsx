@@ -86,20 +86,25 @@ const FlashCardsSection: FC<FlashCardsSectionProps> = ({ operation }) => {
       quizQuestions,
       answers
     );
+    const avg = timeTaken / quizQuestions.length;
 
-    setAverageTime(timeTaken / quizQuestions.length);
+    setAverageTime(parseFloat(avg.toFixed(2)));
     setTotalScore(score);
     setQuestionResult(result);
 
     try {
       await practiceSubmitRequest(
-        'untimed',
-        numberOfQuestions,
+        'flashcards',
         operation,
         numberOfDigits,
+        numberOfQuestions,
+        numberOfRows,
+        isZigzag,
+        includeSubtraction,
+        persistNumberOfDigits,
         score,
         totalSeconds,
-        timeTaken / quizQuestions.length,
+        parseFloat(avg.toFixed(2)),
         authToken!
       );
     } catch (error) {

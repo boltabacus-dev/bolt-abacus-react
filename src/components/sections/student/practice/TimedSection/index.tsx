@@ -20,7 +20,7 @@ import {
 import { practiceSubmitRequest } from '@services/student';
 
 import { useAuthStore } from '@store/authStore';
-import { MESSAGES } from '@constants/app';
+import { ERRORS, MESSAGES } from '@constants/app';
 import { secondsToMinsSecs } from '@helpers/timer';
 
 export interface TimedPracticeSectionProps {
@@ -31,7 +31,7 @@ const TimedPracticeSection: FC<TimedPracticeSectionProps> = ({ operation }) => {
   const authToken = useAuthStore((state) => state.authToken);
 
   const [loading, setLoading] = useState(false);
-  const [apiError] = useState<string | null>(null);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
@@ -93,16 +93,20 @@ const TimedPracticeSection: FC<TimedPracticeSectionProps> = ({ operation }) => {
     try {
       await practiceSubmitRequest(
         'timed',
-        timeLimit * 100,
         operation,
         numberOfDigits,
+        timeLimit * 100,
+        numberOfRows,
+        isZigzag,
+        includeSubtraction,
+        persistNumberOfDigits,
         score,
-        timeLimit,
+        timeLimit * 60,
         parseFloat(avg.toFixed(2)),
         authToken!
       );
     } catch (error) {
-      // setApiError(ERRORS.SERVER_ERROR);
+      setApiError(ERRORS.SERVER_ERROR);
     }
     setLoading(false);
   };

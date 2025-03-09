@@ -22,7 +22,7 @@ import {
 import { practiceSubmitRequest } from '@services/student';
 
 import { useAuthStore } from '@store/authStore';
-import { MESSAGES } from '@constants/app';
+import { ERRORS, MESSAGES } from '@constants/app';
 
 export interface UnTimedPracticeSectionProps {
   operation: 'addition' | 'multiplication' | 'division';
@@ -34,7 +34,7 @@ const UnTimedPracticeSection: FC<UnTimedPracticeSectionProps> = ({
   const authToken = useAuthStore((state) => state.authToken);
 
   const [loading, setLoading] = useState(false);
-  const [apiError] = useState<string | null>(null);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   const [isQuizStarted, setIsQuizStarted] = useState(false);
   const [isQuizCompleted, setIsQuizCompleted] = useState(false);
@@ -86,24 +86,29 @@ const UnTimedPracticeSection: FC<UnTimedPracticeSectionProps> = ({
       quizQuestions,
       answers
     );
+    const avg = timeTaken / quizQuestions.length;
 
-    setAverageTime(timeTaken / quizQuestions.length);
+    setAverageTime(parseFloat(avg.toFixed(2)));
     setTotalScore(score);
     setQuestionResult(result);
 
     try {
       await practiceSubmitRequest(
         'untimed',
-        numberOfQuestions,
         operation,
         numberOfDigits,
+        numberOfQuestions,
+        numberOfRows,
+        isZigzag,
+        includeSubtraction,
+        persistNumberOfDigits,
         score,
         totalSeconds,
-        timeTaken / quizQuestions.length,
+        parseFloat(avg.toFixed(2)),
         authToken!
       );
     } catch (error) {
-      // setApiError(ERRORS.SERVER_ERROR);
+      setApiError(ERRORS.SERVER_ERROR);
     }
     setLoading(false);
   };

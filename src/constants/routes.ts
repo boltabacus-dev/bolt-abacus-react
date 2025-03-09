@@ -65,6 +65,7 @@ export const TEACHER_BATCH_REPORT = `${TEACHER_ROUTE}/report`;
 export const TEACHER_STUDENT_PROGRESS = `${TEACHER_ROUTE}/student-progress`;
 export const TEACHER_SEARCH_STUDENTS = `${TEACHER_ROUTE}/search/student`;
 export const TEACHER_STUDENTS = `${TEACHER_ROUTE}/students`;
+export const TEACHER_ORAL_TEST = `${TEACHER_ROUTE}/oral-test`;
 
 // Backend Endpoints
 export const LOGIN_ENDPOINT = '/login/';
@@ -82,7 +83,7 @@ export const STUDENT_LEVEL_V2_ENDPOINT = '/classesV2/';
 export const STUDENT_QUIZ_ENDPOINT = '/quiz/';
 export const STUDENT_ORAL_TEST_ENDPOINT = '/oral-test/';
 export const STUDENT_FINAL_TEST_ENDPOINT = '/final-test/';
-export const STUDENT_PRACTICE_SUBMIT_ENDPOINT = '/practiceSubmit/';
+export const STUDENT_PRACTICE_SUBMIT_ENDPOINT = '/submitPracticeQuestions/';
 export const STUDENT_QUIZ_SUBMIT_ENDPOINT = '/quizCorrection/';
 export const STUDENT_REPORT_ENDPOINT = '/report/';
 export const STUDENT_PROGRESS_ENDPOINT = '/getStudentProgressStudent/';
