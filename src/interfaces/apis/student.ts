@@ -66,6 +66,8 @@ export type ClassProgressV2 = z.infer<typeof ProgressV2Schema>;
 
 export const LevelResponseV2Schema = z.object({
   progress: z.array(ProgressV2Schema),
+  finalTest: QuizResultV2Schema,
+  oralTest: QuizResultV2Schema,
 });
 export type LevelResponseV2 = z.infer<typeof LevelResponseV2Schema>;
 

@@ -49,6 +49,8 @@ const FlashCardsSection: FC<FlashCardsSectionProps> = ({ operation }) => {
   const [numberOfDigits, setNumberOfDigits] = useState(1);
   const [numberOfRows, setNumberOfRows] = useState(2);
   const [isZigzag, setIsZigzag] = useState(false);
+  const [includeSubtraction, setIncludeSubtraction] = useState(false);
+  const [persistNumberOfDigits, setPersistNumberOfDigits] = useState(false);
   const [speed, setSpeed] = useState<number>(2500);
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -113,7 +115,9 @@ const FlashCardsSection: FC<FlashCardsSectionProps> = ({ operation }) => {
         numberOfDigits,
         numberOfQuestions,
         numberOfRows,
-        isZigzag
+        isZigzag,
+        includeSubtraction,
+        persistNumberOfDigits
       )
     );
     setQuizAnswers(generatePracticeAnswers(numberOfQuestions));
@@ -159,6 +163,10 @@ const FlashCardsSection: FC<FlashCardsSectionProps> = ({ operation }) => {
           setSpeed={setSpeed}
           numberOfRows={numberOfRows}
           setNumberOfRows={setNumberOfRows}
+          includeSubtraction={includeSubtraction}
+          setIncludeSubtraction={setIncludeSubtraction}
+          persistNumberOfDigits={persistNumberOfDigits}
+          setPersistNumberOfDigits={setPersistNumberOfDigits}
           handleStartQuiz={handleStartQuiz}
         />
       ) : (

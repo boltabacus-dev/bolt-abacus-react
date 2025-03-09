@@ -18,7 +18,7 @@ const PracticeSection: FC<PracticeSectionProps> = () => {
         <p className="font-bold text-lg tablet:text-xl">
           Addition and Subtraction
         </p>
-        <div className="gap-6 grid grid-cols-1 tablet:grid-cols-4 py-2">
+        <div className="gap-6 grid grid-cols-1 desktop:grid-cols-4 tablet:grid-cols-3 py-2">
           <PracticeCard
             title="Flash Cards"
             image="/images/flashcards.png"
@@ -47,7 +47,7 @@ const PracticeSection: FC<PracticeSectionProps> = () => {
       </div>
       <div className="flex flex-col gap-3">
         <p className="font-bold text-lg tablet:text-xl">Multiplication</p>
-        <div className="gap-6 grid grid-cols-1 tablet:grid-cols-4 py-2">
+        <div className="gap-6 grid grid-cols-1 desktop:grid-cols-4 tablet:grid-cols-3 py-2">
           <PracticeCard
             title="No Rush Mastery"
             image="/images/unlimited-time.png"
@@ -70,7 +70,7 @@ const PracticeSection: FC<PracticeSectionProps> = () => {
       </div>
       <div className="flex flex-col gap-3">
         <p className="font-bold text-lg tablet:text-xl">Division</p>
-        <div className="gap-6 grid grid-cols-1 tablet:grid-cols-4 py-2">
+        <div className="gap-6 grid grid-cols-1 desktop:grid-cols-4 tablet:grid-cols-3 py-2">
           <PracticeCard
             title="No Rush Mastery"
             image="/images/unlimited-time.png"

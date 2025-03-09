@@ -107,6 +107,10 @@ export type ClassProgress = z.infer<typeof ClassProgressSchema>;
 export const LevelProgressSchema = z.object({
   levelId: z.number(),
   classes: z.array(ClassProgressSchema),
+  FinalTest: z.number(),
+  FinalTestTime: z.number(),
+  OralTest: z.number(),
+  OralTestTime: z.number(),
 });
 export type LevelProgress = z.infer<typeof LevelProgressSchema>;
 

@@ -104,24 +104,13 @@ export const quizRequest = async (
 };
 
 export const oralTestRequest = async (levelId: number, token: string) => {
-  // return axios.post(
-  //   STUDENT_ORAL_TEST_ENDPOINT,
-  //   {
-  //     levelId,
-  //   },
-  //   {
-  //     headers: { 'AUTH-TOKEN': token },
-  //   }
-  // );
-
-  // TODO: Replace this with the oral test route
   return axios.post(
     STUDENT_QUIZ_ENDPOINT,
     {
       levelId,
-      classId: 2,
-      topicId: 1,
-      quizType: 'Homework',
+      classId: 0,
+      topicId: 0,
+      quizType: 'OralTest',
     },
     {
       headers: { 'AUTH-TOKEN': token },
@@ -130,24 +119,13 @@ export const oralTestRequest = async (levelId: number, token: string) => {
 };
 
 export const finalTestRequest = async (levelId: number, token: string) => {
-  // return axios.post(
-  //   STUDENT_FINAL_TEST_ENDPOINT,
-  //   {
-  //     levelId,
-  //   },
-  //   {
-  //     headers: { 'AUTH-TOKEN': token },
-  //   }
-  // );
-
-  // TODO: Replace this with the final test route
   return axios.post(
     STUDENT_QUIZ_ENDPOINT,
     {
       levelId,
-      classId: 2,
-      topicId: 1,
-      quizType: 'Homework',
+      classId: 0,
+      topicId: 0,
+      quizType: 'FinalTest',
     },
     {
       headers: { 'AUTH-TOKEN': token },

@@ -15,6 +15,10 @@ export interface SetPracticeFormProps {
   setNumberOfRows: Dispatch<SetStateAction<number>>;
   numberOfQuestions: number;
   setNumberOfQuestions: Dispatch<SetStateAction<number>>;
+  includeSubtraction: boolean;
+  setIncludeSubtraction: Dispatch<SetStateAction<boolean>>;
+  persistNumberOfDigits: boolean;
+  setPersistNumberOfDigits: Dispatch<SetStateAction<boolean>>;
   handleStartQuiz: () => void;
 }
 
@@ -25,11 +29,15 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
   timeLimit,
   numberOfQuestions,
   numberOfRows,
+  includeSubtraction,
+  persistNumberOfDigits,
   setTimeLimit,
   setNumberOfDigits,
   setIsZigzag,
   setNumberOfQuestions,
   setNumberOfRows,
+  setIncludeSubtraction,
+  setPersistNumberOfDigits,
   handleStartQuiz,
 }) => {
   const verifyAndStartQuiz = () => {
@@ -78,44 +86,46 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
 
   return (
     <div className="flex flex-col gap-6">
-      <h2 className="font-bold text-gold text-xl">Set Practice Settings</h2>
-      <div className="gap-4 grid grid-cols-1 tablet:grid-cols-2 p-4">
-        <div className="flex items-center gap-4 py-4">
-          <p className="w-40 text-md">Time Limit (minutes): </p>
+      <h2 className="mb-4 font-bold text-gold text-xl">
+        Set Practice Settings
+      </h2>
+      <div className="flex flex-col items-center gap-4 bg-black p-8 border-2 border-boxGold rounded-lg">
+        <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
+          <p className="text-md text-left">Time Limit (minutes): </p>
           <input
             type="number"
-            className="px-2 py-1 border border-grey rounded-md w-20 text-black text-center"
+            className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={timeLimit}
             max={200}
             onChange={(e) => setTimeLimit(parseInt(e.target.value, 10))}
           />
         </div>
-        <div className="flex items-center gap-4 py-4">
-          <p className="w-40 text-md">Number of Questions: </p>
+        <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
+          <p className="text-md text-left">Number of Questions: </p>
           <input
             type="number"
-            className="px-2 py-1 border border-grey rounded-md w-20 text-black text-center"
+            className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={Number(numberOfQuestions)}
             max={100}
             onChange={(e) => setNumberOfQuestions(parseInt(e.target.value, 10))}
           />
         </div>
-        <div className="flex items-center gap-4 py-4">
-          <p className="w-40 text-md">Number of Digits: </p>
+        <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
+          <p className="text-md text-left">Number of Digits: </p>
           <input
             type="number"
-            className="px-2 py-1 border border-grey rounded-md w-20 text-black text-center"
+            className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={numberOfDigits}
             max={5}
             onChange={(e) => setNumberOfDigits(parseInt(e.target.value, 10))}
           />
         </div>
         {operation !== 'division' && operation !== 'multiplication' && (
-          <div className="flex items-center gap-4 py-4">
-            <p className="w-40 text-md">Number of Rows: </p>
+          <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
+            <p className="text-md text-left">Number of Rows: </p>
             <input
               type="number"
-              className="px-2 py-1 border border-grey rounded-md w-20 text-black text-center"
+              className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
               value={numberOfRows}
               max={5}
               onChange={(e) => setNumberOfRows(parseInt(e.target.value, 10))}
@@ -123,25 +133,51 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
           </div>
         )}
         {operation === 'addition' && (
-          <div className="flex items-center gap-4 py-4">
-            <p className="w-40 text-md">Zig-Zag Pattern: </p>
+          <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
+            <p className="text-md text-left">Zig-Zag Pattern: </p>
             <input
               type="checkbox"
-              className="px-2 py-1 border border-grey rounded-md w-20 h-4 text-black text-center"
+              className="bg-gold px-2 py-1 border rounded-md w-full h-4 text-black text-center accent-gold"
               checked={isZigzag}
               onChange={(e) => setIsZigzag(e.target.checked)}
             />
           </div>
         )}
-      </div>
-      <div
-        className="text-center"
-        onClick={() => verifyAndStartQuiz()}
-        tabIndex={0}
-        role="button"
-        onKeyDown={() => verifyAndStartQuiz()}
-      >
-        <Button type="primary" text="Start Quiz" />
+        {operation === 'addition' && (
+          <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
+            <p className="text-md text-left">Include Subtraction: </p>
+            <input
+              type="checkbox"
+              className="bg-gold px-2 py-1 border rounded-md w-full h-4 text-black text-center accent-gold"
+              checked={includeSubtraction}
+              onChange={(e) => setIncludeSubtraction(e.target.checked)}
+            />
+          </div>
+        )}
+        {operation === 'addition' && (
+          <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
+            <p className="text-md text-left">
+              Same number of digits in answer as question:
+            </p>
+            <input
+              type="checkbox"
+              className="bg-gold px-2 py-1 border rounded-md w-full h-4 text-black text-center accent-gold"
+              checked={persistNumberOfDigits}
+              onChange={(e) => setPersistNumberOfDigits(e.target.checked)}
+            />
+          </div>
+        )}
+        <div className="tablet:gap-4 items-center gap-2 grid grid-cols-1 w-full">
+          <div
+            className="text-center"
+            onClick={() => verifyAndStartQuiz()}
+            tabIndex={0}
+            role="button"
+            onKeyDown={() => verifyAndStartQuiz()}
+          >
+            <Button type="primary" text="Start Practice" />
+          </div>
+        </div>
       </div>
     </div>
   );

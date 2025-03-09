@@ -54,6 +54,8 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
   const [numberOfDigits, setNumberOfDigits] = useState(1);
   const [isZigzag, setIsZigzag] = useState(false);
   const [numberOfRows, setNumberOfRows] = useState(2);
+  const [includeSubtraction, setIncludeSubtraction] = useState(false);
+  const [persistNumberOfDigits, setPersistNumberOfDigits] = useState(false);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState('');
@@ -133,7 +135,9 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
         numberOfDigits,
         numberOfQuestions,
         numberOfRows,
-        isZigzag
+        isZigzag,
+        includeSubtraction,
+        persistNumberOfDigits
       )
     );
     setQuizAnswers(generatePracticeAnswers(numberOfQuestions));
@@ -178,6 +182,10 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
           setIsZigzag={setIsZigzag}
           numberOfRows={numberOfRows}
           setNumberOfRows={setNumberOfRows}
+          includeSubtraction={includeSubtraction}
+          setIncludeSubtraction={setIncludeSubtraction}
+          persistNumberOfDigits={persistNumberOfDigits}
+          setPersistNumberOfDigits={setPersistNumberOfDigits}
           handleStartQuiz={handleStartQuiz}
         />
       ) : (
