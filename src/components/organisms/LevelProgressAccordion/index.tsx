@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { Collapse } from 'react-collapse';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
 
 import ClassProgressAccordion from '@components/organisms/ClassProgressAccordion';
@@ -42,7 +41,7 @@ const LevelProgressAccordion: FC<LevelProgressAccordionProps> = ({
           )}
         </div>
       </div>
-      <Collapse isOpened={isOpen}>
+      <div className={`${isOpen ? 'block' : 'hidden'}`}>
         <div className="pt-6">
           <hr className="border border-[#b3b3b3] outline-none" />
           <div className="tablet:px-1 flex tablet:flex-row flex-col gap-4 pt-4 pb-0">
@@ -76,7 +75,7 @@ const LevelProgressAccordion: FC<LevelProgressAccordionProps> = ({
             </div>
           </div> */}
         </div>
-      </Collapse>
+      </div>
     </div>
   );
 };

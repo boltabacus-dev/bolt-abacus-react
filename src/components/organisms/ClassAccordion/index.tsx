@@ -2,7 +2,6 @@ import { FC, ReactNode, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
 import { TbReport } from 'react-icons/tb';
-import { Collapse } from 'react-collapse';
 
 import AccordionButton from '@components/atoms/AccordionButton';
 import Button from '@components/atoms/Button';
@@ -55,8 +54,8 @@ const createAccordionRows = (
               ? classwork.isPass
                 ? 'green'
                 : classwork.percentage > 0
-                ? 'yellow'
-                : 'grey'
+                  ? 'yellow'
+                  : 'grey'
               : 'grey'
           }
           homework={
@@ -64,8 +63,8 @@ const createAccordionRows = (
               ? homework.isPass
                 ? 'green'
                 : homework.percentage > 0
-                ? 'yellow'
-                : 'grey'
+                  ? 'yellow'
+                  : 'grey'
               : 'grey'
           }
           text={`Topic ${i + 1}`}
@@ -96,8 +95,8 @@ const createTestAccordionButton = (
     ? test?.isPass
       ? 'green'
       : test?.percentage > 0
-      ? 'yellow'
-      : 'grey'
+        ? 'yellow'
+        : 'grey'
     : 'grey';
 
   return (
@@ -141,10 +140,10 @@ const ClassAccordion: FC<ClassAccordionProps> = ({
     <div
       className={`${styles.classAccordion} relative p-6 border border-lightGold w-full rounded-lg`}
     >
-      <div className="flex flex-col gap-5 tablet:flex-row tablet:gap-10">
-        <div className="flex flex-col flex-1 gap-5 tablet:flex-row tablet:gap-10 tablet:justify-center tablet:items-center">
-          <p className="text-lg font-medium">Class {classSchema.classId}</p>
-          <div className="flex items-center justify-center flex-1">
+      <div className="tablet:gap-10 flex tablet:flex-row flex-col gap-5">
+        <div className="tablet:gap-10 flex tablet:flex-row flex-col flex-1 tablet:justify-center tablet:items-center gap-5">
+          <p className="font-medium text-lg">Class {classSchema.classId}</p>
+          <div className="flex flex-1 justify-center items-center">
             {createProgressBar(type, progress!)}
           </div>
         </div>
@@ -175,7 +174,7 @@ const ClassAccordion: FC<ClassAccordionProps> = ({
             {type !== 'locked' && (
               <Link to={`/student/report/${levelId}/${classSchema.classId}`}>
                 <Button type="blackWhite" text="Finished">
-                  <div className="flex items-center justify-center gap-2">
+                  <div className="flex justify-center items-center gap-2">
                     <TbReport className="text-lg" />
                     <p>Report</p>
                   </div>
@@ -200,10 +199,10 @@ const ClassAccordion: FC<ClassAccordionProps> = ({
         </div>
       </div>
       {type !== 'locked' && (
-        <Collapse isOpened={isOpen}>
+        <div className={`${isOpen ? 'block' : 'hidden'}`}>
           <div className="pt-6">
             <hr className="border border-darkGrey" />
-            <div className="flex flex-col gap-4 pt-4 pb-0 tablet:p-4 tablet:flex-row">
+            <div className="tablet:p-4 flex tablet:flex-row flex-col gap-4 pt-4 pb-0">
               <div className="flex flex-col flex-1 gap-4">
                 <div className="hidden tablet:block">
                   <ClassAccordionRow
@@ -214,12 +213,12 @@ const ClassAccordion: FC<ClassAccordionProps> = ({
                 </div>
                 {createAccordionRows(levelId, classSchema, progress!)}
               </div>
-              <div className="mt-4 tablet:mt-0">
+              <div className="tablet:mt-0 mt-4">
                 {createTestAccordionButton(levelId, classSchema, progress!)}
               </div>
             </div>
           </div>
-        </Collapse>
+        </div>
       )}
     </div>
   );

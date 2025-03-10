@@ -148,8 +148,8 @@ export const generatePracticeQuestions = (
           operation === 'addition'
             ? '+'
             : operation === 'multiplication'
-            ? '*'
-            : '/',
+              ? '*'
+              : '/',
         numbers,
       },
     };

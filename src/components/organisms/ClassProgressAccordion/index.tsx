@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { Collapse } from 'react-collapse';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa6';
 
 import ResultBox from '@components/atoms/ResultBox';
@@ -16,8 +15,8 @@ const ClassProgressAccordion: FC<ClassProgressAccordionProps> = ({
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="relative w-full py-1 rounded-lg">
-      <div className="flex flex-col gap-5 tablet:flex-row tablet:gap-10">
+    <div className="relative py-1 rounded-lg w-full">
+      <div className="tablet:gap-10 flex tablet:flex-row flex-col gap-5">
         <div
           role="button"
           tabIndex={0}
@@ -25,9 +24,9 @@ const ClassProgressAccordion: FC<ClassProgressAccordionProps> = ({
           onClick={() => setIsOpen(!isOpen)}
           onKeyDown={() => setIsOpen(!isOpen)}
         >
-          <p className="text-lg font-medium">Class {classProgress.classId}</p>
+          <p className="font-medium text-lg">Class {classProgress.classId}</p>
         </div>
-        <div className="absolute flex items-center justify-center cursor-pointer right-1 top-3 tablet:relative tablet:right-0 tablet:top-0">
+        <div className="tablet:right-0 tablet:top-0 top-3 right-1 absolute tablet:relative flex justify-center items-center cursor-pointer">
           {isOpen ? (
             <FaAngleUp className="text-lg" onClick={() => setIsOpen(!isOpen)} />
           ) : (
@@ -38,33 +37,33 @@ const ClassProgressAccordion: FC<ClassProgressAccordionProps> = ({
           )}
         </div>
       </div>
-      <Collapse isOpened={isOpen}>
+      <div className={`${isOpen ? 'block' : 'hidden'}`}>
         <div className="">
-          <div className="flex flex-col gap-4 pt-4 pb-0 tablet:p-2 tablet:flex-row">
+          <div className="tablet:p-2 flex tablet:flex-row flex-col gap-4 pt-4 pb-0">
             <div className="flex flex-col flex-1 gap-4">
-              <div className="flex flex-col gap-3 py-4 tablet:text-lg tablet:mt-0">
-                <div className="grid grid-cols-3 text-[#6D6D6D] pb-2">
+              <div className="tablet:mt-0 flex flex-col gap-3 py-4 tablet:text-lg">
+                <div className="grid grid-cols-3 pb-2 text-[#6D6D6D]">
                   <div />
-                  <div className="flex items-center justify-center font-semibold">
+                  <div className="flex justify-center items-center font-semibold">
                     Classwork
                   </div>
-                  <div className="flex items-center justify-center font-semibold">
+                  <div className="flex justify-center items-center font-semibold">
                     Homework
                   </div>
                 </div>
                 {classProgress.topics.map((topicProgress, index) => {
                   return (
                     <div key={index} className="grid grid-cols-3">
-                      <div className="text-[#6D6D6D] flex items-center">
+                      <div className="flex items-center text-[#6D6D6D]">
                         Topic {topicProgress.topicId}
                       </div>
-                      <div className="flex items-center justify-center font-semibold">
+                      <div className="flex justify-center items-center font-semibold">
                         <ResultBox
                           score={topicProgress.Classwork}
                           time={topicProgress.ClassworkTime}
                         />
                       </div>
-                      <div className="flex items-center justify-center font-semibold">
+                      <div className="flex justify-center items-center font-semibold">
                         <ResultBox
                           score={topicProgress.Homework}
                           time={topicProgress.HomeworkTime}
@@ -75,10 +74,10 @@ const ClassProgressAccordion: FC<ClassProgressAccordionProps> = ({
                 })}
               </div>
               <div className="flex gap-10 px-1">
-                <div className="text-[#6D6D6D] font-semibold flex items-center tablet:text-lg ">
+                <div className="flex items-center font-semibold text-[#6D6D6D] tablet:text-lg">
                   Test
                 </div>
-                <div className="flex items-center justify-center font-semibold">
+                <div className="flex justify-center items-center font-semibold">
                   <ResultBox
                     time={classProgress.Time}
                     score={classProgress.Test}
@@ -88,7 +87,7 @@ const ClassProgressAccordion: FC<ClassProgressAccordionProps> = ({
             </div>
           </div>
         </div>
-      </Collapse>
+      </div>
     </div>
   );
 };

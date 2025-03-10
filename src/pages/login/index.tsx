@@ -29,10 +29,10 @@ const LoginPage: FC<LoginPageProps> = () => {
             user.role === 'Student'
               ? STUDENT_DASHBOARD
               : user.role === 'Teacher'
-              ? TEACHER_DASHBOARD
-              : user.role === 'SubAdmin'
-              ? SUB_ADMIN_DASHBOARD
-              : ADMIN_DASHBOARD
+                ? TEACHER_DASHBOARD
+                : user.role === 'SubAdmin'
+                  ? SUB_ADMIN_DASHBOARD
+                  : ADMIN_DASHBOARD
           }
         />
       )}

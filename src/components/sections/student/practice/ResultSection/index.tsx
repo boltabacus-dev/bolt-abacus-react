@@ -33,10 +33,10 @@ const ResultSection: FC<ResultSectionProps> = ({
             {practiceType === 'timed'
               ? 'Question Countdown'
               : practiceType === 'untimed'
-              ? 'No Rush Mastery'
-              : practiceType === 'flashcards'
-              ? 'Flash Cards'
-              : 'Set Practice'}
+                ? 'No Rush Mastery'
+                : practiceType === 'flashcards'
+                  ? 'Flash Cards'
+                  : 'Set Practice'}
           </p>
         </div>
         <div className="flex flex-col gap-2 py-2">

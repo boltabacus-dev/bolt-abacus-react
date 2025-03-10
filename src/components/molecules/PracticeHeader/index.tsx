@@ -31,10 +31,10 @@ const PracticeHeader: FC<PracticeHeaderProps> = ({
             {practiceType === 'timed'
               ? 'Question Countdown'
               : practiceType === 'untimed'
-              ? 'No Rush Mastery'
-              : practiceType === 'flashcards'
-              ? 'Flash Cards'
-              : 'Set Practice'}
+                ? 'No Rush Mastery'
+                : practiceType === 'flashcards'
+                  ? 'Flash Cards'
+                  : 'Set Practice'}
           </h1>
           <p className="flex items-center gap-1 text-lightGreen">
             <GoDotFill className="text-[10px]" />

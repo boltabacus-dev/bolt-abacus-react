@@ -28,10 +28,10 @@ const QuizHeader: FC<QuizHeaderProps> = ({
             {quizType === 'classwork'
               ? 'Classwork'
               : quizType === 'homework'
-              ? 'Homework'
-              : quizType === 'test'
-              ? 'Test'
-              : 'Oral Test'}
+                ? 'Homework'
+                : quizType === 'test'
+                  ? 'Test'
+                  : 'Oral Test'}
           </h1>
           <p className="flex items-center gap-1 text-lightGreen">
             <GoDotFill className="text-[10px]" />

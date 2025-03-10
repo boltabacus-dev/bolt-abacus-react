@@ -19,24 +19,24 @@ const ClassAccordionRow: FC<ClassAccordionRowProps> = ({
     classwork === 'green' || classwork === 'yellow'
       ? 'Retake'
       : classwork === 'red'
-      ? 'Try Again'
-      : classwork === 'info'
-      ? 'Classwork'
-      : 'Take Test';
+        ? 'Try Again'
+        : classwork === 'info'
+          ? 'Classwork'
+          : 'Take Test';
 
   const homeworkText =
     homework === 'green' || homework === 'yellow'
       ? 'Retake'
       : homework === 'red'
-      ? 'Try Again'
-      : homework === 'info'
-      ? 'Homework'
-      : 'Take Test';
+        ? 'Try Again'
+        : homework === 'info'
+          ? 'Homework'
+          : 'Take Test';
 
   return (
-    <div className="flex flex-col gap-4 tablet:flex-row">
-      <p className="flex-1 text-lg font-medium">{text}</p>
-      <div className="flex flex-col flex-1 gap-4 tablet:flex-row desktop:gap-16">
+    <div className="flex tablet:flex-row flex-col gap-4">
+      <p className="flex-1 font-medium text-lg">{text}</p>
+      <div className="flex tablet:flex-row flex-col flex-1 gap-4 desktop:gap-16">
         <AccordionButton
           type={classwork === 'info' ? 'grey' : classwork}
           text={classworkText}

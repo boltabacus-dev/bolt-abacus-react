@@ -50,8 +50,8 @@ const ResultSection: FC<ResultSectionProps> = ({
             {params.quizType === 'classwork'
               ? 'Classwork'
               : params.quizType === 'homework'
-              ? 'Homework'
-              : 'Test'}
+                ? 'Homework'
+                : 'Test'}
           </p>
           <p className="font-bold text-sm tablet:text-md">
             Time Taken: {secondsToMinutesSeconds(time)}

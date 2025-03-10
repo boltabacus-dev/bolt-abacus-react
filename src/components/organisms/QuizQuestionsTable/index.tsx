@@ -48,8 +48,8 @@ const QuizQuestionsTable: FC<QuizQuestionsTableProps> = ({ questions }) => {
                 {question.question.operator === '+'
                   ? 'Addition'
                   : question.question.operator === '/'
-                  ? 'Division'
-                  : 'Multiplication'}
+                    ? 'Division'
+                    : 'Multiplication'}
               </div>
               <div className="flex justify-center items-center p-3 tablet:p-4 desktop:p-3">
                 {question.correctAnswer}
