@@ -65,7 +65,13 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
 
   const getUpdatedAnswers = (ans: string | null) => {
     const { questionId } = quizQuestions[currentIndex];
-    const answer = parseInt(ans!, 10);
+    let answer;
+    if (operation === 'division' && includeDecimals) {
+      answer = parseFloat(ans!).toFixed(2);
+      answer = parseFloat(answer);
+    } else {
+      answer = parseInt(ans!, 10);
+    }
     const answers = quizAnswers.map((a) => {
       if (a.questionId === questionId) {
         return {

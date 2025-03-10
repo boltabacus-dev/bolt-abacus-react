@@ -163,7 +163,7 @@ export const generateResult = (
     result.push({
       question: questionString,
       answer: answer.answer,
-      verdict: currentAnswer === answer.answer,
+      verdict: currentAnswer.toFixed(2) === answer.answer?.toFixed(2),
     });
   }
 
@@ -205,7 +205,7 @@ export const generateTimedResult = (
     result.push({
       question: questionString,
       answer: answer.answer,
-      verdict: currentAnswer === answer.answer,
+      verdict: currentAnswer.toFixed(2) === answer.answer?.toFixed(2),
     });
   }
 
