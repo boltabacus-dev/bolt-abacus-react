@@ -47,7 +47,7 @@ const ResultSection: FC<ResultSectionProps> = ({
             Total Time Taken: {secondsToMinutesSeconds(time)}
           </p>
           <p className="tablet:text-md font-bold text-sm">
-            Time Taken per Question: {averageTime} second
+            Average Time Taken per Question: {averageTime} second
           </p>
         </div>
         <QuizResultTable result={result} />

@@ -30,7 +30,7 @@ const QuizBox: FC<QuizBoxProps> = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const result = event.target.value.replace(/[^0-9-]/gi, '');
+    const result = event.target.value.replace(/[^0-9-.]/gi, '');
     setAnswer(result);
 
     const num = parseInt(result, 10);
@@ -49,10 +49,10 @@ const QuizBox: FC<QuizBoxProps> = ({
   });
 
   return (
-    <div className="w-full min-h-[300px] flex justify-center items-center p-2 py-6 bg-darkBlack shadow-boxWhite rounded-2xl">
-      <div className="flex items-center w-full text-lg font-bold justify-evenly tablet:text-xl">
+    <div className="flex justify-center items-center bg-darkBlack shadow-boxWhite p-2 py-6 rounded-2xl w-full min-h-[300px]">
+      <div className="flex justify-evenly items-center gap-4 w-full overflow-auto font-bold text-lg">
         <div className="flex flex-col">
-          <div className="flex items-center gap-4 tablet:gap-10">
+          <div className="tablet:gap-10 flex items-center gap-4">
             <span>
               {quizQuestion.question.operator === '*' ? (
                 <RxCross1 />
@@ -64,15 +64,16 @@ const QuizBox: FC<QuizBoxProps> = ({
             </span>
             <div className="flex flex-col items-end gap-1 tracking-widest">
               {quizQuestion.question.numbers.map((number, index) => {
-                return <span key={index}>{number}</span>;
+                const fullNumber = BigInt(number);
+                return <span key={index}>{fullNumber.toString()}</span>;
               })}
             </div>
           </div>
         </div>
-        <div className="text-2xl text-gold desktop:text-3xl"> = </div>
+        <div className="text-gold text-2xl desktop:text-3xl"> = </div>
         <div className="">
           <input
-            className="w-28 px-4 py-3 bg-darkBlack outline-none border text-center border-[#A0A0A0] rounded-lg tablet:w-36"
+            className="tablet:w-32 bg-darkBlack px-4 py-3 border border-[#A0A0A0] rounded-lg outline-none w-20 text-md text-center"
             type="text"
             inputMode="decimal"
             value={answer}

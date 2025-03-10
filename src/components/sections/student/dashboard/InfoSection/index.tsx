@@ -47,7 +47,7 @@ const InfoSection: FC<InfoSectionProps> = ({
             Practice Mode
           </p>
           <p className="flex-1 py-2 font-medium text-md desktop:text-lg">
-            Enhance your proficiency with 100 well crafted problems
+            Enhance your proficiency with well crafted practice problems
           </p>
           <div className="pt-6">
             <Link to={STUDENT_PRACTICE}>

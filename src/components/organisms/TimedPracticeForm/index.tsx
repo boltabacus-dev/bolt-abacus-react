@@ -46,19 +46,19 @@ const TimedPracticeForm: FC<TimedPracticeFormProps> = ({
       return;
     }
 
-    if (!numberOfDigits || numberOfDigits <= 0 || numberOfDigits > 5) {
+    if (!numberOfDigits || numberOfDigits <= 0 || numberOfDigits > 10) {
       swal({
         title: 'Invalid number of digits',
-        text: 'Please enter between 1 and 5 digits',
+        text: 'Please enter between 1 and 10 digits',
         icon: 'error',
       });
       return;
     }
 
-    if (!numberOfRows || numberOfRows <= 0 || numberOfRows > 5) {
+    if (!numberOfRows || numberOfRows <= 0 || numberOfRows > 10) {
       swal({
         title: 'Invalid number of rows',
-        text: 'Please enter between 1 and 5 digits',
+        text: 'Please enter between 1 and 10 digits',
         icon: 'error',
       });
       return;
@@ -90,7 +90,7 @@ const TimedPracticeForm: FC<TimedPracticeFormProps> = ({
             type="number"
             className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={numberOfDigits}
-            max={5}
+            max={10}
             onChange={(e) => setNumberOfDigits(parseInt(e.target.value, 10))}
           />
         </div>
@@ -101,7 +101,7 @@ const TimedPracticeForm: FC<TimedPracticeFormProps> = ({
               type="number"
               className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
               value={numberOfRows}
-              max={5}
+              max={10}
               onChange={(e) => setNumberOfRows(parseInt(e.target.value, 10))}
             />
           </div>

@@ -24,24 +24,28 @@ const PracticeSection: FC<PracticeSectionProps> = () => {
             image="/images/flashcards.png"
             description="Use flashcards to test your knowledge! Quickly go through each card and try to get the right answer."
             link={`${STUDENT_FLASHCARDS}`}
+            color="cardRed"
           />
           <PracticeCard
             title="No Rush Mastery"
             image="/images/unlimited-time.png"
             description="Take all the time you need to answer each question. There's no rush, just do your best!"
             link={`${STUDENT_UNTIMED}/addition`}
+            color="cardPink"
           />
           <PracticeCard
             title="Question Countdown"
             image="/images/timed.png"
             description="The clock is ticking! Lets see how many questions you can answer before time runs out"
             link={`${STUDENT_TIMED}/addition`}
+            color="cardGreen"
           />
           <PracticeCard
             title="Set Practice"
             image="/images/set.png"
             description="You can set the number of questions and the time limit. The clock is ticking! Answer them all before time runs out"
             link={`${STUDENT_SET}/addition`}
+            color="cardPurple"
           />
         </div>
       </div>
@@ -53,18 +57,21 @@ const PracticeSection: FC<PracticeSectionProps> = () => {
             image="/images/unlimited-time.png"
             description="Take all the time you need to answer each question. There's no rush, just do your best!"
             link={`${STUDENT_UNTIMED}/multiplication`}
+            color="cardPink"
           />
           <PracticeCard
             title="Question Countdown"
             image="/images/timed.png"
             description="The clock is ticking! Lets see how many questions you can answer before time runs out"
             link={`${STUDENT_TIMED}/multiplication`}
+            color="cardGreen"
           />
           <PracticeCard
             title="Set Practice"
             image="/images/set.png"
             description="You can set the number of questions and the time limit. The clock is ticking! Answer them all before time runs out"
             link={`${STUDENT_SET}/multiplication`}
+            color="cardPurple"
           />
         </div>
       </div>
@@ -76,18 +83,21 @@ const PracticeSection: FC<PracticeSectionProps> = () => {
             image="/images/unlimited-time.png"
             description="Take all the time you need to answer each question. There's no rush, just do your best!"
             link={`${STUDENT_UNTIMED}/division`}
+            color="cardPink"
           />
           <PracticeCard
             title="Question Countdown"
             image="/images/timed.png"
             description="The clock is ticking! Lets see how many questions you can answer before time runs out"
             link={`${STUDENT_TIMED}/division`}
+            color="cardGreen"
           />
           <PracticeCard
             title="Set Practice"
             image="/images/set.png"
             description="You can set the number of questions and the time limit. The clock is ticking! Answer them all before time runs out"
             link={`${STUDENT_SET}/division`}
+            color="cardPurple"
           />
         </div>
       </div>

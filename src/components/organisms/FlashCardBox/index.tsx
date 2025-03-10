@@ -83,16 +83,16 @@ const FlashCardBox: FC<FlashCardBoxProps> = ({
 
   return (
     <div className="flex justify-center items-center bg-darkBlack shadow-boxWhite p-2 py-6 rounded-2xl w-full min-h-[300px]">
-      <div className="flex justify-evenly items-center w-full font-bold text-lg tablet:text-xl">
+      <div className="flex justify-evenly items-center gap-4 w-full overflow-auto font-bold text-lg">
         <div className="flex flex-col">
           <div className="tablet:gap-10 flex items-center gap-4">
             <div className="flex flex-col items-end gap-1 tracking-widest">
               <div
                 key={currentIndex}
-                className={`p-4 border-2 border-gold rounded-lg font-bold text-gold text-3xl
-                            ${animate ? 'animate-fadeIn' : 'opacity-0'}`}
+                className={`border-2 border-gold rounded-lg font-bold text-gold
+                            ${animate ? 'animate-fadeIn' : 'opacity-0'} ${BigInt(currentNumber).toString().length < 3 ? 'text-3xl p-4' : BigInt(currentNumber).toString().length < 17 ? 'text-lg p-2' : 'text-md p-2'}`}
               >
-                <p>{currentNumber}</p>
+                <p>{BigInt(currentNumber).toString()}</p>
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@ const FlashCardBox: FC<FlashCardBoxProps> = ({
         <div className="text-gold text-2xl desktop:text-3xl"> = </div>
         <div className="">
           <input
-            className="tablet:w-36 bg-darkBlack px-4 py-3 border border-[#A0A0A0] rounded-lg outline-none w-28 text-center"
+            className="tablet:w-32 bg-darkBlack px-4 py-3 border border-[#A0A0A0] rounded-lg outline-none w-20 text-md text-center"
             type="text"
             inputMode="decimal"
             value={answer}
