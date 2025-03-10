@@ -54,19 +54,19 @@ const FlashCardsForm: FC<FlashCardsFormProps> = ({
       return;
     }
 
-    if (!numberOfDigits || numberOfDigits <= 0 || numberOfDigits > 1000) {
+    if (!numberOfDigits || numberOfDigits <= 0 || numberOfDigits > 100) {
       swal({
         title: 'Invalid number of digits',
-        text: 'Please enter between 1 and 1000 digits',
+        text: 'Please enter between 1 and 100 digits',
         icon: 'error',
       });
       return;
     }
 
-    if (!numberOfRows || numberOfRows <= 0 || numberOfRows > 1000) {
+    if (!numberOfRows || numberOfRows <= 0 || numberOfRows > 100) {
       swal({
         title: 'Invalid number of rows',
-        text: 'Please enter between 1 and 1000 digits',
+        text: 'Please enter between 1 and 100 digits',
         icon: 'error',
       });
       return;
@@ -101,7 +101,8 @@ const FlashCardsForm: FC<FlashCardsFormProps> = ({
             type="number"
             className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={Number(numberOfDigits)}
-            max={5}
+            max={100}
+            min={1}
             onChange={(e) => setNumberOfDigits(parseInt(e.target.value, 10))}
           />
         </div>
@@ -111,7 +112,8 @@ const FlashCardsForm: FC<FlashCardsFormProps> = ({
             type="number"
             className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={Number(numberOfRows)}
-            max={5}
+            max={100}
+            min={1}
             onChange={(e) => setNumberOfRows(parseInt(e.target.value, 10))}
           />
         </div>

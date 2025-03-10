@@ -47,11 +47,13 @@ const UnTimedPracticeSection: FC<UnTimedPracticeSectionProps> = ({
   const [averageTime, setAverageTime] = useState(0);
 
   const [numberOfQuestions, setNumberOfQuestions] = useState(10);
-  const [numberOfDigits, setNumberOfDigits] = useState(1);
+  const [numberOfDigitsLeft, setNumberOfDigitsLeft] = useState(1);
+  const [numberOfDigitsRight, setNumberOfDigitsRight] = useState(1);
   const [numberOfRows, setNumberOfRows] = useState(2);
   const [isZigzag, setIsZigzag] = useState(false);
   const [includeSubtraction, setIncludeSubtraction] = useState(false);
   const [persistNumberOfDigits, setPersistNumberOfDigits] = useState(false);
+  const [includeDecimals, setIncludeDecimals] = useState(true);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState('');
@@ -96,7 +98,7 @@ const UnTimedPracticeSection: FC<UnTimedPracticeSectionProps> = ({
       await practiceSubmitRequest(
         'untimed',
         operation,
-        numberOfDigits,
+        numberOfDigitsLeft,
         numberOfQuestions,
         numberOfRows,
         isZigzag,
@@ -113,18 +115,22 @@ const UnTimedPracticeSection: FC<UnTimedPracticeSectionProps> = ({
     setLoading(false);
   };
 
-  const handleStartQuiz = () => {
-    setQuizQuestions(
+  const handleStartQuiz = async () => {
+    setLoading(true);
+    await setQuizQuestions(
       generatePracticeQuestions(
         operation,
-        numberOfDigits,
+        numberOfDigitsLeft,
+        numberOfDigitsRight,
         numberOfQuestions,
         numberOfRows,
         isZigzag,
         includeSubtraction,
-        persistNumberOfDigits
+        persistNumberOfDigits,
+        includeDecimals
       )
     );
+    setLoading(false);
     setQuizAnswers(generatePracticeAnswers(numberOfQuestions));
     start();
     setIsQuizStarted(true);
@@ -160,8 +166,10 @@ const UnTimedPracticeSection: FC<UnTimedPracticeSectionProps> = ({
           operation={operation}
           numberOfQuestions={numberOfQuestions}
           setNumberOfQuestions={setNumberOfQuestions}
-          numberOfDigits={numberOfDigits}
-          setNumberOfDigits={setNumberOfDigits}
+          numberOfDigitsLeft={numberOfDigitsLeft}
+          setNumberOfDigitsLeft={setNumberOfDigitsLeft}
+          numberOfDigitsRight={numberOfDigitsRight}
+          setNumberOfDigitsRight={setNumberOfDigitsRight}
           isZigzag={isZigzag}
           setIsZigzag={setIsZigzag}
           numberOfRows={numberOfRows}
@@ -170,6 +178,8 @@ const UnTimedPracticeSection: FC<UnTimedPracticeSectionProps> = ({
           setIncludeSubtraction={setIncludeSubtraction}
           persistNumberOfDigits={persistNumberOfDigits}
           setPersistNumberOfDigits={setPersistNumberOfDigits}
+          includeDecimals={includeDecimals}
+          setIncludeDecimals={setIncludeDecimals}
           handleStartQuiz={handleStartQuiz}
         />
       ) : (

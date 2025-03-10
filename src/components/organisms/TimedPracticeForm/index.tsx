@@ -7,8 +7,10 @@ export interface TimedPracticeFormProps {
   operation: 'addition' | 'multiplication' | 'division';
   timeLimit: number;
   setTimeLimit: Dispatch<SetStateAction<number>>;
-  numberOfDigits: number;
-  setNumberOfDigits: Dispatch<SetStateAction<number>>;
+  numberOfDigitsLeft: number;
+  setNumberOfDigitsLeft: Dispatch<SetStateAction<number>>;
+  numberOfDigitsRight: number;
+  setNumberOfDigitsRight: Dispatch<SetStateAction<number>>;
   isZigzag: boolean;
   setIsZigzag: Dispatch<SetStateAction<boolean>>;
   numberOfRows: number;
@@ -17,23 +19,29 @@ export interface TimedPracticeFormProps {
   setIncludeSubtraction: Dispatch<SetStateAction<boolean>>;
   persistNumberOfDigits: boolean;
   setPersistNumberOfDigits: Dispatch<SetStateAction<boolean>>;
+  includeDecimals: boolean;
+  setIncludeDecimals: Dispatch<SetStateAction<boolean>>;
   handleStartQuiz: () => void;
 }
 
 const TimedPracticeForm: FC<TimedPracticeFormProps> = ({
   operation,
-  numberOfDigits,
+  numberOfDigitsLeft,
+  numberOfDigitsRight,
   isZigzag,
   timeLimit,
   numberOfRows,
   includeSubtraction,
   persistNumberOfDigits,
+  includeDecimals,
   setTimeLimit,
-  setNumberOfDigits,
+  setNumberOfDigitsLeft,
+  setNumberOfDigitsRight,
   setIsZigzag,
   setNumberOfRows,
   setIncludeSubtraction,
   setPersistNumberOfDigits,
+  setIncludeDecimals,
   handleStartQuiz,
 }) => {
   const verifyAndStartQuiz = () => {
@@ -46,19 +54,60 @@ const TimedPracticeForm: FC<TimedPracticeFormProps> = ({
       return;
     }
 
-    if (!numberOfDigits || numberOfDigits <= 0 || numberOfDigits > 10) {
+    if (
+      !numberOfDigitsLeft ||
+      numberOfDigitsLeft <= 0 ||
+      numberOfDigitsLeft > 100
+    ) {
       swal({
-        title: 'Invalid number of digits',
-        text: 'Please enter between 1 and 10 digits',
+        title: `${operation === 'division' ? 'Invalid number of digits in Numerator' : operation === 'multiplication' ? 'Invalid number of digits in First Operand' : 'Invalid number of digits'}`,
+        text: 'Please enter between 1 and 100 digits',
         icon: 'error',
       });
       return;
     }
 
-    if (!numberOfRows || numberOfRows <= 0 || numberOfRows > 10) {
+    if (
+      operation !== 'division' &&
+      (!numberOfDigitsRight ||
+        numberOfDigitsRight <= 0 ||
+        numberOfDigitsRight > 100)
+    ) {
+      swal({
+        title: 'Invalid number of digits in Second Operand',
+        text: 'Please enter between 1 and 100 digits',
+        icon: 'error',
+      });
+      return;
+    }
+
+    if (
+      operation === 'division' &&
+      (!numberOfDigitsRight ||
+        numberOfDigitsRight <= 0 ||
+        numberOfDigitsRight > 9)
+    ) {
+      swal({
+        title: 'Invalid number of digits',
+        text: 'Please enter between 1 and 9 digits',
+        icon: 'error',
+      });
+      return;
+    }
+
+    if (operation === 'division' && numberOfDigitsRight > numberOfDigitsLeft) {
+      swal({
+        title: 'Invalid number of digits',
+        text: 'Numerator digits should be greater than denominator digits',
+        icon: 'error',
+      });
+      return;
+    }
+
+    if (!numberOfRows || numberOfRows <= 0 || numberOfRows > 100) {
       swal({
         title: 'Invalid number of rows',
-        text: 'Please enter between 1 and 10 digits',
+        text: 'Please enter between 1 and 100 digits',
         icon: 'error',
       });
       return;
@@ -80,20 +129,48 @@ const TimedPracticeForm: FC<TimedPracticeFormProps> = ({
             className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={timeLimit}
             max={200}
+            min={1}
             onChange={(e) => setTimeLimit(parseInt(e.target.value, 10))}
           />
         </div>
-
         <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
-          <p className="text-md text-left">Number of Digits: </p>
+          <p className="text-md text-left">
+            {operation === 'division'
+              ? 'Number of Digits on Numerator: '
+              : operation === 'multiplication'
+                ? 'Number of Digits on First Operand: '
+                : ' Number of Digits: '}
+          </p>
           <input
             type="number"
             className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
-            value={numberOfDigits}
-            max={10}
-            onChange={(e) => setNumberOfDigits(parseInt(e.target.value, 10))}
+            value={numberOfDigitsLeft}
+            min={1}
+            max={100}
+            onChange={(e) =>
+              setNumberOfDigitsLeft(parseInt(e.target.value, 10))
+            }
           />
         </div>
+        {(operation === 'division' || operation === 'multiplication') && (
+          <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
+            <p className="text-md text-left">
+              {operation === 'multiplication'
+                ? 'Number of Digits in Second Operand:'
+                : 'Number of Digits on Denominator: '}
+            </p>
+            <input
+              type="number"
+              className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
+              value={numberOfDigitsRight}
+              min={1}
+              max={operation === 'division' ? 9 : 100}
+              onChange={(e) =>
+                setNumberOfDigitsRight(parseInt(e.target.value, 10))
+              }
+            />
+          </div>
+        )}
         {operation !== 'division' && operation !== 'multiplication' && (
           <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
             <p className="text-md text-left">Number of Rows: </p>
@@ -102,6 +179,7 @@ const TimedPracticeForm: FC<TimedPracticeFormProps> = ({
               className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
               value={numberOfRows}
               max={10}
+              min={1}
               onChange={(e) => setNumberOfRows(parseInt(e.target.value, 10))}
             />
           </div>
@@ -138,6 +216,17 @@ const TimedPracticeForm: FC<TimedPracticeFormProps> = ({
               className="bg-gold px-2 py-1 border rounded-md w-full h-4 text-black text-center accent-gold"
               checked={persistNumberOfDigits}
               onChange={(e) => setPersistNumberOfDigits(e.target.checked)}
+            />
+          </div>
+        )}
+        {operation === 'division' && (
+          <div className="tablet:gap-4 items-center gap-2 grid grid-cols-2 py-4 w-full">
+            <p className="text-md text-left">Include Decimal:</p>
+            <input
+              type="checkbox"
+              className="bg-gold px-2 py-1 border rounded-md w-full h-4 text-black text-center accent-gold"
+              checked={includeDecimals}
+              onChange={(e) => setIncludeDecimals(e.target.checked)}
             />
           </div>
         )}

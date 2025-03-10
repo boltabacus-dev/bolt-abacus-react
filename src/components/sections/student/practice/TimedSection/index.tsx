@@ -49,11 +49,13 @@ const TimedPracticeSection: FC<TimedPracticeSectionProps> = ({ operation }) => {
 
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
-  const [numberOfDigits, setNumberOfDigits] = useState(1);
+  const [numberOfDigitsLeft, setNumberOfDigitsLeft] = useState(1);
+  const [numberOfDigitsRight, setNumberOfDigitsRight] = useState(1);
   const [isZigzag, setIsZigzag] = useState(false);
   const [numberOfRows, setNumberOfRows] = useState(2);
   const [includeSubtraction, setIncludeSubtraction] = useState(false);
   const [persistNumberOfDigits, setPersistNumberOfDigits] = useState(false);
+  const [includeDecimals, setIncludeDecimals] = useState(true);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState('');
@@ -94,7 +96,7 @@ const TimedPracticeSection: FC<TimedPracticeSectionProps> = ({ operation }) => {
       await practiceSubmitRequest(
         'timed',
         operation,
-        numberOfDigits,
+        numberOfDigitsLeft,
         timeLimit * 100,
         numberOfRows,
         isZigzag,
@@ -128,18 +130,22 @@ const TimedPracticeSection: FC<TimedPracticeSectionProps> = ({ operation }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTimerRunning, totalSeconds]);
 
-  const handleStartQuiz = () => {
-    setQuizQuestions(
+  const handleStartQuiz = async () => {
+    setLoading(true);
+    await setQuizQuestions(
       generatePracticeQuestions(
         operation,
-        numberOfDigits,
+        numberOfDigitsLeft,
+        numberOfDigitsRight,
         timeLimit * 100,
         numberOfRows,
         isZigzag,
         includeSubtraction,
-        persistNumberOfDigits
+        persistNumberOfDigits,
+        includeDecimals
       )
     );
+    setLoading(false);
     setIsTimerRunning(true);
     setQuizAnswers([]);
     setIsQuizStarted(true);
@@ -174,8 +180,10 @@ const TimedPracticeSection: FC<TimedPracticeSectionProps> = ({ operation }) => {
           operation={operation}
           timeLimit={timeLimit}
           setTimeLimit={setTimeLimit}
-          numberOfDigits={numberOfDigits}
-          setNumberOfDigits={setNumberOfDigits}
+          numberOfDigitsLeft={numberOfDigitsLeft}
+          setNumberOfDigitsLeft={setNumberOfDigitsLeft}
+          numberOfDigitsRight={numberOfDigitsRight}
+          setNumberOfDigitsRight={setNumberOfDigitsRight}
           isZigzag={isZigzag}
           setIsZigzag={setIsZigzag}
           numberOfRows={numberOfRows}
@@ -184,6 +192,8 @@ const TimedPracticeSection: FC<TimedPracticeSectionProps> = ({ operation }) => {
           setIncludeSubtraction={setIncludeSubtraction}
           persistNumberOfDigits={persistNumberOfDigits}
           setPersistNumberOfDigits={setPersistNumberOfDigits}
+          includeDecimals={includeDecimals}
+          setIncludeDecimals={setIncludeDecimals}
           handleStartQuiz={handleStartQuiz}
         />
       ) : (

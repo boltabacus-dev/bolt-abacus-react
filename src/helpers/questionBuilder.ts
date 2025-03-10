@@ -4,68 +4,6 @@ import {
   QuizQuestion,
 } from '@interfaces/apis/student';
 
-// function generateRandomNumber(min: number, max: number): number {
-//   let num = Math.floor(Math.random() * (max - min + 1)) + min;
-
-//   while (num === 0) {
-//     num = Math.floor(Math.random() * (max - min + 1)) + min;
-//   }
-
-//   return num;
-// }
-
-// export const generatePracticeQuestions = (
-//   operation: string,
-//   numberOfDigits: number,
-//   numberOfQuestions: number,
-//   numberOfRows: number,
-//   zigZag: boolean,
-//   includeSubtraction: boolean,
-//   persistNumberOfDigits: boolean
-// ): QuizQuestion[] => {
-//   const questions: QuizQuestion[] = [];
-
-//   for (let i = 0; i < numberOfQuestions; i += 1) {
-//     let numbers: number[] = [];
-//     const min = zigZag ? 1 : 10 ** (numberOfDigits - 1);
-//     const max = 10 ** numberOfDigits - 1;
-
-//     if (operation === 'addition' || operation === 'multiplication') {
-//       for (let j = 0; j < numberOfRows; j += 1) {
-//         numbers.push(generateRandomNumber(min, max));
-//       }
-//     } else {
-//       const divisionMin = 10;
-//       const divisionMax = 10 ** Math.min(numberOfDigits - 1, 3) - 1;
-
-//       let num1 = generateRandomNumber(min, max);
-//       let num2 = generateRandomNumber(divisionMin, divisionMax);
-
-//       if (num1 < num2) {
-//         [num1, num2] = [num2, num1];
-//       }
-
-//       numbers = [num1, num2];
-//     }
-
-//     const question: QuizQuestion = {
-//       questionId: i + 1,
-//       question: {
-//         operator:
-//           operation === 'addition'
-//             ? '+'
-//             : operation === 'multiplication'
-//             ? '*'
-//             : '/',
-//         numbers,
-//       },
-//     };
-//     questions.push(question);
-//   }
-
-//   return questions;
-// };
-
 function generateRandomNumber(min: number, max: number): number {
   let num = Math.floor(Math.random() * (max - min + 1)) + min;
 
@@ -78,26 +16,26 @@ function generateRandomNumber(min: number, max: number): number {
 
 export const generatePracticeQuestions = (
   operation: string,
-  numberOfDigits: number,
+  numberOfDigitsLeft: number,
+  numberOfDigitsRight: number,
   numberOfQuestions: number,
   numberOfRows: number,
   zigZag: boolean,
   includeSubtraction: boolean,
-  persistNumberOfDigits: boolean
+  persistNumberOfDigits: boolean,
+  includeDecimals: boolean
 ): QuizQuestion[] => {
   const questions: QuizQuestion[] = [];
 
   for (let i = 0; i < numberOfQuestions; i += 1) {
     let numbers: number[] = [];
-    const min = zigZag ? 1 : 10 ** (numberOfDigits - 1);
-    const max = 10 ** numberOfDigits - 1;
 
     if (operation === 'addition') {
       for (let j = 0; j < numberOfRows; j += 1) {
-        const currentMin = zigZag ? 1 : 10 ** (numberOfDigits - 1);
+        const currentMin = zigZag ? 1 : 10 ** (numberOfDigitsLeft - 1);
         const currentMax = zigZag
-          ? 10 ** generateRandomNumber(1, numberOfDigits) - 1
-          : max;
+          ? 10 ** generateRandomNumber(1, numberOfDigitsLeft) - 1
+          : 10 ** numberOfDigitsLeft - 1;
         numbers.push(generateRandomNumber(currentMin, currentMax));
       }
 
@@ -111,31 +49,48 @@ export const generatePracticeQuestions = (
 
       if (persistNumberOfDigits) {
         let sum = numbers.reduce((a, b) => a + b, 0);
-        while (Math.abs(sum).toString().length !== numberOfDigits) {
+        while (Math.abs(sum).toString().length !== numberOfDigitsLeft) {
           numbers = [];
           for (let j = 0; j < numberOfRows; j += 1) {
-            const currentMin = zigZag ? 1 : 10 ** (numberOfDigits - 1);
+            const currentMin = zigZag ? 1 : 10 ** (numberOfDigitsLeft - 1);
             const currentMax = zigZag
-              ? 10 ** generateRandomNumber(1, numberOfDigits) - 1
-              : max;
+              ? 10 ** generateRandomNumber(1, numberOfDigitsLeft) - 1
+              : 10 ** numberOfDigitsRight - 1;
             numbers.push(generateRandomNumber(currentMin, currentMax));
           }
           sum = numbers.reduce((a, b) => a + b, 0);
         }
       }
     } else if (operation === 'multiplication') {
-      for (let j = 0; j < numberOfRows; j += 1) {
-        numbers.push(generateRandomNumber(min, max));
-      }
-    } else if (operation === 'division') {
-      const divisionMin = 10;
-      const divisionMax = 10 ** Math.min(numberOfDigits - 1, 3) - 1;
+      const leftMin = 10 ** (numberOfDigitsLeft - 1);
+      const leftMax = 10 ** numberOfDigitsLeft - 1;
+      const rightMin = 10 ** (numberOfDigitsRight - 1);
+      const rightMax = 10 ** numberOfDigitsRight - 1;
 
-      let num1 = generateRandomNumber(min, max);
-      let num2 = generateRandomNumber(divisionMin, divisionMax);
+      numbers.push(generateRandomNumber(leftMin, leftMax));
+      numbers.push(generateRandomNumber(rightMin, rightMax));
+    } else if (operation === 'division') {
+      const leftMin = 10 ** (numberOfDigitsLeft - 1);
+      const leftMax = 10 ** numberOfDigitsLeft - 1;
+      const rightMin = 10 ** (numberOfDigitsRight - 1);
+      const rightMax = 10 ** numberOfDigitsRight - 1;
+
+      let num1 = generateRandomNumber(leftMin, leftMax);
+      let num2 = generateRandomNumber(rightMin, rightMax);
 
       if (num1 < num2) {
         [num1, num2] = [num2, num1];
+      }
+
+      if (!includeDecimals) {
+        while (num1 % num2 !== 0) {
+          num1 = generateRandomNumber(leftMin, leftMax);
+          num2 = generateRandomNumber(rightMin, rightMax);
+
+          if (num1 < num2) {
+            [num1, num2] = [num2, num1];
+          }
+        }
       }
 
       numbers = [num1, num2];

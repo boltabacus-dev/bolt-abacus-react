@@ -114,17 +114,21 @@ const FlashCardsSection: FC<FlashCardsSectionProps> = ({ operation }) => {
   };
 
   const handleStartQuiz = () => {
+    setLoading(true);
     setQuizQuestions(
       generatePracticeQuestions(
         operation,
+        numberOfDigits,
         numberOfDigits,
         numberOfQuestions,
         numberOfRows,
         isZigzag,
         includeSubtraction,
-        persistNumberOfDigits
+        persistNumberOfDigits,
+        false
       )
     );
+    setLoading(false);
     setQuizAnswers(generatePracticeAnswers(numberOfQuestions));
     start();
     setIsQuizStarted(true);

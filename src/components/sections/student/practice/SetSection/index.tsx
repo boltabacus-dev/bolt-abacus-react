@@ -51,11 +51,13 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
   const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   const [numberOfQuestions, setNumberOfQuestions] = useState(10);
-  const [numberOfDigits, setNumberOfDigits] = useState(1);
+  const [numberOfDigitsLeft, setNumberOfDigitsLeft] = useState(1);
+  const [numberOfDigitsRight, setNumberOfDigitsRight] = useState(1);
   const [isZigzag, setIsZigzag] = useState(false);
   const [numberOfRows, setNumberOfRows] = useState(2);
   const [includeSubtraction, setIncludeSubtraction] = useState(false);
   const [persistNumberOfDigits, setPersistNumberOfDigits] = useState(false);
+  const [includeDecimals, setIncludeDecimals] = useState(true);
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [currentAnswer, setCurrentAnswer] = useState('');
@@ -98,7 +100,7 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
       await practiceSubmitRequest(
         'set',
         operation,
-        numberOfDigits,
+        numberOfDigitsLeft,
         numberOfQuestions,
         numberOfRows,
         isZigzag,
@@ -132,18 +134,21 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isTimerRunning, totalSeconds]);
 
-  const handleStartQuiz = () => {
-    setQuizQuestions(
-      generatePracticeQuestions(
-        operation,
-        numberOfDigits,
-        numberOfQuestions,
-        numberOfRows,
-        isZigzag,
-        includeSubtraction,
-        persistNumberOfDigits
-      )
+  const handleStartQuiz = async () => {
+    setLoading(true);
+    const questions = await generatePracticeQuestions(
+      operation,
+      numberOfDigitsLeft,
+      numberOfDigitsRight,
+      numberOfQuestions,
+      numberOfRows,
+      isZigzag,
+      includeSubtraction,
+      persistNumberOfDigits,
+      includeDecimals
     );
+    setQuizQuestions(questions);
+    setLoading(false);
     setQuizAnswers(generatePracticeAnswers(numberOfQuestions));
     setIsTimerRunning(true);
     setIsQuizStarted(true);
@@ -180,8 +185,10 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
           setNumberOfQuestions={setNumberOfQuestions}
           timeLimit={timeLimit}
           setTimeLimit={setTimeLimit}
-          numberOfDigits={numberOfDigits}
-          setNumberOfDigits={setNumberOfDigits}
+          numberOfDigitsLeft={numberOfDigitsLeft}
+          setNumberOfDigitsLeft={setNumberOfDigitsLeft}
+          numberOfDigitsRight={numberOfDigitsRight}
+          setNumberOfDigitsRight={setNumberOfDigitsRight}
           isZigzag={isZigzag}
           setIsZigzag={setIsZigzag}
           numberOfRows={numberOfRows}
@@ -190,6 +197,8 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
           setIncludeSubtraction={setIncludeSubtraction}
           persistNumberOfDigits={persistNumberOfDigits}
           setPersistNumberOfDigits={setPersistNumberOfDigits}
+          includeDecimals={includeDecimals}
+          setIncludeDecimals={setIncludeDecimals}
           handleStartQuiz={handleStartQuiz}
         />
       ) : (
@@ -219,46 +228,52 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
               )}
             </div>
           ) : (
-            <>
-              <PracticeHeader
-                practiceType="set"
-                questionNumber={currentIndex}
-                noOfQuestions={quizQuestions.length}
-                minutes={secondsToMinsSecs(totalSeconds).minutes}
-                seconds={secondsToMinsSecs(totalSeconds).seconds}
-              />
-              <div className="tablet:px-4">
-                <QuizBox
-                  quizQuestion={quizQuestions[currentIndex]}
-                  answer={currentAnswer}
-                  setAnswer={setCurrentAnswer}
-                  setDisabled={setIsNextDisabled}
-                  submitAnswer={answerQuestion}
-                />
-              </div>
-              <div className="tablet:gap-12 flex justify-center items-center gap-4 pt-4">
-                <QuizActionButton
-                  type="skip"
-                  text="Skip"
-                  onClick={skipQuestion}
-                  disabled={currentIndex + 1 === quizQuestions.length}
-                />
-                {currentIndex + 1 === quizQuestions.length ? (
-                  <QuizActionButton
-                    type="submit"
-                    text="Submit"
-                    onClick={answerQuestion}
+            <div>
+              {loading ? (
+                <LoadingSection loadingText="Generating Questions. Please wait" />
+              ) : (
+                <>
+                  <PracticeHeader
+                    practiceType="set"
+                    questionNumber={currentIndex}
+                    noOfQuestions={quizQuestions.length}
+                    minutes={secondsToMinsSecs(totalSeconds).minutes}
+                    seconds={secondsToMinsSecs(totalSeconds).seconds}
                   />
-                ) : (
-                  <QuizActionButton
-                    type="next"
-                    text="Next"
-                    disabled={isNextDisabled}
-                    onClick={answerQuestion}
-                  />
-                )}
-              </div>
-            </>
+                  <div className="tablet:px-4">
+                    <QuizBox
+                      quizQuestion={quizQuestions[currentIndex]}
+                      answer={currentAnswer}
+                      setAnswer={setCurrentAnswer}
+                      setDisabled={setIsNextDisabled}
+                      submitAnswer={answerQuestion}
+                    />
+                  </div>
+                  <div className="tablet:gap-12 flex justify-center items-center gap-4 pt-4">
+                    <QuizActionButton
+                      type="skip"
+                      text="Skip"
+                      onClick={skipQuestion}
+                      disabled={currentIndex + 1 === quizQuestions.length}
+                    />
+                    {currentIndex + 1 === quizQuestions.length ? (
+                      <QuizActionButton
+                        type="submit"
+                        text="Submit"
+                        onClick={answerQuestion}
+                      />
+                    ) : (
+                      <QuizActionButton
+                        type="next"
+                        text="Next"
+                        disabled={isNextDisabled}
+                        onClick={answerQuestion}
+                      />
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
           )}
         </div>
       )}
