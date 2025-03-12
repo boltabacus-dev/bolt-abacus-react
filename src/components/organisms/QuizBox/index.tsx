@@ -50,8 +50,8 @@ const QuizBox: FC<QuizBoxProps> = ({
 
   return (
     <div className="flex justify-center items-center bg-darkBlack shadow-boxWhite p-2 py-6 rounded-2xl w-full min-h-[300px]">
-      <div className="flex justify-evenly items-center gap-4 w-full overflow-auto font-bold text-lg">
-        <div className="flex flex-col text-md tablet:text-2xl">
+      <div className="flex justify-evenly items-center gap-4 w-full overflow-auto font-bold text-lg tablet:text-xl">
+        <div className="flex flex-col">
           <div className="tablet:gap-10 flex items-center gap-4">
             <span>
               {quizQuestion.question.operator === '*' ? (
@@ -73,7 +73,7 @@ const QuizBox: FC<QuizBoxProps> = ({
         <div className="text-gold text-2xl desktop:text-3xl"> = </div>
         <div className="">
           <input
-            className="tablet:w-32 bg-darkBlack px-4 py-3 border border-[#A0A0A0] rounded-lg outline-none w-20 text-md tablet:text-3xl text-center"
+            className="tablet:w-32 bg-darkBlack px-4 py-3 border border-[#A0A0A0] rounded-lg outline-none w-20 text-center"
             type="text"
             inputMode="decimal"
             value={answer}
