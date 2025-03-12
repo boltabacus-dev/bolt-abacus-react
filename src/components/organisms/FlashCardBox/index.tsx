@@ -90,7 +90,7 @@ const FlashCardBox: FC<FlashCardBoxProps> = ({
               <div
                 key={currentIndex}
                 className={`border-2 border-gold rounded-lg font-bold text-gold
-                            ${animate ? 'animate-fadeIn' : 'opacity-0'} ${BigInt(currentNumber).toString().length < 3 ? 'text-3xl p-4' : BigInt(currentNumber).toString().length < 17 ? 'text-lg p-2' : 'text-md p-2'}`}
+                            ${animate ? 'animate-fadeIn' : 'opacity-0'} text-md p-2 tablet:text-3xl tablet:p-4`}
               >
                 <p>{BigInt(currentNumber).toString()}</p>
               </div>
@@ -100,7 +100,7 @@ const FlashCardBox: FC<FlashCardBoxProps> = ({
         <div className="text-gold text-2xl desktop:text-3xl"> = </div>
         <div className="">
           <input
-            className="tablet:w-32 bg-darkBlack px-4 py-3 border border-[#A0A0A0] rounded-lg outline-none w-20 text-md text-center"
+            className="tablet:w-32 bg-darkBlack px-4 py-3 border border-[#A0A0A0] rounded-lg outline-none w-20 text-md tablet:text-3xl text-center"
             type="text"
             inputMode="decimal"
             value={answer}

@@ -44,41 +44,43 @@ const FlashCardsForm: FC<FlashCardsFormProps> = ({
     if (
       !numberOfQuestions ||
       numberOfQuestions <= 0 ||
-      numberOfQuestions > 100
+      numberOfQuestions > 1000
     ) {
       swal({
         title: 'Invalid number of questions',
-        text: 'Please enter between 1 and 100 questions',
+        text: 'Please enter between 1 and 1000 questions',
         icon: 'error',
       });
       return;
     }
 
-    if (!numberOfDigits || numberOfDigits <= 0 || numberOfDigits > 100) {
+    if (!numberOfDigits || numberOfDigits <= 0 || numberOfDigits > 15) {
       swal({
         title: 'Invalid number of digits',
-        text: 'Please enter between 1 and 100 digits',
+        text: 'Please enter between 1 and 15 digits',
         icon: 'error',
       });
       return;
     }
 
-    if (!numberOfRows || numberOfRows <= 0 || numberOfRows > 100) {
+    if (!numberOfRows || numberOfRows <= 0 || numberOfRows > 15) {
       swal({
         title: 'Invalid number of rows',
-        text: 'Please enter between 1 and 100 digits',
+        text: 'Please enter between 1 and 15 digits',
         icon: 'error',
       });
       return;
     }
 
+    if (!speed || speed <= 100 || speed > 5000) {
+      swal({
+        title: 'Invalid speed',
+        text: 'Please enter between 100 and 5000 ms',
+        icon: 'error',
+      });
+      return;
+    }
     handleStartQuiz();
-  };
-
-  const changeSpeed = (newSpeed: number) => {
-    if (newSpeed > 5000) setSpeed(5000);
-    else if (newSpeed < 100) setSpeed(100);
-    else setSpeed(newSpeed);
   };
 
   return (
@@ -91,7 +93,7 @@ const FlashCardsForm: FC<FlashCardsFormProps> = ({
             type="number"
             className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={Number(numberOfQuestions)}
-            max={100}
+            max={1000}
             onChange={(e) => setNumberOfQuestions(parseInt(e.target.value, 10))}
           />
         </div>
@@ -101,7 +103,7 @@ const FlashCardsForm: FC<FlashCardsFormProps> = ({
             type="number"
             className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={Number(numberOfDigits)}
-            max={100}
+            max={15}
             min={1}
             onChange={(e) => setNumberOfDigits(parseInt(e.target.value, 10))}
           />
@@ -112,7 +114,7 @@ const FlashCardsForm: FC<FlashCardsFormProps> = ({
             type="number"
             className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={Number(numberOfRows)}
-            max={100}
+            max={15}
             min={1}
             onChange={(e) => setNumberOfRows(parseInt(e.target.value, 10))}
           />
@@ -172,7 +174,7 @@ const FlashCardsForm: FC<FlashCardsFormProps> = ({
                 value={Number(speed)}
                 min={100}
                 max={5000}
-                onChange={(e) => changeSpeed(parseInt(e.target.value, 10))}
+                onChange={(e) => setSpeed(parseInt(e.target.value, 10))}
               />
               <p className="flex-1 text-nowrap">
                 ms ({speed < 1500 ? 'Fast' : speed > 2500 ? 'Slow' : 'Medium'})

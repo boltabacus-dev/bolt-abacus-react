@@ -14,6 +14,7 @@ export interface PracticeHeaderProps {
   noOfQuestions: number;
   minutes: number;
   seconds: number;
+  showProgressBar?: boolean;
 }
 
 const PracticeHeader: FC<PracticeHeaderProps> = ({
@@ -22,6 +23,7 @@ const PracticeHeader: FC<PracticeHeaderProps> = ({
   noOfQuestions,
   minutes,
   seconds,
+  showProgressBar = true,
 }) => {
   return (
     <div className="px-1 py-4 w-full">
@@ -43,17 +45,19 @@ const PracticeHeader: FC<PracticeHeaderProps> = ({
           </p>
         </div>
         <div className="flex flex-1 items-center gap-20">
-          <div className="flex flex-col gap-4 w-full">
-            <div className="w-full font-bold tablet:text-center">
-              {questionNumber + 1} of {noOfQuestions}
+          {showProgressBar && (
+            <div className="flex flex-col gap-4 w-full">
+              <div className="w-full font-bold tablet:text-center">
+                {questionNumber + 1} of {noOfQuestions}
+              </div>
+              <ProgressBar
+                percentage={((questionNumber + 1) / noOfQuestions) * 100}
+                type="yellow"
+                isBgBlack
+              />
             </div>
-            <ProgressBar
-              percentage={((questionNumber + 1) / noOfQuestions) * 100}
-              type="yellow"
-              isBgBlack
-            />
-          </div>
-          <p className="flex items-center gap-1">
+          )}
+          <p className="flex items-center gap-1 ml-auto">
             <IoMdAlarm className="text-gold text-xl" />
             <span className="text-md">
               {getZeroPaddedNumber(minutes)}:{getZeroPaddedNumber(seconds)}

@@ -61,11 +61,11 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
     if (
       !numberOfQuestions ||
       numberOfQuestions <= 0 ||
-      numberOfQuestions > 100
+      numberOfQuestions > 1000
     ) {
       swal({
         title: 'Invalid number of questions',
-        text: 'Please enter between 1 and 100 questions',
+        text: 'Please enter between 1 and 1000 questions',
         icon: 'error',
       });
       return;
@@ -74,11 +74,11 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
     if (
       !numberOfDigitsLeft ||
       numberOfDigitsLeft <= 0 ||
-      numberOfDigitsLeft > 100
+      numberOfDigitsLeft > 15
     ) {
       swal({
         title: `${operation === 'division' ? 'Invalid number of digits in Numerator' : operation === 'multiplication' ? 'Invalid number of digits in First Operand' : 'Invalid number of digits'}`,
-        text: 'Please enter between 1 and 100 digits',
+        text: 'Please enter between 1 and 15 digits',
         icon: 'error',
       });
       return;
@@ -88,11 +88,11 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
       operation !== 'division' &&
       (!numberOfDigitsRight ||
         numberOfDigitsRight <= 0 ||
-        numberOfDigitsRight > 100)
+        numberOfDigitsRight > 15)
     ) {
       swal({
         title: 'Invalid number of digits in Second Operand',
-        text: 'Please enter between 1 and 100 digits',
+        text: 'Please enter between 1 and 15 digits',
         icon: 'error',
       });
       return;
@@ -102,11 +102,11 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
       operation === 'division' &&
       (!numberOfDigitsRight ||
         numberOfDigitsRight <= 0 ||
-        numberOfDigitsRight > 9)
+        numberOfDigitsRight > 5)
     ) {
       swal({
         title: 'Invalid number of digits in Denominator',
-        text: 'Please enter between 1 and 9 digits',
+        text: 'Please enter between 1 and 5 digits',
         icon: 'error',
       });
       return;
@@ -121,10 +121,10 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
       return;
     }
 
-    if (!numberOfRows || numberOfRows <= 0 || numberOfRows > 100) {
+    if (!numberOfRows || numberOfRows <= 0 || numberOfRows > 15) {
       swal({
         title: 'Invalid number of rows',
-        text: 'Please enter between 1 and 100 digits',
+        text: 'Please enter between 1 and 15 digits',
         icon: 'error',
       });
       return;
@@ -156,7 +156,7 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
             type="number"
             className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={Number(numberOfQuestions)}
-            max={100}
+            max={1000}
             min={1}
             onChange={(e) => setNumberOfQuestions(parseInt(e.target.value, 10))}
           />
@@ -174,7 +174,7 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
             className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
             value={numberOfDigitsLeft}
             min={1}
-            max={100}
+            max={15}
             onChange={(e) =>
               setNumberOfDigitsLeft(parseInt(e.target.value, 10))
             }
@@ -192,7 +192,7 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
               className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
               value={numberOfDigitsRight}
               min={1}
-              max={operation === 'division' ? 9 : 100}
+              max={operation === 'division' ? 5 : 15}
               onChange={(e) =>
                 setNumberOfDigitsRight(parseInt(e.target.value, 10))
               }
@@ -206,7 +206,7 @@ const SetPracticeForm: FC<SetPracticeFormProps> = ({
               type="number"
               className="px-2 py-1 border border-grey rounded-md focus:outline-none w-full text-black text-center"
               value={numberOfRows}
-              max={100}
+              max={15}
               min={1}
               onChange={(e) => setNumberOfRows(parseInt(e.target.value, 10))}
             />
