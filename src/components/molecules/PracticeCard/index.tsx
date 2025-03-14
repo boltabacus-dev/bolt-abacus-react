@@ -19,7 +19,7 @@ const PracticeCard: FC<PracticeCardProps> = ({
   return (
     <Link
       to={link}
-      className={`tablet:gap-6 flex flex-col justify-center items-center gap-4 bg-card p-4 rounded-lg w-full text-black text-lg ${color === 'blue' && 'bg-blue/70'} ${color === 'green' && 'bg-green/60'} ${color === 'pink' && 'bg-purple/70'} ${color === 'red' && 'bg-red/60'}`}
+      className={`tablet:gap-6 flex flex-col justify-center items-center gap-4 bg-card p-4 rounded-lg w-full text-black text-lg ${color === 'blue' && 'bg-orange/60'} ${color === 'green' && 'bg-green/60'} ${color === 'pink' && 'bg-purple/60'} ${color === 'red' && 'bg-red/50'}`}
     >
       <img
         src={image}
