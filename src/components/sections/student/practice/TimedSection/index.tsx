@@ -220,7 +220,7 @@ const TimedPracticeSection: FC<TimedPracticeSectionProps> = ({ operation }) => {
                     <ResultSection
                       result={quizResult!}
                       time={totalTimeTaken!}
-                      totalScore={`${totalScore} of ${quizAnswers.length}`}
+                      totalScore={`${totalScore}`}
                       averageTime={averageTime}
                       practiceType="timed"
                     />
