@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
+import { isAxiosError } from 'axios';
 
 import QuizActionButton from '@components/atoms/QuizActionButton';
 import PracticeHeader from '@components/molecules/PracticeHeader';
@@ -110,7 +111,17 @@ const FlashCardsSection: FC<FlashCardsSectionProps> = ({ operation }) => {
     } catch (error) {
       // eslint-disable-next-line no-console
       console.log(error);
-      setApiError(ERRORS.SERVER_ERROR);
+
+      if (isAxiosError(error)) {
+        const status = error.response?.status;
+        if (status === 409) {
+          setApiError(null);
+        } else {
+          setApiError(error.response?.data?.message || ERRORS.SERVER_ERROR);
+        }
+      } else {
+        setApiError(ERRORS.SERVER_ERROR);
+      }
     }
     setLoading(false);
   };
