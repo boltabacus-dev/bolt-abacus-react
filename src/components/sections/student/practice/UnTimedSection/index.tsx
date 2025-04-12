@@ -116,6 +116,8 @@ const UnTimedPracticeSection: FC<UnTimedPracticeSectionProps> = ({
         authToken!
       );
     } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
       setApiError(ERRORS.SERVER_ERROR);
     }
     setLoading(false);

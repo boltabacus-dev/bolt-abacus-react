@@ -118,6 +118,8 @@ const SetPracticeSection: FC<SetPracticeSectionProps> = ({ operation }) => {
         authToken!
       );
     } catch (error) {
+      // eslint-disable-next-line no-console
+      console.log(error);
       setApiError(ERRORS.SERVER_ERROR);
     }
     setLoading(false);
